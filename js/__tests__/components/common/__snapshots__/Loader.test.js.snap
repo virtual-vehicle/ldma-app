@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loader component renders correctly in black color 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "transparent",
+      "bottom": 0,
+      "justifyContent": "center",
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+>
+  <Bubbles
+    color="#000"
+    size={10}
+    spaceBetween={6}
+  />
+</View>
+`;
+
+exports[`Loader component renders correctly in white color and again in black color 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "transparent",
+      "bottom": 0,
+      "justifyContent": "center",
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+>
+  <Bubbles
+    color="#FFF"
+    size={10}
+    spaceBetween={6}
+  />
+</View>
+`;
+
+exports[`Loader component renders correctly in white color and again in black color 2`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "backgroundColor": "transparent",
+      "bottom": 0,
+      "justifyContent": "center",
+      "left": 0,
+      "position": "absolute",
+      "right": 0,
+      "top": 0,
+    }
+  }
+>
+  <Bubbles
+    color="#000"
+    size={10}
+    spaceBetween={6}
+  />
+</View>
+`;

@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MainScreen component should renders correctly 1`] = `
+<SideMenu
+  animationFunction={[Function]}
+  animationStyle={[Function]}
+  autoClosing={true}
+  bounceBackOnOverdraw={true}
+  disableGestures={false}
+  edgeHitWidth={60}
+  hiddenMenuOffset={0}
+  isOpen={false}
+  menu={
+    <Connect(Menu)
+      onItemSelected={[Function]}
+    />
+  }
+  menuPosition="left"
+  onChange={[Function]}
+  onMove={[Function]}
+  onSliding={[Function]}
+  onStartShouldSetResponderCapture={[Function]}
+  openMenuOffset={500}
+  toleranceX={10}
+  toleranceY={10}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFF",
+        "flex": 1,
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "left": 15,
+          "padding": 10,
+          "position": "absolute",
+          "top": 8,
+          "zIndex": 1000,
+        }
+      }
+    >
+      <Component
+        source={null}
+        style={
+          Object {
+            "height": 30,
+            "width": 30,
+          }
+        }
+      />
+    </TouchableOpacity>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "display": "flex",
+          "height": 60,
+          "justifyContent": "center",
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        TripViz
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "row",
+          "marginTop": 40,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "marginRight": 20,
+          }
+        }
+      >
+        <PercentageCircle
+          bgcolor="#e3e3e3"
+          borderWidth={10}
+          color="#32CD32"
+          innerColor="#fff"
+          percent={50}
+          radius={67}
+          textStyle={
+            Object {
+              "fontSize": 30,
+            }
+          }
+        />
+        <Text
+          style={
+            Object {
+              "paddingTop": 10,
+            }
+          }
+        >
+          Driving Score (total)
+        </Text>
+      </View>
+      <View>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "borderColor": "#32CD32",
+                "borderWidth": 3,
+                "fontSize": 16,
+                "marginLeft": 10,
+                "padding": 2,
+                "paddingTop": 5,
+                "textAlign": "center",
+                "width": 90,
+              }
+            }
+          >
+            12
+trips
+          </Text>
+          <Text
+            style={
+              Object {
+                "borderColor": "#32CD32",
+                "borderWidth": 3,
+                "fontSize": 16,
+                "marginLeft": 10,
+                "padding": 2,
+                "paddingTop": 5,
+                "textAlign": "center",
+                "width": 90,
+              }
+            }
+          >
+            365
+km
+          </Text>
+        </View>
+        <View
+          style={
+            Object {
+              "display": "flex",
+              "flexDirection": "row",
+              "marginTop": 10,
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "borderColor": "#32CD32",
+                "borderWidth": 3,
+                "fontSize": 16,
+                "marginLeft": 10,
+                "padding": 2,
+                "paddingTop": 5,
+                "textAlign": "center",
+                "width": 90,
+              }
+            }
+          >
+            13
+events
+          </Text>
+          <Text
+            style={
+              Object {
+                "borderColor": "#32CD32",
+                "borderWidth": 3,
+                "fontSize": 16,
+                "marginLeft": 10,
+                "padding": 2,
+                "paddingTop": 5,
+                "textAlign": "center",
+                "width": 90,
+              }
+            }
+          >
+            13:21
+min
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View>
+      <LineChart
+        contentInset={
+          Object {
+            "bottom": 20,
+            "top": 20,
+          }
+        }
+        curve={[Function]}
+        data={
+          Array [
+            50,
+            10,
+            40,
+            95,
+            -4,
+            -24,
+            85,
+            91,
+            35,
+            53,
+            -53,
+            24,
+            50,
+            -20,
+            -80,
+          ]
+        }
+        height={100}
+        numberOfTicks={10}
+        style={
+          Object {
+            "height": 350,
+            "width": 675,
+          }
+        }
+        svg={
+          Object {
+            "stroke": "#32CD32",
+          }
+        }
+        width={100}
+        xAccessor={[Function]}
+        xScale={[Function]}
+        yAccessor={[Function]}
+        yScale={[Function]}
+      >
+        <Grid
+          belowChart={true}
+          direction="HORIZONTAL"
+        />
+      </LineChart>
+    </View>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "borderRadius": 5,
+          "bottom": 75,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "width": "88%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        Safe Driving
+      </Text>
+    </TouchableOpacity>
+  </View>
+</SideMenu>
+`;

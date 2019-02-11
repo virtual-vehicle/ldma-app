@@ -1,0 +1,547 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ModalSimple component close/hide the modal 1`] = `
+<ReactNativeModal
+  animationIn="slideInUp"
+  animationInTiming={300}
+  animationOut="slideOutDown"
+  animationOutTiming={300}
+  avoidKeyboard={false}
+  backdropColor="black"
+  backdropOpacity={0.7}
+  backdropTransitionInTiming={300}
+  backdropTransitionOutTiming={300}
+  hideModalContentWhileAnimating={false}
+  isVisible={true}
+  onBackButtonPress={[Function]}
+  onBackdropPress={[Function]}
+  onModalHide={[Function]}
+  onModalShow={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+    }
+  }
+  swipeThreshold={100}
+  useNativeDriver={false}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFF",
+        "borderRadius": 3,
+        "display": "flex",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+          "fontWeight": "500",
+          "marginTop": 25,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is test headline
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#4A4A4A",
+          "fontSize": 18,
+          "marginTop": 17,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is tect content for the modal simple
+    </Text>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "borderRadius": 5,
+          "height": 50,
+          "justifyContent": "center",
+          "marginBottom": 30,
+          "marginTop": 25,
+          "width": "88%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        OK
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ReactNativeModal>
+`;
+
+exports[`ModalSimple component close/hide the modal 2`] = `
+<ReactNativeModal
+  animationIn="slideInUp"
+  animationInTiming={300}
+  animationOut="slideOutDown"
+  animationOutTiming={300}
+  avoidKeyboard={false}
+  backdropColor="black"
+  backdropOpacity={0.7}
+  backdropTransitionInTiming={300}
+  backdropTransitionOutTiming={300}
+  hideModalContentWhileAnimating={false}
+  isVisible={false}
+  onBackButtonPress={[Function]}
+  onBackdropPress={[Function]}
+  onModalHide={[Function]}
+  onModalShow={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+    }
+  }
+  swipeThreshold={100}
+  useNativeDriver={false}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFF",
+        "borderRadius": 3,
+        "display": "flex",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+          "fontWeight": "500",
+          "marginTop": 25,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is test headline
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#4A4A4A",
+          "fontSize": 18,
+          "marginTop": 17,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is tect content for the modal simple
+    </Text>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "borderRadius": 5,
+          "height": 50,
+          "justifyContent": "center",
+          "marginBottom": 30,
+          "marginTop": 25,
+          "width": "88%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        OK
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ReactNativeModal>
+`;
+
+exports[`ModalSimple component renders correctly with all props 1`] = `
+<ReactNativeModal
+  animationIn="slideInUp"
+  animationInTiming={300}
+  animationOut="slideOutDown"
+  animationOutTiming={300}
+  avoidKeyboard={false}
+  backdropColor="black"
+  backdropOpacity={0.7}
+  backdropTransitionInTiming={300}
+  backdropTransitionOutTiming={300}
+  hideModalContentWhileAnimating={false}
+  isVisible={true}
+  onBackButtonPress={[Function]}
+  onBackdropPress={[Function]}
+  onModalHide={[Function]}
+  onModalShow={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+    }
+  }
+  swipeThreshold={100}
+  useNativeDriver={false}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFF",
+        "borderRadius": 3,
+        "display": "flex",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+          "fontWeight": "500",
+          "marginTop": 25,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is test headline
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#4A4A4A",
+          "fontSize": 18,
+          "marginTop": 17,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is tect content for the modal simple
+    </Text>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "borderRadius": 5,
+          "height": 50,
+          "justifyContent": "center",
+          "marginBottom": 30,
+          "marginTop": 25,
+          "width": "88%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        OK
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ReactNativeModal>
+`;
+
+exports[`ModalSimple component renders correctly without content 1`] = `
+<ReactNativeModal
+  animationIn="slideInUp"
+  animationInTiming={300}
+  animationOut="slideOutDown"
+  animationOutTiming={300}
+  avoidKeyboard={false}
+  backdropColor="black"
+  backdropOpacity={0.7}
+  backdropTransitionInTiming={300}
+  backdropTransitionOutTiming={300}
+  hideModalContentWhileAnimating={false}
+  isVisible={true}
+  onBackButtonPress={[Function]}
+  onBackdropPress={[Function]}
+  onModalHide={[Function]}
+  onModalShow={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+    }
+  }
+  swipeThreshold={100}
+  useNativeDriver={false}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFF",
+        "borderRadius": 3,
+        "display": "flex",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+          "fontWeight": "500",
+          "marginTop": 25,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is test headline
+    </Text>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "borderRadius": 5,
+          "height": 50,
+          "justifyContent": "center",
+          "marginBottom": 30,
+          "marginTop": 25,
+          "width": "88%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        OK
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ReactNativeModal>
+`;
+
+exports[`ModalSimple component simulate click OK 1`] = `
+<ReactNativeModal
+  animationIn="slideInUp"
+  animationInTiming={300}
+  animationOut="slideOutDown"
+  animationOutTiming={300}
+  avoidKeyboard={false}
+  backdropColor="black"
+  backdropOpacity={0.7}
+  backdropTransitionInTiming={300}
+  backdropTransitionOutTiming={300}
+  hideModalContentWhileAnimating={false}
+  isVisible={true}
+  onBackButtonPress={[Function]}
+  onBackdropPress={[Function]}
+  onModalHide={[Function]}
+  onModalShow={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+    }
+  }
+  swipeThreshold={100}
+  useNativeDriver={false}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFF",
+        "borderRadius": 3,
+        "display": "flex",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+          "fontWeight": "500",
+          "marginTop": 25,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is test headline
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#4A4A4A",
+          "fontSize": 18,
+          "marginTop": 17,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is tect content for the modal simple
+    </Text>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "borderRadius": 5,
+          "height": 50,
+          "justifyContent": "center",
+          "marginBottom": 30,
+          "marginTop": 25,
+          "width": "88%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        OK
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ReactNativeModal>
+`;
+
+exports[`ModalSimple component simulate click OK 2`] = `
+<ReactNativeModal
+  animationIn="slideInUp"
+  animationInTiming={300}
+  animationOut="slideOutDown"
+  animationOutTiming={300}
+  avoidKeyboard={false}
+  backdropColor="black"
+  backdropOpacity={0.7}
+  backdropTransitionInTiming={300}
+  backdropTransitionOutTiming={300}
+  hideModalContentWhileAnimating={false}
+  isVisible={true}
+  onBackButtonPress={[Function]}
+  onBackdropPress={[Function]}
+  onModalHide={[Function]}
+  onModalShow={[Function]}
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+    }
+  }
+  swipeThreshold={100}
+  useNativeDriver={false}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFF",
+        "borderRadius": 3,
+        "display": "flex",
+        "width": "100%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": undefined,
+          "fontSize": 24,
+          "fontWeight": "500",
+          "marginTop": 25,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is test headline
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#4A4A4A",
+          "fontSize": 18,
+          "marginTop": 17,
+          "textAlign": "center",
+        }
+      }
+    >
+      This is tect content for the modal simple
+    </Text>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "borderRadius": 5,
+          "height": 50,
+          "justifyContent": "center",
+          "marginBottom": 30,
+          "marginTop": 25,
+          "width": "88%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        OK
+      </Text>
+    </TouchableOpacity>
+  </View>
+</ReactNativeModal>
+`;

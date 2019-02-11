@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RankingsScreen component should renders correctly 1`] = `
+<SideMenu
+  animationFunction={[Function]}
+  animationStyle={[Function]}
+  autoClosing={true}
+  bounceBackOnOverdraw={true}
+  disableGestures={false}
+  edgeHitWidth={60}
+  hiddenMenuOffset={0}
+  isOpen={false}
+  menu={
+    <Connect(Menu)
+      onItemSelected={[Function]}
+    />
+  }
+  menuPosition="left"
+  onChange={[Function]}
+  onMove={[Function]}
+  onSliding={[Function]}
+  onStartShouldSetResponderCapture={[Function]}
+  openMenuOffset={500}
+  toleranceX={10}
+  toleranceY={10}
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#FFF",
+        "flex": 1,
+      }
+    }
+  >
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "left": 15,
+          "padding": 10,
+          "position": "absolute",
+          "top": 8,
+          "zIndex": 1000,
+        }
+      }
+    >
+      <Component
+        source={null}
+        style={
+          Object {
+            "height": 30,
+            "width": 30,
+          }
+        }
+      />
+    </TouchableOpacity>
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "display": "flex",
+          "height": 60,
+          "justifyContent": "center",
+          "width": "100%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        Rankings
+      </Text>
+    </View>
+    <ScrollView
+      style={
+        Object {
+          "display": "flex",
+          "flexDirection": "column",
+          "marginTop": 40,
+        }
+      }
+    >
+      <View>
+        <Text>
+          There is no ranking.
+        </Text>
+      </View>
+    </ScrollView>
+    <TouchableOpacity
+      activeOpacity={0.2}
+      onPress={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#7F7FFF",
+          "borderRadius": 5,
+          "bottom": 75,
+          "height": 50,
+          "justifyContent": "center",
+          "position": "absolute",
+          "width": "88%",
+        }
+      }
+    >
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "fontSize": 20,
+          }
+        }
+      >
+        Main
+      </Text>
+    </TouchableOpacity>
+  </View>
+</SideMenu>
+`;

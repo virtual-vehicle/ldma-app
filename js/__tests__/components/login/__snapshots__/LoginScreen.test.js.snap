@@ -1,0 +1,248 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoginScreen component should renders correctly 1`] = `
+<KeyboardAvoidingView
+  behavior="padding"
+  enabled={true}
+  keyboardVerticalOffset={0}
+  style={
+    Object {
+      "backgroundColor": "#FFF",
+      "flex": 1,
+      "height": "100%",
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#FFF",
+        "flex": 1,
+        "height": "100%",
+      }
+    }
+  >
+    <ImageBackground
+      source={null}
+      style={
+        Object {
+          "alignItems": "center",
+          "alignSelf": "stretch",
+          "flex": 1,
+          "justifyContent": "space-between",
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "height": 90,
+            "marginBottom": 65,
+            "marginTop": 65,
+            "width": 180,
+            "zIndex": 100,
+          }
+        }
+      >
+        <Component
+          source={null}
+          style={
+            Object {
+              "height": 90,
+              "width": 180,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "marginBottom": 65,
+            "marginTop": 10,
+            "zIndex": 100,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "fontSize": 25,
+              "fontStyle": "italic",
+            }
+          }
+        >
+          Ldma
+        </Text>
+      </View>
+      <View
+        style={
+          Object {
+            "marginBottom": "45%",
+            "width": "88%",
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "borderBottomWidth": 2,
+              "borderColor": "#7F7FFF",
+              "borderLeftWidth": 2,
+              "borderRadius": 5,
+              "borderRightWidth": 2,
+              "borderTopWidth": 2,
+              "position": "relative",
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "position": "relative",
+              }
+            }
+          >
+            <Component
+              source={null}
+              style={
+                Object {
+                  "bottom": 16,
+                  "height": 25,
+                  "left": 25,
+                  "margin": 5,
+                  "padding": 10,
+                  "position": "absolute",
+                  "width": 25,
+                  "zIndex": 100,
+                }
+              }
+            />
+            <TextInput
+              allowFontScaling={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={[Function]}
+              placeholder="Username"
+              placeholderTextColor="#d1d1d1"
+              style={
+                Object {
+                  "backgroundColor": "#FFF",
+                  "borderTopLeftRadius": 5,
+                  "borderTopRightRadius": 5,
+                  "fontSize": 18,
+                  "height": 66,
+                  "paddingLeft": 60,
+                  "width": "100%",
+                }
+              }
+              underlineColorAndroid="transparent"
+              value=""
+            />
+          </View>
+          <View
+            style={
+              Object {
+                "borderBottomColor": "#cacaca",
+                "borderBottomWidth": 0.5,
+                "left": "6%",
+                "position": "absolute",
+                "top": 65,
+                "width": "88%",
+              }
+            }
+          />
+          <View
+            style={
+              Object {
+                "alignItems": "center",
+                "flexDirection": "row",
+                "justifyContent": "center",
+                "position": "relative",
+              }
+            }
+          >
+            <Component
+              source={null}
+              style={
+                Object {
+                  "bottom": 17,
+                  "height": 24,
+                  "left": 25,
+                  "margin": 5,
+                  "position": "absolute",
+                  "width": 24,
+                  "zIndex": 100,
+                }
+              }
+            />
+            <TextInput
+              allowFontScaling={true}
+              autoCapitalize="none"
+              autoCorrect={false}
+              onChangeText={[Function]}
+              placeholder="Password"
+              placeholderTextColor="#d1d1d1"
+              secureTextEntry={true}
+              style={
+                Object {
+                  "backgroundColor": "#FFF",
+                  "borderBottomLeftRadius": 5,
+                  "borderBottomRightRadius": 5,
+                  "fontSize": 18,
+                  "height": 66,
+                  "paddingLeft": 60,
+                  "width": "100%",
+                }
+              }
+              underlineColorAndroid="transparent"
+              value=""
+            />
+          </View>
+        </View>
+        <TouchableOpacity
+          activeOpacity={0.2}
+          onPress={[Function]}
+          style={
+            Object {
+              "alignItems": "center",
+              "backgroundColor": "#7F7FFF",
+              "borderRadius": 5,
+              "height": 50,
+              "justifyContent": "center",
+              "marginTop": 30,
+              "width": "100%",
+            }
+          }
+        >
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 20,
+              }
+            }
+          >
+            Log In
+          </Text>
+        </TouchableOpacity>
+        <View
+          style={
+            Object {
+              "flexDirection": "row",
+              "justifyContent": "center",
+              "paddingTop": 18,
+            }
+          }
+        />
+      </View>
+      <ModalSimple
+        headline="Invalid Username or Password.
+Please Try Again."
+      />
+    </ImageBackground>
+  </View>
+</KeyboardAvoidingView>
+`;

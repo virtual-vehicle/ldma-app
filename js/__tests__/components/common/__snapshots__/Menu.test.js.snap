@@ -1,0 +1,220 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Menu component renders correctly 1`] = `
+<ScrollView
+  scrollsToTop={false}
+  style={
+    Object {
+      "backgroundColor": "#F1F1F1",
+      "borderRightColor": "#e11027",
+      "borderRightWidth": 1,
+      "borderStyle": "solid",
+      "flex": 1,
+      "height": 1334,
+      "width": 751,
+    }
+  }
+>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#d1d1d1",
+        "flex": 1,
+        "height": 90,
+        "justifyContent": "flex-end",
+        "paddingBottom": 14,
+        "paddingLeft": 18,
+        "width": "80%",
+      }
+    }
+  >
+    <Text
+      style={
+        Object {
+          "color": "#FFF",
+          "fontSize": 13,
+        }
+      }
+    >
+      VERSION 
+    </Text>
+    <Text
+      style={
+        Object {
+          "color": "#FFF",
+          "fontSize": 18,
+        }
+      }
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "paddingLeft": 18,
+        "paddingRight": 265.5,
+        "paddingTop": 36,
+      }
+    }
+  >
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "fontSize": 18,
+        }
+      }
+    >
+      TripViz -&gt;
+    </Text>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "#cacaca",
+          "borderBottomWidth": 0.5,
+          "marginBottom": 20,
+          "marginTop": 19.5,
+        }
+      }
+    />
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "fontSize": 18,
+        }
+      }
+    >
+      Safe Driving -&gt;
+    </Text>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "#cacaca",
+          "borderBottomWidth": 0.5,
+          "marginBottom": 20,
+          "marginTop": 19.5,
+        }
+      }
+    />
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "fontSize": 18,
+        }
+      }
+    >
+      My Trips -&gt;
+    </Text>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "#cacaca",
+          "borderBottomWidth": 0.5,
+          "marginBottom": 20,
+          "marginTop": 19.5,
+        }
+      }
+    />
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "fontSize": 18,
+        }
+      }
+    >
+      My Rankings -&gt;
+    </Text>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "#cacaca",
+          "borderBottomWidth": 0.5,
+          "marginBottom": 20,
+          "marginTop": 19.5,
+        }
+      }
+    />
+    <Text
+      onPress={[Function]}
+      style={
+        Object {
+          "fontSize": 18,
+        }
+      }
+    >
+      Log Out
+    </Text>
+    <View
+      style={
+        Object {
+          "borderBottomColor": "#cacaca",
+          "borderBottomWidth": 0.5,
+          "marginBottom": 20,
+          "marginTop": 19.5,
+        }
+      }
+    />
+    <View>
+      <Text
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontSize": 14,
+          }
+        }
+      >
+        Customer support
+      </Text>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+      >
+        <Text
+          style={
+            Object {
+              "color": "#d1d1d1",
+              "fontSize": 16,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          alexander.stocker@v2c2.at
+        </Text>
+      </TouchableOpacity>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#4A4A4A",
+              "fontSize": 14,
+            },
+            Object {
+              "marginTop": 20,
+            },
+          ]
+        }
+      >
+        Tech support
+      </Text>
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
+      >
+        <Text
+          style={
+            Object {
+              "color": "#d1d1d1",
+              "fontSize": 16,
+              "fontWeight": "bold",
+            }
+          }
+        >
+          nik.adzic@v2c2.at
+        </Text>
+      </TouchableOpacity>
+    </View>
+  </View>
+</ScrollView>
+`;
