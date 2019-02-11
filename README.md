@@ -9,7 +9,7 @@ After you have installed dependencies, follow instructions:
 
 https://facebook.github.io/react-native/docs/getting-started.html (Build Projects with Native Code)
 
-### PLugins to install (VSCode)
+### Plugins to install (VSCode)
 
 - Flow Language Support
 - vscode-flow-ide
