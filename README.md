@@ -1,6 +1,6 @@
 ## Project architecture
 
-
+![project architecture](https://raw.githubusercontent.com/nadzic/ldma-app/develop/diagram/draw-io-diagram.png)
 
 ## Installation
 
