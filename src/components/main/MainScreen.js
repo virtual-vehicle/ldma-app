@@ -6,19 +6,21 @@ import {
   StyleSheet,
   Image,
   Dimensions,
-  ScrollView,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
+import PercentageCircle from 'react-native-percentage-circle';
+import { LineChart, Grid } from 'react-native-svg-charts';
 import { get as safeGet } from 'lodash';
-import { COLORS } from '../../constants/colors';
-import { GO_TO_MAIN } from '../../actions/actionTypes';
+import { COLORS } from 'ldmaapp/src/constants/colors';
+import { GO_TO_SAFE_DRIVING } from 'ldmaapp/src/actions/actionTypes';
 import {
-} from '../../actions/uiActions';
-import Loader from '../common/Loader';
-import Menu from '../common/Menu';
-import { getRanking } from '../../actions/rankingActions';
+} from 'ldmaapp/src/actions/uiActions';
+import Loader from 'ldmaapp/src/components/common/Loader';
+import Menu from 'ldmaapp/src/components/common/Menu';
+import { getTripsInfo } from 'ldmaapp/src/actions/tripsInfoActions';
+
 /* Config/Constants
 ============================================================================= */
 
@@ -33,10 +35,9 @@ type Props = {
   navigation: any,
   login: any,
   loading: boolean,
-  rankingList: any,
 };
 
-export class RankingsScreen extends Component<Props, State> {
+export class MainScreen extends Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -47,10 +48,10 @@ export class RankingsScreen extends Component<Props, State> {
     };
   }
 
-  componentWillMount() {
-    const { getRanking, user } = this.props;
+  componentDidMount() {
+    const { getTripsInfo } = this.props;
     const auth_token = safeGet(this.props.user, 'auth_token', '');
-    getRanking(auth_token);
+    // getTripsInfo(auth_token);
   }
 
   onMenuItemSelected = () =>
@@ -70,12 +71,11 @@ export class RankingsScreen extends Component<Props, State> {
 
   render() {
     const { isOpen } = this.state;
-    const {
-      navigation,
-      loading,
-    } = this.props;
-    const rankingList = safeGet(this.props, 'rankingList', []);
+    const { navigation, loading, state } = this.props;
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
+    const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
+
+    const contentInset = { top: 20, bottom: 20 };
 
     return (
       <SideMenu
@@ -94,27 +94,45 @@ export class RankingsScreen extends Component<Props, State> {
             />
           </TouchableOpacity>
           <View style={styles.header}>
-            <Text style={styles.headerText}>Rankings</Text>
+            <Text style={styles.headerText}>TripViz</Text>
           </View>
-          <ScrollView style={styles.content}>
-            {rankingList.length > 0 ? rankingList.map((driver) => (
-              <View style={styles.line}>
-                <Text style={[styles.cube, { backgroundColor: COLORS.BLUE, color: COLORS.WHITE }]}>{driver.driver_id}</Text>
-                <Text style={styles.cube}>{`${driver.driving_distance} km`}</Text>
-                <Text style={styles.cube}>{driver.driving_time}</Text>
-                <Text style={[styles.cube, { fontSize: 18 }]}>{`${driver.driving_score}%`}</Text>
-              </View>
-            )) :
-            <View>
-              <Text>{`There is no ranking.`}</Text>
+          <View style={styles.content}>
+            <View style={styles.percent}>
+              <PercentageCircle
+                radius={67}
+                percent={50}
+                color={COLORS.GREEN4}
+                borderWidth={10}
+                textStyle={{ fontSize: 30 }}
+              />
+              <Text style={{ paddingTop: 10 }}>Driving Score (total)</Text>
             </View>
-            }
-          </ScrollView>
+            <View>
+              <View style={{ display: 'flex', flexDirection: 'row' }}>
+                <Text style={styles.cube}>{'12\ntrips'}</Text>
+                <Text style={styles.cube}>{'365\nkm'}</Text>
+              </View>
+              <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
+                <Text style={styles.cube}>{'13\nevents'}</Text>
+                <Text style={styles.cube}>{'13:21\nmin'}</Text>
+              </View>
+            </View>
+          </View>
+          <View>
+            <LineChart
+              style={{ height: 350, width: SCREEN_WIDTH * .9 }}
+              data={ data }
+              svg={{ stroke: COLORS.GREEN4 }}
+              contentInset={ contentInset }
+            >
+              <Grid />
+            </LineChart>
+          </View>
           <TouchableOpacity
             style={styles.goToNextScreen}
-            onPress={() => navigation.dispatch({ type: GO_TO_MAIN })}
+            onPress={() => navigation.dispatch({ type: GO_TO_SAFE_DRIVING })}
           >
-            <Text style={styles.goToNextScreenText}>{`Main`}</Text>
+            <Text style={styles.goToNextScreenText}>{`Safe Driving`}</Text>
           </TouchableOpacity>
           {loading && <Loader />}
         </View>
@@ -131,25 +149,23 @@ const styles = StyleSheet.create({
   },
   content: {
     display: 'flex',
-    flexDirection: 'column',
+    flexDirection: 'row',
     marginTop: 40,
   },
-  line: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
   cube: {
-    borderColor: COLORS.BLUE,
+    borderColor: COLORS.GREEN4,
     borderWidth: 3,
-    fontSize: 14,
+    fontSize: 16,
     padding: 2,
     paddingTop: 5,
-    width: SCREEN_WIDTH * 0.2,
+    width: 90,
     textAlign: 'center',
-    textAlignVertical: 'center',
-    marginLeft: 5,
-    marginRight: 5,
+    marginLeft: 10,
+  },
+  percent: {
+    display: 'flex',
+    alignItems: 'center',
+    marginRight: 20,
   },
   menuButton: {
     position: 'absolute',
@@ -192,15 +208,14 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) =>
   ({
-    rankingList: state.ranking.rankingList,
     loading: state.loading,
     user: state.auth.user,
+    state,
   });
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({
-    getRanking,
+    getTripsInfo,
   }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(RankingsScreen);
-
+export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);

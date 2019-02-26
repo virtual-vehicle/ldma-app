@@ -12,7 +12,6 @@ export const getRanking = (auth_token) => {
     return rankingService.getRanking(auth_token)
       .then(
         rankingList => {
-          console.log("rankingList: ", rankingList);
           dispatch(success(rankingList));
         },
         error => {

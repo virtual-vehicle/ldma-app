@@ -5,9 +5,9 @@ import thunk from 'redux-thunk';
 import axios from 'axios';
 import axiosMiddleware from 'redux-axios-middleware';
 import AppWithNavigationState from './AppNavigator';
-import ldmaApp from './js/reducers';
-import { middleware } from './js/utils/redux';
-import { API } from './js/constants/api';
+import ldmaApp from 'ldmaapp/src/reducers';
+import { middleware } from 'ldmaapp/src/utils/redux';
+import { API } from 'ldmaapp/src/constants/api';
 
 const client = axios.create({ // all axios can be used, shown in axios documentation
   baseURL: API.BACKEND_URL,

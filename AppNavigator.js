@@ -1,13 +1,13 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { addNavigationHelpers, StackNavigator } from 'react-navigation';
-import { addListener } from './js/utils/redux';
-import AuthLoadingScreen from './js/components/auth-loading/AuthLoadingScreen';
-import LoginScreen from './js/components/login/LoginScreen';
-import MainScreen from './js/components/main/MainScreen';
-import MyTripsScreen from './js/components/my-trips/MyTripsScreen';
-import SafeDrivingScreen from './js/components/safe-driving/SafeDrivingScreen';
-import RankingsScreen from './js/components/rankings/RankingsScreen';
+import { addListener } from 'ldmaapp/src/utils/redux';
+import AuthLoadingScreen from 'ldmaapp/src/components/auth-loading/AuthLoadingScreen';
+import LoginScreen from 'ldmaapp/src/components/login/LoginScreen';
+import MainScreen from 'ldmaapp/src/components/main/MainScreen';
+import MyTripsScreen from 'ldmaapp/src/components/my-trips/MyTripsScreen';
+import SafeDrivingScreen from 'ldmaapp/src/components/safe-driving/SafeDrivingScreen';
+import RankingsScreen from 'ldmaapp/src/components/rankings/RankingsScreen';
 
 
 // used config from here: https://github.com/react-navigation/react-navigation/issues/707#issuecomment-299859578

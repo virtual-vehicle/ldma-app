@@ -5,8 +5,7 @@ import {
 } from '../actions/actionTypes';
 import { tripsInfoService } from '../services/tripsInfoService';
 
-export const getTripsInfo = (user) => {
-  const { auth_token } = user;
+export const getTripsInfo = (auth_token) => {
   return dispatch => {
     dispatch(request());
 
