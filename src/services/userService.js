@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native';
-import { API } from '../constants/api';
+import { API } from 'ldmaapp/src/constants/api';
 
 export const userService = {
   login,

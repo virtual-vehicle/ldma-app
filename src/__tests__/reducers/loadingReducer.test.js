@@ -1,5 +1,5 @@
-import loading from '../../reducers/loadingReducer';
-import * as types from '../../actions/actionTypes';
+import loading from 'ldmaapp/src/reducers/loadingReducer';
+import * as types from 'ldmaapp/src/actions/actionTypes';
 
 describe('loading reducer', () => {
   it('should return the initial state', () => {

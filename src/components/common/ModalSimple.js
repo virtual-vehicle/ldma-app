@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import Modal from 'react-native-modal';
-import { COLORS } from '../../constants/colors';
+import { COLORS } from 'ldmaapp/src/constants/colors';
 
 const FIELDS_WIDTH = '88%';
 const BUTTON_HEIGHT = 50;

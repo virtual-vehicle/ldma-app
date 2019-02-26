@@ -1,4 +1,4 @@
-import { userService } from '../services/userService';
+import { userService } from 'ldmaapp/src/services/userService';
 import {
   REQUEST_LOGIN,
   REQUEST_LOGIN_SUCCESS,
@@ -6,8 +6,8 @@ import {
   REQUEST_LOGOUT,
   GO_TO_MAIN,
   GO_TO_LOGIN,
-} from '../actions/actionTypes';
-import { openIvalidCredentialsModal } from '../actions/uiActions';
+} from 'ldmaapp/src/actions/actionTypes';
+import { openIvalidCredentialsModal } from 'ldmaapp/src/actions/uiActions';
 
 export const login = (username, password) => {
   return dispatch => {

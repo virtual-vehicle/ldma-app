@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { LoginScreen } from '../../../components/login/LoginScreen';
+import { LoginScreen } from 'ldmaapp/src/components/login/LoginScreen';
 
 Enzyme.configure({ adapter: new Adapter() });
 

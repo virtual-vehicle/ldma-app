@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { SafeDrivingScreen } from '../../../components/safe-driving/SafeDrivingScreen';
+import { SafeDrivingScreen } from 'ldmaapp/src/components/safe-driving/SafeDrivingScreen';
 
 Enzyme.configure({ adapter: new Adapter() });
 

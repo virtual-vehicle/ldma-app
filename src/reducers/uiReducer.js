@@ -2,7 +2,7 @@ import { combineReducers } from 'redux';
 import {
   OPEN_INVALID_CREDENTIALS_MODAL,
   CLOSE_INVALID_CREDENTIALS_MODAL,
-} from '../actions/actionTypes';
+} from 'ldmaapp/src/actions/actionTypes';
 
 export function invalidCredentialsModalOpen(state = false, action) {
   switch (action.type) {

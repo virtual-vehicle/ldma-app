@@ -2,8 +2,8 @@ import {
   REQUEST_GET_EVENT,
   REQUEST_GET_EVENT_SUCCESS,
   REQUEST_GET_EVENT_FAILURE,
-} from '../actions/actionTypes';
-import { eventService } from '../services/eventService';
+} from 'ldmaapp/src/actions/actionTypes';
+import { eventService } from 'ldmaapp/src/services/eventService';
 
 export const getEvents = (user) => {
   const { auth_token } = user;

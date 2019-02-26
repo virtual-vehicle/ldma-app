@@ -13,11 +13,11 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { COLORS } from '../../constants/colors';
-import { closeInvalidCredentialsModal } from '../../actions/uiActions';
-import { login } from '../../actions/userActions';
-import ModalSimple from '../common/ModalSimple';
-import Loader from '../common/Loader';
+import { COLORS } from 'ldmaapp/src/constants/colors';
+import { closeInvalidCredentialsModal } from 'ldmaapp/src/actions/uiActions';
+import { login } from 'ldmaapp/src/actions/userActions';
+import ModalSimple from 'ldmaapp/src/components/common/ModalSimple';
+import Loader from 'ldmaapp/src/components/common/Loader';
 /* Config/Constants
 ============================================================================= */
 
@@ -243,48 +243,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   loginText: {
-    color: COLORS.WHITE,
-    fontSize: 20,
-  },
-  separator: {
-    color: COLORS.WHITE,
-    paddingLeft: 15,
-    paddingRight: 15,
-  },
-  modalContainer: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-  modalMainSection: {
-    display: 'flex',
-    alignItems: 'center',
-    width: '100%',
-    backgroundColor: COLORS.WHITE,
-    borderRadius: 3,
-  },
-  modalHeadlineText: {
-    color: COLORS.BLACK,
-    fontSize: 24,
-    textAlign: 'center',
-    marginTop: 25,
-    fontWeight: '500',
-  },
-  modalContentText: {
-    marginTop: 17,
-    fontSize: 18,
-    textAlign: 'center',
-  },
-  modalButton: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: COLORS.GREEN,
-    width: FIELDS_WIDTH,
-    borderRadius: 5,
-    height: BUTTON_HEIGHT,
-    marginTop: 25,
-    marginBottom: 30,
-  },
-  modalButtonText: {
     color: COLORS.WHITE,
     fontSize: 20,
   },

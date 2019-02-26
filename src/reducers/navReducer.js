@@ -1,6 +1,6 @@
 
 import { NavigationActions } from 'react-navigation';
-import { MainModalNavigator } from '../../AppNavigator';
+import { MainModalNavigator } from 'ldmaapp/AppNavigator';
 import {
   GO_BACK,
   GO_TO_LOGIN,
@@ -8,7 +8,7 @@ import {
   GO_TO_SAFE_DRIVING,
   GO_TO_MY_TRIPS,
   GO_TO_RANKINGS,
-} from '../actions/actionTypes';
+} from 'ldmaapp/src/actions/actionTypes';
 
 // Start with two routes: The Main screen, with the Login screen on top.
 const { router } = MainModalNavigator;

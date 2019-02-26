@@ -1,5 +1,5 @@
-import auth from '../../reducers/authReducer';
-import * as types from '../../actions/actionTypes';
+import auth from 'ldmaapp/src/reducers/authReducer';
+import * as types from 'ldmaapp/src/actions/actionTypes';
 
 describe('auth reducer', () => {
 

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
-import Loader from '../common/Loader';
-import { REQUEST_LOGIN_SUCCESS } from '../../actions/actionTypes';
+import Loader from 'ldmaapp/src/components/common/Loader';
+import { REQUEST_LOGIN_SUCCESS } from 'ldmaapp/src/actions/actionTypes';
 
 export class AuthLoadingScreen extends Component {
   constructor(props) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { Menu } from '../../../components/common/Menu';
+import { Menu } from 'ldmaapp/src/components/common/Menu';
 
 Enzyme.configure({ adapter: new Adapter() });
 

@@ -12,13 +12,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
 import { get as safeGet } from 'lodash';
-import { COLORS } from '../../constants/colors';
-import { GO_TO_MAIN } from '../../actions/actionTypes';
+import { COLORS } from 'ldmaapp/src/constants/colors';
+import { GO_TO_MAIN } from 'ldmaapp/src/actions/actionTypes';
 import {
-} from '../../actions/uiActions';
-import Loader from '../common/Loader';
-import Menu from '../common/Menu';
-import { getRanking } from '../../actions/rankingActions';
+} from 'ldmaapp/src/actions/uiActions';
+import Loader from 'ldmaapp/src/components/common/Loader';
+import Menu from 'ldmaapp/src/components/common/Menu';
+import { getRanking } from 'ldmaapp/src/actions/rankingActions';
 /* Config/Constants
 ============================================================================= */
 

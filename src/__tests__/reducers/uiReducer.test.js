@@ -1,5 +1,5 @@
-import * as uiReducer from '../../reducers/uiReducer';
-import * as types from '../../actions/actionTypes';
+import * as uiReducer from 'ldmaapp/src/reducers/uiReducer';
+import * as types from 'ldmaapp/src/actions/actionTypes';
 
 describe('ui reducer', () => {
 

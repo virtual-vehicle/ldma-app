@@ -2,8 +2,8 @@ import {
   REQUEST_GET_RANKING,
   REQUEST_GET_RANKING_SUCCESS,
   REQUEST_GET_RANKING_FAILURE,
-} from '../actions/actionTypes';
-import { rankingService } from '../services/rankingService';
+} from 'ldmaapp/src/actions/actionTypes';
+import { rankingService } from 'ldmaapp/src/services/rankingService';
 
 export const getRanking = (auth_token) => {
   return dispatch => {

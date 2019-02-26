@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import ModalSimple from '../../../components/common/ModalSimple';
+import ModalSimple from 'ldmaapp/src/components/common/ModalSimple';
 
 Enzyme.configure({ adapter: new Adapter() });
 

@@ -5,8 +5,8 @@ import {
   REQUEST_GET_TRIPS_INTERVAL,
   REQUEST_GET_TRIPS_INTERVAL_SUCCESS,
   REQUEST_GET_TRIPS_INTERVAL_FAILURE,
-} from '../actions/actionTypes';
-import { tripService } from '../services/tripService';
+} from 'ldmaapp/src/actions/actionTypes';
+import { tripService } from 'ldmaapp/src/services/tripService';
 
 export const getTripsAll = (user) => {
   const { auth_token } = user;

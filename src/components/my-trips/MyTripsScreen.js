@@ -12,13 +12,13 @@ import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PercentageCircle from 'react-native-percentage-circle';
-import { COLORS } from '../../constants/colors';
-import { GO_TO_RANKINGS } from '../../actions/actionTypes';
+import { COLORS } from 'ldmaapp/src/constants/colors';
+import { GO_TO_RANKINGS } from 'ldmaapp/src/actions/actionTypes';
 import {
-} from '../../actions/uiActions';
-import Loader from '../common/Loader';
-import Menu from '../common/Menu';
-import { getTripsAll, getTripsInterval } from '../../actions/tripActions';
+} from 'ldmaapp/src/actions/uiActions';
+import Loader from 'ldmaapp/src/components/common/Loader';
+import Menu from 'ldmaapp/src/components/common/Menu';
+import { getTripsAll, getTripsInterval } from 'ldmaapp/src/actions/tripActions';
 /* Config/Constants
 ============================================================================= */
 

@@ -3,7 +3,7 @@ import {
   REQUEST_LOGIN_SUCCESS,
   REQUEST_LOGIN_FAILURE,
   REQUEST_LOGOUT,
-} from '../actions/actionTypes';
+} from 'ldmaapp/src/actions/actionTypes';
 
 const auth = (state = {}, action) => {
   switch (action.type) {

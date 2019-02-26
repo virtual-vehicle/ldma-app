@@ -1,4 +1,4 @@
-import ldmaApp from '../../reducers/index';
+import ldmaApp from 'ldmaapp/src/reducers/index';
 
 describe('ldmaApp (root) reducer', () => {
 

@@ -2,8 +2,8 @@ import {
   REQUEST_GET_TRIPS_INFO,
   REQUEST_GET_TRIPS_INFO_SUCCESS,
   REQUEST_GET_TRIPS_INFO_FAILURE,
-} from '../actions/actionTypes';
-import { tripsInfoService } from '../services/tripsInfoService';
+} from 'ldmaapp/src/actions/actionTypes';
+import { tripsInfoService } from 'ldmaapp/src/services/tripsInfoService';
 
 export const getTripsInfo = (auth_token) => {
   return dispatch => {

@@ -12,14 +12,14 @@ import { connect } from 'react-redux';
 import { Email } from 'react-native-openanything';
 import { get as safeGet } from 'lodash';
 import DeviceInfo from 'react-native-device-info';
-import { COLORS } from '../../constants/colors';
-import { logout } from '../../actions/userActions';
+import { COLORS } from 'ldmaapp/src/constants/colors';
+import { logout } from 'ldmaapp/src/actions/userActions';
 import {
   GO_TO_MAIN,
   GO_TO_SAFE_DRIVING,
   GO_TO_MY_TRIPS,
   GO_TO_RANKINGS,
-} from '../../actions/actionTypes';
+} from 'ldmaapp/src/actions/actionTypes';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;

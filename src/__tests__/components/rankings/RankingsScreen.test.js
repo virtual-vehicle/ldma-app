@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { RankingsScreen } from '../../../components/rankings/RankingsScreen';
+import { RankingsScreen } from 'ldmaapp/src/components/rankings/RankingsScreen';
 
 Enzyme.configure({ adapter: new Adapter() });
 

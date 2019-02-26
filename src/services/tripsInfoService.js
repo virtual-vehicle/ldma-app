@@ -1,5 +1,5 @@
-import { API } from '../constants/api';
-import fetchData from '../api/fetchData';
+import { API } from 'ldmaapp/src/constants/api';
+import fetchData from 'ldmaapp/src/api/fetchData';
 
 export const tripsInfoService = {
   getTripsInfo,

@@ -2,7 +2,7 @@ import {
   REQUEST_GET_RANKING,
   REQUEST_GET_RANKING_SUCCESS,
   REQUEST_GET_RANKING_FAILURE,
-} from '../actions/actionTypes';
+} from 'ldmaapp/src/actions/actionTypes';
 
 const ranking = (state = {}, action = {}) => {
   switch (action.type) {

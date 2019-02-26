@@ -1,7 +1,7 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
-import * as actions from '../../actions/userActions';
-import * as types from '../../actions/actionTypes';
+import * as actions from 'ldmaapp/src/actions/userActions';
+import * as types from 'ldmaapp/src/actions/actionTypes';
 
 const middlewares = [thunk];
 const mockStore = configureMockStore(middlewares);

@@ -1,4 +1,4 @@
-import { API } from '../../constants/api';
+import { API } from 'ldmaapp/src/constants/api';
 
 describe('test staging constants', () => {
   it('check if the backend url is correct', () => {

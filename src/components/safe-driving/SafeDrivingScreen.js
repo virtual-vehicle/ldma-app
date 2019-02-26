@@ -15,13 +15,13 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
 import PercentageCircle from 'react-native-percentage-circle';
-import { COLORS } from '../../constants/colors';
-import { GO_TO_MY_TRIPS } from '../../actions/actionTypes';
+import { COLORS } from 'ldmaapp/src/constants/colors';
+import { GO_TO_MY_TRIPS } from 'ldmaapp/src/actions/actionTypes';
 import {
-} from '../../actions/uiActions';
-import Loader from '../common/Loader';
-import Menu from '../common/Menu';
-import { getEvents } from '../../actions/eventActions';
+} from 'ldmaapp/src/actions/uiActions';
+import Loader from 'ldmaapp/src/components/common/Loader';
+import Menu from 'ldmaapp/src/components/common/Menu';
+import { getEvents } from 'ldmaapp/src/actions/eventActions';
 /* Config/Constants
 ============================================================================= */
 

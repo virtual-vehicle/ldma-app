@@ -4,7 +4,7 @@ import {
   StyleSheet,
 } from 'react-native';
 import { Bubbles } from 'react-native-loader';
-import { COLORS } from '../../constants/colors';
+import { COLORS } from 'ldmaapp/src/constants/colors';
 
 type Props = {
   white: boolean,

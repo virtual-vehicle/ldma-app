@@ -2,7 +2,7 @@ import {
   REQUEST_GET_EVENT,
   REQUEST_GET_EVENT_SUCCESS,
   REQUEST_GET_EVENT_FAILURE,
-} from '../actions/actionTypes';
+} from 'ldmaapp/src/actions/actionTypes';
 
 const event = (state = {}, action = {}) => {
   switch (action.type) {

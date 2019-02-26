@@ -5,7 +5,7 @@ import {
   REQUEST_GET_TRIPS_INTERVAL,
   REQUEST_GET_TRIPS_INTERVAL_SUCCESS,
   REQUEST_GET_TRIPS_INTERVAL_FAILURE,
-} from '../actions/actionTypes';
+} from 'ldmaapp/src/actions/actionTypes';
 
 const trip = (state = {}, action = {}) => {
   switch (action.type) {

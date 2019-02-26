@@ -17,7 +17,7 @@ import {
   REQUEST_GET_TRIPS_INFO,
   REQUEST_GET_TRIPS_INFO_SUCCESS,
   REQUEST_GET_TRIPS_INFO_FAILURE,
-} from '../actions/actionTypes';
+} from 'ldmaapp/src/actions/actionTypes';
 
 const loading = (state = false, action) => {
   switch (action.type) {
