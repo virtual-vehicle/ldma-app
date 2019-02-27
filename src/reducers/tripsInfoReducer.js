@@ -7,7 +7,6 @@ import {
 const tripsInfo = (state = {}, action = {}) => {
   switch (action.type) {
     case REQUEST_GET_TRIPS_INFO:
-
       return {
         tripsList: [],
       };
