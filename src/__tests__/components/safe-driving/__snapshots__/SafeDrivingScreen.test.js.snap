@@ -143,7 +143,7 @@ exports[`SafeDrivingScreen component should renders correctly 1`] = `
               }
             }
           >
-            12
+            “
 trips
           </Text>
           <Text
@@ -160,7 +160,7 @@ trips
               }
             }
           >
-            365
+            
 km
           </Text>
         </View>
@@ -187,7 +187,7 @@ km
               }
             }
           >
-            13
+            
 events
           </Text>
           <Text
@@ -204,7 +204,7 @@ events
               }
             }
           >
-            13:21
+            
 min
           </Text>
         </View>
@@ -231,8 +231,8 @@ min
               }
             }
           >
-            13
-events
+            
+accelerations
           </Text>
           <Text
             style={
@@ -248,8 +248,8 @@ events
               }
             }
           >
-            13:21
-min
+            
+brakes
           </Text>
         </View>
         <View
@@ -275,25 +275,8 @@ min
               }
             }
           >
-            13
-events
-          </Text>
-          <Text
-            style={
-              Object {
-                "borderColor": "#32CD32",
-                "borderWidth": 3,
-                "fontSize": 16,
-                "marginLeft": 10,
-                "padding": 2,
-                "paddingTop": 5,
-                "textAlign": "center",
-                "width": 90,
-              }
-            }
-          >
-            13:21
-min
+            
+ stand hills
           </Text>
         </View>
       </View>

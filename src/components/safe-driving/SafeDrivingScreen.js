@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import {
   View,
-  Platform,
-  ImageBackground,
   TouchableOpacity,
   Text,
   StyleSheet,
   Image,
-  TextInput,
-  KeyboardAvoidingView,
   Dimensions,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { get as safeGet } from 'lodash';
 import SideMenu from 'react-native-side-menu';
 import PercentageCircle from 'react-native-percentage-circle';
 import { COLORS } from 'ldmaapp/src/constants/colors';
@@ -21,7 +18,6 @@ import {
 } from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
-import { getEvents } from 'ldmaapp/src/actions/eventActions';
 /* Config/Constants
 ============================================================================= */
 
@@ -29,10 +25,8 @@ import { getEvents } from 'ldmaapp/src/actions/eventActions';
 
 const FIELDS_WIDTH = '88%';
 const BUTTON_HEIGHT = 50;
-const INPUT_FIELDS_HEIGHT = 66;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
 const SCREEN_WIDTH = Dimensions.get('window').width;
-const SCREEN_RATIO = SCREEN_HEIGHT / SCREEN_WIDTH;
 
 type Props = {
   dispatch: any,
@@ -69,8 +63,16 @@ export class SafeDrivingScreen extends Component<Props, State> {
 
   render() {
     const { isOpen } = this.state;
-    const { navigation } = this.props;
+    const { navigation, loading, tripsInfo } = this.props;
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
+
+    const numTrips = safeGet(tripsInfo, 'tripsList[0].value', '“');
+    const numEvents = safeGet(tripsInfo, 'tripsList[1].value', '');
+    const distance = safeGet(tripsInfo, 'tripsList[2].value', '');
+    const totalTime = safeGet(tripsInfo, 'tripsList[3].value', '');
+    const numAccelerations = safeGet(tripsInfo, 'tripsList[4].value', '');
+    const numBrakes = safeGet(tripsInfo, 'tripsList[5].value', '');
+    const numStandHills = safeGet(tripsInfo, 'tripsList[6].value', '');
 
     return (
       <SideMenu
@@ -98,20 +100,19 @@ export class SafeDrivingScreen extends Component<Props, State> {
               </View>
               <View>
                 <View style={{ display: 'flex', flexDirection: 'row' }}>
-                  <Text style={styles.cube}>{'12\ntrips'}</Text>
-                  <Text style={styles.cube}>{'365\nkm'}</Text>
+                  <Text style={styles.cube}>{`${numTrips}\ntrips`}</Text>
+                  <Text style={styles.cube}>{`${distance}\nkm`}</Text>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                  <Text style={styles.cube}>{'13\nevents'}</Text>
-                  <Text style={styles.cube}>{'13:21\nmin'}</Text>
+                  <Text style={styles.cube}>{`${numEvents}\nevents`}</Text>
+                  <Text style={styles.cube}>{`${totalTime}\nmin`}</Text>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                  <Text style={styles.cube}>{'13\nevents'}</Text>
-                  <Text style={styles.cube}>{'13:21\nmin'}</Text>
+                  <Text style={styles.cube}>{`${numAccelerations}\naccelerations`}</Text>
+                  <Text style={styles.cube}>{`${numBrakes}\nbrakes`}</Text>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                  <Text style={styles.cube}>{'13\nevents'}</Text>
-                  <Text style={styles.cube}>{'13:21\nmin'}</Text>
+                  <Text style={styles.cube}>{`${numStandHills}\n stand hills`}</Text>
                 </View>
               </View>
             </View>
@@ -122,6 +123,7 @@ export class SafeDrivingScreen extends Component<Props, State> {
               >
                 <Text style={styles.goToNextScreenText}>{`My Trips`}</Text>
               </TouchableOpacity>
+              {loading && <Loader />}
         </View>
       </SideMenu>
     );
@@ -195,6 +197,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) =>
   ({
+    loading: state.loading,
+    tripsInfo: state.tripsInfo,
   });
 
 const mapDispatchToProps = (dispatch) =>

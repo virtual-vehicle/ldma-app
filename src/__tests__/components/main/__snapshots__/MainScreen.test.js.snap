@@ -143,7 +143,7 @@ exports[`MainScreen component should renders correctly 1`] = `
               }
             }
           >
-            12
+            
 trips
           </Text>
           <Text
@@ -160,7 +160,7 @@ trips
               }
             }
           >
-            365
+            
 km
           </Text>
         </View>
@@ -187,7 +187,7 @@ km
               }
             }
           >
-            13
+            
 events
           </Text>
           <Text
@@ -204,7 +204,7 @@ events
               }
             }
           >
-            13:21
+            
 min
           </Text>
         </View>

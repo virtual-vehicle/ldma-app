@@ -7,12 +7,13 @@ import {
 const tripsInfo = (state = {}, action = {}) => {
   switch (action.type) {
     case REQUEST_GET_TRIPS_INFO:
+
       return {
         tripsList: [],
       };
     case REQUEST_GET_TRIPS_INFO_SUCCESS:
       return {
-        tripsList: action.eventList,
+        tripsList: action.tripsList,
       };
     case REQUEST_GET_TRIPS_INFO_FAILURE:
       return {

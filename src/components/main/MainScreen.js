@@ -9,10 +9,10 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
+import { get as safeGet } from 'lodash';
 import SideMenu from 'react-native-side-menu';
 import PercentageCircle from 'react-native-percentage-circle';
 import { LineChart, Grid } from 'react-native-svg-charts';
-import { get as safeGet } from 'lodash';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import { GO_TO_SAFE_DRIVING } from 'ldmaapp/src/actions/actionTypes';
 import {
@@ -35,6 +35,7 @@ type Props = {
   navigation: any,
   login: any,
   loading: boolean,
+  tripsInfo: Array,
 };
 
 export class MainScreen extends Component<Props, State> {
@@ -51,7 +52,7 @@ export class MainScreen extends Component<Props, State> {
   componentDidMount() {
     const { getTripsInfo } = this.props;
     const auth_token = safeGet(this.props.user, 'auth_token', '');
-    // getTripsInfo(auth_token);
+    getTripsInfo(auth_token);
   }
 
   onMenuItemSelected = () =>
@@ -71,9 +72,14 @@ export class MainScreen extends Component<Props, State> {
 
   render() {
     const { isOpen } = this.state;
-    const { navigation, loading, state } = this.props;
+    const { navigation, loading, tripsInfo } = this.props;
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
     const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
+
+    const numTrips = safeGet(tripsInfo, 'tripsList[0].value', '');
+    const numEvents = safeGet(tripsInfo, 'tripsList[1].value', '');
+    const distance = safeGet(tripsInfo, 'tripsList[2].value', '');
+    const totalTime = safeGet(tripsInfo, 'tripsList[3].value', '');
 
     const contentInset = { top: 20, bottom: 20 };
 
@@ -109,12 +115,12 @@ export class MainScreen extends Component<Props, State> {
             </View>
             <View>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={styles.cube}>{'12\ntrips'}</Text>
-                <Text style={styles.cube}>{'365\nkm'}</Text>
+                <Text style={styles.cube}>{`${numTrips}\ntrips`}</Text>
+                <Text style={styles.cube}>{`${distance}\nkm`}</Text>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                <Text style={styles.cube}>{'13\nevents'}</Text>
-                <Text style={styles.cube}>{'13:21\nmin'}</Text>
+                <Text style={styles.cube}>{`${numEvents}\nevents`}</Text>
+                <Text style={styles.cube}>{`${totalTime}\nmin`}</Text>
               </View>
             </View>
           </View>
@@ -210,7 +216,7 @@ const mapStateToProps = (state) =>
   ({
     loading: state.loading,
     user: state.auth.user,
-    state,
+    tripsInfo: state.tripsInfo,
   });
 
 const mapDispatchToProps = (dispatch) =>
