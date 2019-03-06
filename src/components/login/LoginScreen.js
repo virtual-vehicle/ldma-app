@@ -73,7 +73,7 @@ export class LoginScreen extends Component<Props, State> {
         <View style={styles.container}>
           <ImageBackground
             style={styles.backgroundImage}
-            source={require('./img/bg.png')}
+            source={require('ldmaapp/assets/png/background_white.png')}
           >
             <View style={styles.logoWrapper}>
               <Image
