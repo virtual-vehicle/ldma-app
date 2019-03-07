@@ -80,6 +80,9 @@ export class MainScreen extends Component<Props, State> {
     const numEvents = safeGet(tripsInfo, 'tripsList[1].value', '');
     const distance = safeGet(tripsInfo, 'tripsList[2].value', '');
     const totalTime = safeGet(tripsInfo, 'tripsList[3].value', '');
+    const driverScore = safeGet(tripsInfo, 'tripsList[7].value', '');
+
+    console.log("trips info:", tripsInfo);
 
     const contentInset = { top: 20, bottom: 20 };
 
@@ -95,7 +98,7 @@ export class MainScreen extends Component<Props, State> {
             style={styles.menuButton}
           >
             <Image
-              source={require('./img/menu.png')}
+              source={require('ldmaapp/assets/png/menu.png')}
               style={styles.menu}
             />
           </TouchableOpacity>
@@ -106,7 +109,7 @@ export class MainScreen extends Component<Props, State> {
             <View style={styles.percent}>
               <PercentageCircle
                 radius={67}
-                percent={50}
+                percent={driverScore}
                 color={COLORS.GREEN4}
                 borderWidth={10}
                 textStyle={{ fontSize: 30 }}

@@ -88,7 +88,7 @@ export class MyTripsScreen extends Component<Props, State> {
             style={styles.menuButton}
           >
             <Image
-              source={require('./img/menu.png')}
+              source={require('ldmaapp/assets/png/menu.png')}
               style={styles.menu}
             />
           </TouchableOpacity>
