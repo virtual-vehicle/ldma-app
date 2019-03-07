@@ -84,6 +84,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
         Object {
           "display": "flex",
           "flexDirection": "column",
+          "marginBottom": 100,
           "marginTop": 40,
         }
       }

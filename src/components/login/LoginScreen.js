@@ -73,12 +73,12 @@ export class LoginScreen extends Component<Props, State> {
         <View style={styles.container}>
           <ImageBackground
             style={styles.backgroundImage}
-            source={require('./img/bg.png')}
+            source={require('ldmaapp/assets/png/background_white.png')}
           >
             <View style={styles.logoWrapper}>
               <Image
                 style={styles.logo}
-                source={require('./img/logo-blue.png')}
+                source={require('ldmaapp/assets/png/logo_blue.png')}
               />
             </View>
             <View style={styles.titleWrapper}>
@@ -88,7 +88,7 @@ export class LoginScreen extends Component<Props, State> {
               <View style={{ position: 'relative', borderColor: COLORS.BLUE, borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderTopWidth: 2, borderRadius: 5 }}>
                 <View style={styles.usernameSection}>
                   <Image
-                    source={require('./img/username.png')}
+                    source={require('ldmaapp/assets/png/username.png')}
                     style={styles.usernameImage}
                   />
                   <TextInput
@@ -105,7 +105,7 @@ export class LoginScreen extends Component<Props, State> {
                 <View style={styles.lineSeparator} />
                 <View style={styles.passwordSection}>
                   <Image
-                    source={require('./img/password.png')}
+                    source={require('ldmaapp/assets/png/password.png')}
                     style={styles.passwordImage}
                   />
                   <TextInput

@@ -102,7 +102,7 @@ exports[`MainScreen component should renders correctly 1`] = `
           borderWidth={10}
           color="#32CD32"
           innerColor="#fff"
-          percent={50}
+          percent=""
           radius={67}
           textStyle={
             Object {

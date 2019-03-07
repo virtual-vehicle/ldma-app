@@ -19,6 +19,7 @@ import {
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getRanking } from 'ldmaapp/src/actions/rankingActions';
+import { formatToTwoDecimals } from 'ldmaapp/src/utils/format';
 /* Config/Constants
 ============================================================================= */
 
@@ -77,6 +78,8 @@ export class RankingsScreen extends Component<Props, State> {
     const rankingList = safeGet(this.props, 'rankingList', []);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
 
+    console.log("rankingList:", rankingList);
+
     return (
       <SideMenu
         menu={menu}
@@ -89,7 +92,7 @@ export class RankingsScreen extends Component<Props, State> {
             style={styles.menuButton}
           >
             <Image
-              source={require('./img/menu.png')}
+              source={require('ldmaapp/assets/png/menu.png')}
               style={styles.menu}
             />
           </TouchableOpacity>
@@ -100,9 +103,9 @@ export class RankingsScreen extends Component<Props, State> {
             {rankingList.length > 0 ? rankingList.map((driver) => (
               <View style={styles.line}>
                 <Text style={[styles.cube, { backgroundColor: COLORS.BLUE, color: COLORS.WHITE }]}>{driver.driver_id}</Text>
-                <Text style={styles.cube}>{`${driver.driving_distance} km`}</Text>
-                <Text style={styles.cube}>{driver.driving_time}</Text>
-                <Text style={[styles.cube, { fontSize: 18 }]}>{`${driver.driving_score}%`}</Text>
+                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_distance)} km`}</Text>
+                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_time)} min`}</Text>
+                <Text style={[styles.cube, { fontSize: 18 }]}>{`${formatToTwoDecimals(driver.driver_score)}%`}</Text>
               </View>
             )) :
             <View>
@@ -133,6 +136,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     marginTop: 40,
+    marginBottom: 100,
   },
   line: {
     display: 'flex',

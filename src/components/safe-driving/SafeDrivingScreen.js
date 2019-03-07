@@ -73,6 +73,7 @@ export class SafeDrivingScreen extends Component<Props, State> {
     const numAccelerations = safeGet(tripsInfo, 'tripsList[4].value', '');
     const numBrakes = safeGet(tripsInfo, 'tripsList[5].value', '');
     const numStandHills = safeGet(tripsInfo, 'tripsList[6].value', '');
+    const driverScore = safeGet(tripsInfo, 'tripsList[7].value', '');
 
     return (
       <SideMenu
@@ -86,7 +87,7 @@ export class SafeDrivingScreen extends Component<Props, State> {
             style={styles.menuButton}
           >
             <Image
-              source={require('./img/menu.png')}
+              source={require('ldmaapp/assets/png/menu.png')}
               style={styles.menu}
             />
           </TouchableOpacity>
@@ -95,7 +96,13 @@ export class SafeDrivingScreen extends Component<Props, State> {
             </View>
             <View style={styles.content}>
               <View style={styles.percent}>
-                <PercentageCircle radius={67} percent={50} color={COLORS.GREEN4} borderWidth={10} textStyle={{ fontSize: 30 }}></PercentageCircle>
+                <PercentageCircle
+                  radius={67}
+                  percent={driverScore}
+                  color={COLORS.GREEN4}
+                  borderWidth={10}
+                  textStyle={{ fontSize: 30 }}>
+                </PercentageCircle>
                 <Text style={{ paddingTop: 10 }}>Driving Score (total)</Text>
               </View>
               <View>
