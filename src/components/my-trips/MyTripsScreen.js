@@ -13,12 +13,12 @@ import SideMenu from 'react-native-side-menu';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PercentageCircle from 'react-native-percentage-circle';
 import { COLORS } from 'ldmaapp/src/constants/colors';
-import { GO_TO_RANKINGS } from 'ldmaapp/src/actions/actionTypes';
 import {
 } from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getTripsAll, getTripsInterval } from 'ldmaapp/src/actions/tripActions';
+import NavigationService from 'ldmaapp/src/utils/navigation';
 /* Config/Constants
 ============================================================================= */
 
@@ -133,7 +133,7 @@ export class MyTripsScreen extends Component<Props, State> {
           </View>
           <TouchableOpacity
             style={styles.goToNextScreen}
-            onPress={() => navigation.dispatch({ type: GO_TO_RANKINGS })}
+            onPress={() => NavigationService.navigate('Rankings')}
           >
             <Text style={styles.goToNextScreenText}>{`Rankings`}</Text>
           </TouchableOpacity>

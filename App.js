@@ -2,23 +2,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
-import axios from 'axios';
-import axiosMiddleware from 'redux-axios-middleware';
-import AppWithNavigationState from './AppNavigator';
+import { AppNavigationContainer } from './AppNavigationContainer';
+import NavigationService from 'ldmaapp/src/utils/navigation';
 import ldmaApp from 'ldmaapp/src/reducers';
-import { middleware } from 'ldmaapp/src/utils/redux';
-import { API } from 'ldmaapp/src/constants/api';
-
-const client = axios.create({ // all axios can be used, shown in axios documentation
-  baseURL: API.BACKEND_URL,
-  responseType: 'json',
-});
 
 const store = createStore(
   ldmaApp,
   applyMiddleware(
-    middleware,
-    axiosMiddleware(client),
     thunk,
   ),
 );
@@ -27,7 +17,11 @@ class App extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <AppWithNavigationState />
+        <AppNavigationContainer
+          ref={navigatorRef => {
+            NavigationService.setTopLevelNavigator(navigatorRef);
+          }}
+        />
       </Provider>
     );
   }

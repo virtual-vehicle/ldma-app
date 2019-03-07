@@ -14,12 +14,12 @@ import SideMenu from 'react-native-side-menu';
 import PercentageCircle from 'react-native-percentage-circle';
 import { LineChart, Grid } from 'react-native-svg-charts';
 import { COLORS } from 'ldmaapp/src/constants/colors';
-import { GO_TO_SAFE_DRIVING } from 'ldmaapp/src/actions/actionTypes';
 import {
 } from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getTripsInfo } from 'ldmaapp/src/actions/tripsInfoActions';
+import NavigationService from 'ldmaapp/src/utils/navigation';
 
 /* Config/Constants
 ============================================================================= */
@@ -82,8 +82,6 @@ export class MainScreen extends Component<Props, State> {
     const totalTime = safeGet(tripsInfo, 'tripsList[3].value', '');
     const driverScore = safeGet(tripsInfo, 'tripsList[7].value', '');
 
-    console.log("trips info:", tripsInfo);
-
     const contentInset = { top: 20, bottom: 20 };
 
     return (
@@ -139,7 +137,7 @@ export class MainScreen extends Component<Props, State> {
           </View>
           <TouchableOpacity
             style={styles.goToNextScreen}
-            onPress={() => navigation.dispatch({ type: GO_TO_SAFE_DRIVING })}
+            onPress={() => NavigationService.navigate('SafeDriving')}
           >
             <Text style={styles.goToNextScreenText}>{`Safe Driving`}</Text>
           </TouchableOpacity>

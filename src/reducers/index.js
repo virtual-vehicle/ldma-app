@@ -1,5 +1,4 @@
 import { combineReducers } from 'redux';
-import nav from './navReducer';
 import ui from './uiReducer';
 import auth from './authReducer';
 import loading from './loadingReducer';
@@ -9,7 +8,6 @@ import trip from './tripReducer';
 import tripsInfo from './tripsInfoReducer';
 
 const ldmaApp = combineReducers({
-  nav,
   ui,
   auth,
   loading,

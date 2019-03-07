@@ -1,11 +1,3 @@
-// ROUTE ACTIONS
-export const GO_BACK = 'GO_BACK';
-export const GO_TO_LOGIN = 'GO_TO_LOGIN';
-export const GO_TO_MAIN = 'GO_TO_MAIN';
-export const GO_TO_SAFE_DRIVING = 'GO_TO_SAFE_DRIVING';
-export const GO_TO_MY_TRIPS = 'GO_TO_MY_TRIPS';
-export const GO_TO_RANKINGS = 'GO_TO_RANKINGS';
-
 // AUTH ACTIONS
 export const REQUEST_LOGIN = 'REQUEST_LOGIN';
 export const REQUEST_LOGIN_SUCCESS = 'REQUEST_LOGIN_SUCCESS';

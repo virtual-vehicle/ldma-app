@@ -23,7 +23,6 @@ import Loader from 'ldmaapp/src/components/common/Loader';
 
 /* eslint-disable global-require */
 
-const FIELDS_WIDTH = '88%';
 const BUTTON_HEIGHT = 50;
 const INPUT_FIELDS_HEIGHT = 66;
 const SCREEN_HEIGHT = Dimensions.get('window').height;

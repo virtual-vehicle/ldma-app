@@ -13,13 +13,13 @@ import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
 import { get as safeGet } from 'lodash';
 import { COLORS } from 'ldmaapp/src/constants/colors';
-import { GO_TO_MAIN } from 'ldmaapp/src/actions/actionTypes';
 import {
 } from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getRanking } from 'ldmaapp/src/actions/rankingActions';
 import { formatToTwoDecimals } from 'ldmaapp/src/utils/format';
+import NavigationService from 'ldmaapp/src/utils/navigation';
 /* Config/Constants
 ============================================================================= */
 
@@ -78,8 +78,6 @@ export class RankingsScreen extends Component<Props, State> {
     const rankingList = safeGet(this.props, 'rankingList', []);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
 
-    console.log("rankingList:", rankingList);
-
     return (
       <SideMenu
         menu={menu}
@@ -115,7 +113,7 @@ export class RankingsScreen extends Component<Props, State> {
           </ScrollView>
           <TouchableOpacity
             style={styles.goToNextScreen}
-            onPress={() => navigation.dispatch({ type: GO_TO_MAIN })}
+            onPress={() => NavigationService.navigate('Main')}
           >
             <Text style={styles.goToNextScreenText}>{`Main`}</Text>
           </TouchableOpacity>

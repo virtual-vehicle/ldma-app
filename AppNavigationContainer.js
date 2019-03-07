@@ -6,7 +6,6 @@ import MyTripsScreen from 'ldmaapp/src/components/my-trips/MyTripsScreen';
 import SafeDrivingScreen from 'ldmaapp/src/components/safe-driving/SafeDrivingScreen';
 import RankingsScreen from 'ldmaapp/src/components/rankings/RankingsScreen';
 
-
 // used config from here: https://github.com/react-navigation/react-navigation/issues/707#issuecomment-299859578
 const MainCardNavigator = createStackNavigator({
   Auth: {
