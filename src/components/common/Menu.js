@@ -51,7 +51,7 @@ export class Menu extends Component<Props> {
   }
 
   render() {
-    const { navigation, user } = this.props;
+    const { user } = this.props;
     const username = safeGet(user, 'username', '');
 
     const appVersion = DeviceInfo.getReadableVersion();

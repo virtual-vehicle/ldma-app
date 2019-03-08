@@ -32,7 +32,6 @@ const SCREEN_WIDTH = Dimensions.get('window').width;
 
 type Props = {
   dispatch: any,
-  navigation: any,
   login: any,
   loading: boolean,
   tripsInfo: Array,
@@ -72,8 +71,9 @@ export class MainScreen extends Component<Props, State> {
 
   render() {
     const { isOpen } = this.state;
-    const { navigation, loading, tripsInfo } = this.props;
-    const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
+
+    const { loading, tripsInfo } = this.props;
+    const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
     const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
 
     const numTrips = safeGet(tripsInfo, 'tripsList[0].value', '');

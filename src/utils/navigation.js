@@ -1,4 +1,5 @@
-import { NavigationActions } from 'react-navigation';
+import { NavigationActions, StackActions } from 'react-navigation';
+
 
 let _navigator;
 
@@ -21,10 +22,20 @@ function goBack() {
   );
 }
 
+function resetState() {
+  _navigator.dispatch(
+    StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Login' })],
+    })
+  );
+}
+
 // add other navigation functions that you need and export them
 
 export default {
   navigate,
   setTopLevelNavigator,
   goBack,
+  resetState,
 };

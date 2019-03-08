@@ -35,7 +35,7 @@ export const logout = () => {
     return userService.logout()
       .then(() => {
         dispatch(requestLogout());
-        NavigationService.navigate('Login');
+        NavigationService.resetState();
       });
   };
 
