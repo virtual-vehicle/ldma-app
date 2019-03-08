@@ -3,8 +3,10 @@ import { AsyncStorage } from 'react-native';
 import { connect } from 'react-redux';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import { REQUEST_LOGIN_SUCCESS } from 'ldmaapp/src/actions/actionTypes';
+import NavigationService from 'ldmaapp/src/utils/navigation';
 
 export class AuthLoadingScreen extends Component {
+
   constructor(props) {
     super(props);
     this.bootstrapAsync();
@@ -20,9 +22,9 @@ export class AuthLoadingScreen extends Component {
     dispatch({ type: REQUEST_LOGIN_SUCCESS, user });
 
     if (!user) {
-      navigation.navigate('Login');
+      NavigationService.navigate('Login');
     } else {
-      navigation.navigate('Main');
+      NavigationService.navigate('Main');
     }
   };
 

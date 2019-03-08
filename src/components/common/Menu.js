@@ -14,12 +14,7 @@ import { get as safeGet } from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import { logout } from 'ldmaapp/src/actions/userActions';
-import {
-  GO_TO_MAIN,
-  GO_TO_SAFE_DRIVING,
-  GO_TO_MY_TRIPS,
-  GO_TO_RANKINGS,
-} from 'ldmaapp/src/actions/actionTypes';
+import NavigationService from 'ldmaapp/src/utils/navigation';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 const WINDOW_HEIGHT = Dimensions.get('window').height;
@@ -56,7 +51,7 @@ export class Menu extends Component<Props> {
   }
 
   render() {
-    const { navigation, user } = this.props;
+    const { user } = this.props;
     const username = safeGet(user, 'username', '');
 
     const appVersion = DeviceInfo.getReadableVersion();
@@ -69,28 +64,28 @@ export class Menu extends Component<Props> {
         <View style={styles.content}>
           <Text
             style={styles.item}
-            onPress={() => navigation.dispatch({ type: GO_TO_MAIN })}
+            onPress={() => NavigationService.navigate('Main')}
           >
             TripViz ->
           </Text>
           <View style={styles.lineSeparator} />
             <Text
               style={styles.item}
-              onPress={() => navigation.dispatch({ type: GO_TO_SAFE_DRIVING })}
+              onPress={() => NavigationService.navigate('SafeDriving')}
             >
               Safe Driving ->
             </Text>
           <View style={styles.lineSeparator} />
             <Text
               style={styles.item}
-              onPress={() => navigation.dispatch({ type: GO_TO_MY_TRIPS })}
+              onPress={() => NavigationService.navigate('MyTrips')}
             >
               My Trips ->
             </Text>
           <View style={styles.lineSeparator} />
             <Text
               style={styles.item}
-              onPress={() => navigation.dispatch({ type: GO_TO_RANKINGS })}
+              onPress={() => NavigationService.navigate('Rankings')}
             >
               My Rankings ->
             </Text>

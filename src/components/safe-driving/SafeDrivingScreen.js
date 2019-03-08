@@ -13,11 +13,12 @@ import { get as safeGet } from 'lodash';
 import SideMenu from 'react-native-side-menu';
 import PercentageCircle from 'react-native-percentage-circle';
 import { COLORS } from 'ldmaapp/src/constants/colors';
-import { GO_TO_MY_TRIPS } from 'ldmaapp/src/actions/actionTypes';
 import {
 } from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
+import NavigationService from 'ldmaapp/src/utils/navigation';
+
 /* Config/Constants
 ============================================================================= */
 
@@ -126,7 +127,7 @@ export class SafeDrivingScreen extends Component<Props, State> {
             <Text style={{ alignSelf: 'flex-start', paddingLeft: 20, paddingTop: 20 }}>Show more details...</Text>
               <TouchableOpacity
                 style={styles.goToNextScreen}
-                onPress={() => navigation.dispatch({ type: GO_TO_MY_TRIPS })}
+                onPress={() => NavigationService.navigate('MyTrips')}
               >
                 <Text style={styles.goToNextScreenText}>{`My Trips`}</Text>
               </TouchableOpacity>

@@ -4,10 +4,9 @@ import {
   REQUEST_LOGIN_SUCCESS,
   REQUEST_LOGIN_FAILURE,
   REQUEST_LOGOUT,
-  GO_TO_MAIN,
-  GO_TO_LOGIN,
 } from 'ldmaapp/src/actions/actionTypes';
 import { openIvalidCredentialsModal } from 'ldmaapp/src/actions/uiActions';
+import NavigationService from 'ldmaapp/src/utils/navigation';
 
 export const login = (username, password) => {
   return dispatch => {
@@ -17,10 +16,9 @@ export const login = (username, password) => {
       .then(
         user => {
           dispatch(success(user));
-          dispatch(goToMain());
+          NavigationService.navigate('Main');
         },
         errorCode => {
-          console.log("we come to error");
           dispatch(openIvalidCredentialsModal());
           dispatch(failure(errorCode));
         },
@@ -30,7 +28,6 @@ export const login = (username, password) => {
   function request() { return { type: REQUEST_LOGIN }; }
   function success(user) { return { type: REQUEST_LOGIN_SUCCESS, user }; }
   function failure(error) { return { type: REQUEST_LOGIN_FAILURE, error }; }
-  function goToMain() { return { type: GO_TO_MAIN }; }
 };
 
 export const logout = () => {
@@ -38,10 +35,9 @@ export const logout = () => {
     return userService.logout()
       .then(() => {
         dispatch(requestLogout());
-        dispatch(goToLogin());
+        NavigationService.resetState();
       });
   };
 
   function requestLogout() { return { type: REQUEST_LOGOUT }; }
-  function goToLogin() { return { type: GO_TO_LOGIN }; }
 };
