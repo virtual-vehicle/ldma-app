@@ -6,11 +6,13 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
 import moment from 'moment';
+import { get as safeGet } from 'lodash';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PercentageCircle from 'react-native-percentage-circle';
 import { COLORS } from 'ldmaapp/src/constants/colors';
@@ -128,8 +130,9 @@ export class MyTripsScreen extends Component<Props, State> {
       week,
       month,
     } = this.state;
-    const { navigation, loading, state } = this.props;
-    console.log("this.state in my trips screen:", state);
+    const { navigation, loading } = this.props;
+    const tripsList = safeGet(this.props, 'tripsList', []);
+    console.log("tripsList:", tripsList);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
 
     return (
@@ -204,17 +207,28 @@ export class MyTripsScreen extends Component<Props, State> {
             <Text style={styles.getTripsText}>Get trips</Text>
           </TouchableOpacity>
 
-          <View style={{ display: 'flex', flexDirection: 'row', marginTop: 40 }}>
-            <Text style={styles.cubeLight}>{'Today\n12:23'}</Text>
-            <Text style={[styles.cubeLight, { marginRight: 10 }]}>{'Inffeldgasse 21a, 8010\nGraz'}</Text>
-            <PercentageCircle
-              radius={30}
-              percent={50}
-              color={COLORS.GREEN4}
-              borderWidth={2}
-              textStyle={{ fontSize: 12 }}
-            />
-          </View>
+          {/* render real trips */}
+          <ScrollView>
+            {tripsList.map((trip) => {
+              return (<View style={{ padding: 30 }} key={trip.trip_id}>
+                <Text style={{ color: COLORS.BLUE }}>Trip info</Text>
+                <Text>Distance: {trip.distance}</Text>
+                <Text>Duration: {trip.duration}</Text>
+                <PercentageCircle
+                  radius={30}
+                  percent={trip.risk_score}
+                  color={COLORS.GREEN4}
+                  borderWidth={2}
+                  textStyle={{ fontSize: 12 }}
+                />
+                <Text>Start time: {trip.start_at}</Text>
+                <Text>Start position: {trip.start_position_name}</Text>
+                <Text>End position: {trip.end_position_name}</Text>
+              </View>
+            )})}
+          </ScrollView>
+
+
           <TouchableOpacity
             style={styles.goToNextScreen}
             onPress={() => NavigationService.navigate('Rankings')}
@@ -342,7 +356,7 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) =>
   ({
-    state,
+    tripsList: state.trip.tripsList,
     loading: state.loading,
     user: state.auth.user,
   });
