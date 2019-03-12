@@ -44,6 +44,8 @@ export class MyTripsScreen extends Component<Props, State> {
     this.state = {
       isOpen: false,
       isDateTimePickerVisible: false,
+      dateFrom: '',
+      dateTo: '',
     };
   }
 
