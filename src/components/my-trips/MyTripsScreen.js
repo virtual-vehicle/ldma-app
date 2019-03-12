@@ -10,6 +10,7 @@ import {
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
+import moment from 'moment';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PercentageCircle from 'react-native-percentage-circle';
 import { COLORS } from 'ldmaapp/src/constants/colors';
@@ -36,6 +37,7 @@ type Props = {
 };
 
 export class MyTripsScreen extends Component<Props, State> {
+
   constructor(props) {
     super(props);
 
@@ -43,10 +45,20 @@ export class MyTripsScreen extends Component<Props, State> {
 
     this.state = {
       isOpen: false,
-      isDateTimePickerVisible: false,
-      dateFrom: '',
-      dateTo: '',
+      isDateTimePickerStartDateVisible: false,
+      isDateTimePickerEndDateVisible: false,
+      all: true,
+      today: false,
+      week: false,
+      month: false,
+      startDate: 'YYYY-MM-DD',
+      endDate: 'YYYY-MM-DD',
     };
+  }
+
+  componentDidMount() {
+    const { getTripsAll, user } = this.props;
+    getTripsAll(user);
   }
 
   onMenuItemSelected = () =>
@@ -64,18 +76,60 @@ export class MyTripsScreen extends Component<Props, State> {
     this.setState({ isOpen });
   }
 
-  showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+  getTripsPress() {
+    const { getTripsAll, user} = this.props;
+    const { all, today, week, month } = this.state;
+    if (all) {
+      getTripsAll(user);
+    }
+    /*} else if (today) {
 
-  hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+    } else if (week) {
 
-  handleDatePicked = (date) => {
-    console.log('A date has been picked: ', date);
-    this.hideDateTimePicker();
+    } else if (month) {
+
+    } else {
+
+    }*/
+
+  }
+
+  // START/FROM Date methods
+  showDateTimePickerStartDate = () => this.setState({ isDateTimePickerStartDateVisible: true });
+
+  hideDateTimePickerStartDate = () => this.setState({ isDateTimePickerStartDateVisible: false });
+
+  // END/TO Date methods
+  showDateTimePickerEndDate = () => this.setState({ isDateTimePickerEndDateVisible: true });
+
+  hideDateTimePickerEndDate = () => this.setState({ isDateTimePickerEndDateVisible: false });
+
+  handleDatePickedStartDate = (date) => {
+    const dateMoment = moment(date);
+    const formattedDate = dateMoment.format('YYYY-MM-DD');
+    this.setState({ ...this.state, startDate: formattedDate });
+    this.hideDateTimePickerStartDate();
+  };
+
+  handleDatePickedEndDate = (date) => {
+    const dateMoment = moment(date);
+    const formattedDate = dateMoment.format('YYYY-MM-DD');
+    this.setState({ ...this.state, endDate: formattedDate });
+    this.hideDateTimePickerEndDate();
   };
 
   render() {
-    const { isOpen } = this.state;
-    const { navigation, loading } = this.props;
+    const {
+      isOpen,
+      startDate,
+      endDate,
+      all,
+      today,
+      week,
+      month,
+    } = this.state;
+    const { navigation, loading, state } = this.props;
+    console.log("this.state in my trips screen:", state);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
 
     return (
@@ -100,27 +154,55 @@ export class MyTripsScreen extends Component<Props, State> {
           <View style={styles.dateSelect}>
             <View>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={styles.periodCubeSmall}>All</Text><Text style={styles.periodCubeSmall}>Today</Text>
+                <TouchableOpacity
+                  style={[styles.periodCubeSmall, all && { backgroundColor: COLORS.BLUE }]}
+                  onPress={() => this.setState({ all: !all, today: false, week: false, month: false })}
+                >
+                  <Text>All</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.periodCubeSmall, today && { backgroundColor: COLORS.BLUE }]}
+                  onPress={() => this.setState({ all: false, today: !today, week: false, month: false })}
+                >
+                  <Text>Today</Text>
+                </TouchableOpacity>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                <Text style={styles.periodCubeSmall}>Week</Text><Text style={styles.periodCubeSmall}>Month</Text>
+                <TouchableOpacity
+                  style={[styles.periodCubeSmall, week && { backgroundColor: COLORS.BLUE }]}
+                  onPress={() => this.setState({ all: false, today: false, week: !week, month: false })}
+                >
+                  <Text>Week</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
+                  onPress={() => this.setState({ all: false, today: false, week: false, month: !month })}
+                >
+                  <Text>Month</Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.periodCubeBig}>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={{ textAlign: 'left', width: 40 }}>From:</Text>
-                <TouchableOpacity onPress={this.showDateTimePicker}>
-                  <Text style={{ paddingLeft: 3 }}>TTMMJJ</Text>
+                <TouchableOpacity onPress={this.showDateTimePickerStartDate}>
+                  <Text style={{ paddingLeft: 3, width: 100 }}>{startDate}</Text>
                 </TouchableOpacity>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={{ textAlign: 'left', width: 40 }}>To:</Text>
-                <TouchableOpacity onPress={this.showDateTimePicker}>
-                  <Text style={{ paddingLeft: 3 }}>TTMMJJ</Text>
+                <TouchableOpacity onPress={this.showDateTimePickerEndDate}>
+                  <Text style={{ paddingLeft: 3, width: 100  }}>{endDate}</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
+          <TouchableOpacity
+            style={styles.getTripsButton}
+            onPress={this.getTripsPress}
+          >
+            <Text style={styles.getTripsText}>Get trips</Text>
+          </TouchableOpacity>
 
           <View style={{ display: 'flex', flexDirection: 'row', marginTop: 40 }}>
             <Text style={styles.cubeLight}>{'Today\n12:23'}</Text>
@@ -141,9 +223,14 @@ export class MyTripsScreen extends Component<Props, State> {
           </TouchableOpacity>
           {loading && <Loader />}
           <DateTimePicker
-            isVisible={this.state.isDateTimePickerVisible}
-            onConfirm={this.handleDatePicked}
-            onCancel={this.hideDateTimePicker}
+            isVisible={this.state.isDateTimePickerStartDateVisible}
+            onConfirm={this.handleDatePickedStartDate}
+            onCancel={this.hideDateTimePickerStartDate}
+          />
+          <DateTimePicker
+            isVisible={this.state.isDateTimePickerEndDateVisible}
+            onConfirm={this.handleDatePickedEndDate}
+            onCancel={this.hideDateTimePickerEndDate}
           />
         </View>
       </SideMenu>
@@ -170,8 +257,8 @@ const styles = StyleSheet.create({
     width: 90,
     marginLeft: 10,
     height: 30,
-    textAlign: 'center',
-    textAlignVertical: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cubeLight: {
     borderColor: COLORS.BLUE,
@@ -236,10 +323,26 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: 20,
   },
+  getTripsButton: {
+    color: COLORS.BLUE,
+    backgroundColor: COLORS.BLUE,
+    width: 150,
+    height: 50,
+    alignSelf: 'flex-start',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 15,
+    marginTop: 10,
+  },
+  getTripsText: {
+    color: COLORS.WHITE,
+  }
 });
 
 const mapStateToProps = (state) =>
   ({
+    state,
     loading: state.loading,
     user: state.auth.user,
   });

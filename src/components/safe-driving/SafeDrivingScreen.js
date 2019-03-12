@@ -124,7 +124,6 @@ export class SafeDrivingScreen extends Component<Props, State> {
                 </View>
               </View>
             </View>
-            <Text style={{ alignSelf: 'flex-start', paddingLeft: 20, paddingTop: 20 }}>Show more details...</Text>
               <TouchableOpacity
                 style={styles.goToNextScreen}
                 onPress={() => NavigationService.navigate('MyTrips')}

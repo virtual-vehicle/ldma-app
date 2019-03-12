@@ -16,6 +16,7 @@ export const getTripsAll = (user) => {
     return tripService.getTripsAll(auth_token)
       .then(
         tripsList => {
+          console.log("return trips lsit:", tripsList)
           dispatch(success(tripsList));
         },
         error => {

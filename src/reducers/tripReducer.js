@@ -17,7 +17,7 @@ const trip = (state = {}, action = {}) => {
     case REQUEST_GET_TRIPS_ALL_SUCCESS:
     case REQUEST_GET_TRIPS_INTERVAL_SUCCESS:
       return {
-        tripsList: action.tripList,
+        tripsList: action.tripsList,
       };
     case REQUEST_GET_TRIPS_ALL_FAILURE:
     case REQUEST_GET_TRIPS_INTERVAL_FAILURE:
