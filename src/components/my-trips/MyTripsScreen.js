@@ -117,6 +117,17 @@ export class MyTripsScreen extends Component<Props, State> {
     }
   }
 
+  setLastMonthDate() {
+    const monthAgoDate = moment().subtract(1,'months').format('YYYY-MM-DD');
+    const todayDate = moment().format('YYYY-MM-DD');
+    const { month } = this.state;
+    if (month) {
+      this.setState({ startDate: monthAgoDate, endDate: todayDate });
+    } else {
+      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
+    }
+  }
+
   // START/FROM Date methods
   showDateTimePickerStartDate = () => this.setState({ isDateTimePickerStartDateVisible: true });
 
@@ -209,7 +220,12 @@ export class MyTripsScreen extends Component<Props, State> {
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => this.setState({ all: false, today: false, week: false, month: !month })}
+                  onPress={() => {
+                    this.setState({ all: false, today: false, week: false, month: !month })
+                    setTimeout(() => {
+                      this.setLastMonthDate()
+                    }, 500);
+                  }}
                 >
                   <Text>Month</Text>
                 </TouchableOpacity>
