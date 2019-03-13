@@ -96,6 +96,13 @@ export class MyTripsScreen extends Component<Props, State> {
 
   }
 
+  setAllDate() {
+    const { all } = this.state;
+    if (all) {
+      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
+    }
+  }
+
   setTodaysDate() {
     const todayDate = moment().format('YYYY-MM-DD');
     const { today } = this.state;
@@ -190,17 +197,18 @@ export class MyTripsScreen extends Component<Props, State> {
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <TouchableOpacity
                   style={[styles.periodCubeSmall, all && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => this.setState({ all: !all, today: false, week: false, month: false })}
+                  onPress={() => {
+                    this.setState({ all: !all, today: false, week: false, month: false },
+                    () => this.setAllDate());
+                  }}
                 >
                   <Text>All</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
                   style={[styles.periodCubeSmall, today && { backgroundColor: COLORS.BLUE }]}
                   onPress={() => {
-                    this.setState({ all: false, today: !today, week: false, month: false });
-                    setTimeout(() => {
-                      this.setTodaysDate()
-                    }, 500);
+                    this.setState({ all: false, today: !today, week: false, month: false },
+                    () => this.setTodaysDate());
                   }}
                 >
                   <Text>Today</Text>
@@ -210,10 +218,8 @@ export class MyTripsScreen extends Component<Props, State> {
                 <TouchableOpacity
                   style={[styles.periodCubeSmall, week && { backgroundColor: COLORS.BLUE }]}
                   onPress={() => {
-                    this.setState({ all: false, today: false, week: !week, month: false })
-                    setTimeout(() => {
-                      this.setLastWeekDate()
-                    }, 500);
+                    this.setState({ all: false, today: false, week: !week, month: false },
+                    () =>  this.setLastWeekDate());
                   }}
                 >
                   <Text>Week</Text>
@@ -221,10 +227,8 @@ export class MyTripsScreen extends Component<Props, State> {
                 <TouchableOpacity
                   style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
                   onPress={() => {
-                    this.setState({ all: false, today: false, week: false, month: !month })
-                    setTimeout(() => {
-                      this.setLastMonthDate()
-                    }, 500);
+                    this.setState({ all: false, today: false, week: false, month: !month },
+                    () => this.setLastMonthDate());
                   }}
                 >
                   <Text>Month</Text>
@@ -247,8 +251,9 @@ export class MyTripsScreen extends Component<Props, State> {
             </View>
           </View>
           <TouchableOpacity
-            style={styles.getTripsButton}
+            style={[styles.getTripsButton, (!all && !today && !week && !month) && { opacity: 0.4 }]}
             onPress={this.getTripsPress}
+            disabled={!all && !today && !week && !month}
           >
             <Text style={styles.getTripsText}>Get trips</Text>
           </TouchableOpacity>
@@ -256,7 +261,7 @@ export class MyTripsScreen extends Component<Props, State> {
           {/* render real trips */}
           <ScrollView>
             {tripsList.map((trip) => {
-              return (<View style={{ padding: 30 }} key={trip.trip_id}>
+              return (<View style={{ margin: 30, borderWidth: 1, borderColor: COLORS.BLUE }} key={trip.trip_id}>
                 <Text style={{ color: COLORS.BLUE }}>Trip info</Text>
                 <Text>Distance: {trip.distance}</Text>
                 <Text>Duration: {trip.duration}</Text>
