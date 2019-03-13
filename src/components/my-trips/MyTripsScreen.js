@@ -60,6 +60,7 @@ export class MyTripsScreen extends Component<Props, State> {
 
   componentDidMount() {
     const { getTripsAll, user } = this.props;
+    console.log("this.props:")
     getTripsAll(user);
   }
 
@@ -78,22 +79,15 @@ export class MyTripsScreen extends Component<Props, State> {
     this.setState({ isOpen });
   }
 
-  getTripsPress() {
-    const { getTripsAll, user } = this.props;
-    const { all, today, week, month } = this.state;
+  getTripsPress = () => {
+    const { getTripsAll, getTripsInterval, user } = this.props;
+    const { all, startDate, endDate } = this.state;
     if (all) {
       getTripsAll(user);
     }
-    /*} else if (today) {
-
-    } else if (week) {
-
-    } else if (month) {
-
-    } else {
-
-    }*/
-
+    else {
+      getTripsInterval(user, startDate, endDate);
+    }
   }
 
   setAllDate() {
