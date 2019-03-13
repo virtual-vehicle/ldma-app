@@ -99,7 +99,7 @@ export class RankingsScreen extends Component<Props, State> {
           </View>
           <ScrollView style={styles.content}>
             {rankingList.length > 0 ? rankingList.map((driver) => (
-              <View style={styles.line}>
+              <View style={styles.line} key={driver.driver_id}>
                 <Text style={[styles.cube, { backgroundColor: COLORS.BLUE, color: COLORS.WHITE }]}>{driver.driver_id}</Text>
                 <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_distance)} km`}</Text>
                 <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_time)} min`}</Text>

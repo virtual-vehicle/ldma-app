@@ -20,6 +20,7 @@ import {
 } from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
+import MapView from 'react-native-maps';
 import { getTripsAll, getTripsInterval } from 'ldmaapp/src/actions/tripActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
 /* Config/Constants
@@ -142,14 +143,14 @@ export class MyTripsScreen extends Component<Props, State> {
   handleDatePickedStartDate = (date) => {
     const dateMoment = moment(date);
     const formattedDate = dateMoment.format('YYYY-MM-DD');
-    this.setState({ ...this.state, startDate: formattedDate });
+    this.setState({ ...this.state, all: false, today: false, week: false, month: false, startDate: formattedDate });
     this.hideDateTimePickerStartDate();
   };
 
   handleDatePickedEndDate = (date) => {
     const dateMoment = moment(date);
     const formattedDate = dateMoment.format('YYYY-MM-DD');
-    this.setState({ ...this.state, endDate: formattedDate });
+    this.setState({ ...this.state, all: false, today: false, week: false, month: false, endDate: formattedDate });
     this.hideDateTimePickerEndDate();
   };
 
@@ -245,30 +246,44 @@ export class MyTripsScreen extends Component<Props, State> {
             </View>
           </View>
           <TouchableOpacity
-            style={[styles.getTripsButton, (!all && !today && !week && !month) && { opacity: 0.4 }]}
+            style={[styles.getTripsButton, ((!all && !today && !week && !month) && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')) && { opacity: 0.4 }]}
             onPress={this.getTripsPress}
-            disabled={!all && !today && !week && !month}
+            disabled={!all && !today && !week && !month && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')}
           >
             <Text style={styles.getTripsText}>Get trips</Text>
           </TouchableOpacity>
 
+
           {/* render real trips */}
-          <ScrollView>
+          <ScrollView style={{ marginBottom: 100 }}>
             {tripsList.map((trip) => {
-              return (<View style={{ margin: 30, borderWidth: 1, borderColor: COLORS.BLUE }} key={trip.trip_id}>
-                <Text style={{ color: COLORS.BLUE }}>Trip info</Text>
+              return (<View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
+                <Text style={{ color: COLORS.BLUE, textAlign: 'center' }}>Trip info</Text>
+
+                <View style={{ flexDirection: 'row'}}>
+                  <Text style={{ fontSize: 10, width: 100 }}>{trip.start_at}</Text>
+                  <Text style={{ fontSize: 10, width: 100 }}>{trip.start_position_name}</Text>
+                  <PercentageCircle
+                    radius={30}
+                    percent={trip.risk_score}
+                    color={COLORS.GREEN4}
+                    borderWidth={2}
+                    textStyle={{ fontSize: 12 }}
+                />
+                </View>
+
+                <MapView
+                  style={{flex: 1, width: 200, height: 200}}
+                  region={{
+                  latitude: 42.882004,
+                  longitude: 74.582748,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }} />
+
                 <Text>Distance: {trip.distance}</Text>
                 <Text>Duration: {trip.duration}</Text>
-                <PercentageCircle
-                  radius={30}
-                  percent={trip.risk_score}
-                  color={COLORS.GREEN4}
-                  borderWidth={2}
-                  textStyle={{ fontSize: 12 }}
-                />
-                <Text>Start time: {trip.start_at}</Text>
-                <Text>Start position: {trip.start_position_name}</Text>
-                <Text>End position: {trip.end_position_name}</Text>
+                <Text style={{ fontSize: 10, width: 200 }}>End position: {trip.end_position_name}</Text>
               </View>
             )})}
           </ScrollView>

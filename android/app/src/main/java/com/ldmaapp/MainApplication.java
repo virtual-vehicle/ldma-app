@@ -3,6 +3,7 @@ package com.ldmaapp;
 import android.app.Application;
 
 import com.facebook.react.ReactApplication;
+import com.airbnb.android.react.maps.MapsPackage;
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 import com.horcrux.svg.SvgPackage;
 import com.learnium.RNDeviceInfo.RNDeviceInfo;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
     protected List<ReactPackage> getPackages() {
       return Arrays.<ReactPackage>asList(
           new MainReactPackage(),
+            new MapsPackage(),
             new RNGestureHandlerPackage(),
             new SvgPackage(),
             new RNDeviceInfo(),
