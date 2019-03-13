@@ -3,7 +3,7 @@ import * as types from 'ldmaapp/src/actions/actionTypes';
 
 describe('loading reducer', () => {
   it('should return the initial state', () => {
-    expect(loading(undefined, {})).toEqual(false);
+    expect(loading(undefined, {})).toEqual(true);
   });
 
   it('should handle REQUEST_LOGIN', () => {
@@ -20,15 +20,6 @@ describe('loading reducer', () => {
       undefined,
       {
         type: types.REQUEST_GET_RANKING,
-      },
-    )).toEqual(true);
-  });
-
-  it('should handle REQUEST_GET_EVENT', () => {
-    expect(loading(
-      undefined,
-      {
-        type: types.REQUEST_GET_EVENT,
       },
     )).toEqual(true);
   });
@@ -87,41 +78,6 @@ describe('loading reducer', () => {
     )).toEqual(false);
   });
 
-  it('should handle REQUEST_GET_EVENT_SUCCESS', () => {
-    expect(loading(
-      undefined,
-      {
-        type: types.REQUEST_GET_EVENT_SUCCESS,
-      },
-    )).toEqual(false);
-  });
-
-  it('should handle REQUEST_GET_EVENT_FAILURE', () => {
-    expect(loading(
-      undefined,
-      {
-        type: types.REQUEST_GET_EVENT_FAILURE,
-      },
-    )).toEqual(false);
-  });
-
-  it('should handle REQUEST_GET_TRIP_SUCCESS', () => {
-    expect(loading(
-      undefined,
-      {
-        type: types.REQUEST_GET_TRIP_SUCCESS,
-      },
-    )).toEqual(false);
-  });
-
-  it('should handle REQUEST_GET_TRIP_FAILURE', () => {
-    expect(loading(
-      undefined,
-      {
-        type: types.REQUEST_GET_TRIP_FAILURE,
-      },
-    )).toEqual(false);
-  });
 
   it('should handle REQUEST_GET_TRIPS_INFO_SUCCESS', () => {
     expect(loading(

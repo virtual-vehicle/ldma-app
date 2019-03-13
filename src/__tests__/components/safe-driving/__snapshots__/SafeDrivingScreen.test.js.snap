@@ -281,17 +281,6 @@ brakes
         </View>
       </View>
     </View>
-    <Text
-      style={
-        Object {
-          "alignSelf": "flex-start",
-          "paddingLeft": 20,
-          "paddingTop": 20,
-        }
-      }
-    >
-      Show more details...
-    </Text>
     <TouchableOpacity
       activeOpacity={0.2}
       onPress={[Function]}

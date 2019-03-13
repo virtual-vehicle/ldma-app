@@ -7,6 +7,7 @@ export const tripService = {
 };
 
 export function getTripsAll(auth_token) {
+  console.log("we are here:", auth_token);
   const requestOptions = {
     method: 'GET',
     headers: {

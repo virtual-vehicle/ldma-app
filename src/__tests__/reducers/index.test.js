@@ -4,13 +4,11 @@ describe('ldmaApp (root) reducer', () => {
 
   const initialRootState = {
     auth: {},
-    event: {},
-    loading: false,
+    loading: true,
     ranking: {},
     trip: {}, tripsInfo: {},
     ui: { "invalidCredentialsModalOpen": false },
   };
-
 
   it('should return the initial state', () => {
     expect(ldmaApp(undefined, {})).toMatchObject(initialRootState);

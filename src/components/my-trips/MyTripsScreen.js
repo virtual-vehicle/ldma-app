@@ -6,10 +6,13 @@ import {
   StyleSheet,
   Image,
   Dimensions,
+  ScrollView,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
+import moment from 'moment';
+import { get as safeGet } from 'lodash';
 import DateTimePicker from 'react-native-modal-datetime-picker';
 import PercentageCircle from 'react-native-percentage-circle';
 import { COLORS } from 'ldmaapp/src/constants/colors';
@@ -17,6 +20,7 @@ import {
 } from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
+import MapView from 'react-native-maps';
 import { getTripsAll, getTripsInterval } from 'ldmaapp/src/actions/tripActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
 /* Config/Constants
@@ -36,6 +40,7 @@ type Props = {
 };
 
 export class MyTripsScreen extends Component<Props, State> {
+
   constructor(props) {
     super(props);
 
@@ -43,8 +48,21 @@ export class MyTripsScreen extends Component<Props, State> {
 
     this.state = {
       isOpen: false,
-      isDateTimePickerVisible: false,
+      isDateTimePickerStartDateVisible: false,
+      isDateTimePickerEndDateVisible: false,
+      all: true,
+      today: false,
+      week: false,
+      month: false,
+      startDate: 'YYYY-MM-DD',
+      endDate: 'YYYY-MM-DD',
     };
+  }
+
+  componentDidMount() {
+    const { getTripsAll, user } = this.props;
+    console.log("this.props:")
+    getTripsAll(user);
   }
 
   onMenuItemSelected = () =>
@@ -62,18 +80,92 @@ export class MyTripsScreen extends Component<Props, State> {
     this.setState({ isOpen });
   }
 
-  showDateTimePicker = () => this.setState({ isDateTimePickerVisible: true });
+  getTripsPress = () => {
+    const { getTripsAll, getTripsInterval, user } = this.props;
+    const { all, startDate, endDate } = this.state;
+    if (all) {
+      getTripsAll(user);
+    }
+    else {
+      getTripsInterval(user, startDate, endDate);
+    }
+  }
 
-  hideDateTimePicker = () => this.setState({ isDateTimePickerVisible: false });
+  setAllDate() {
+    const { all } = this.state;
+    if (all) {
+      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
+    }
+  }
 
-  handleDatePicked = (date) => {
-    console.log('A date has been picked: ', date);
-    this.hideDateTimePicker();
+  setTodaysDate() {
+    const todayDate = moment().format('YYYY-MM-DD');
+    const { today } = this.state;
+    if (today) {
+      this.setState({ startDate: todayDate, endDate: todayDate });
+    } else {
+      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
+    }
+  }
+
+  setLastWeekDate() {
+    const weekAgoDate = moment().subtract(7,'d').format('YYYY-MM-DD');
+    const todayDate = moment().format('YYYY-MM-DD');
+    const { week } = this.state;
+    if (week) {
+      this.setState({ startDate: weekAgoDate, endDate: todayDate });
+    } else {
+      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
+    }
+  }
+
+  setLastMonthDate() {
+    const monthAgoDate = moment().subtract(1,'months').format('YYYY-MM-DD');
+    const todayDate = moment().format('YYYY-MM-DD');
+    const { month } = this.state;
+    if (month) {
+      this.setState({ startDate: monthAgoDate, endDate: todayDate });
+    } else {
+      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
+    }
+  }
+
+  // START/FROM Date methods
+  showDateTimePickerStartDate = () => this.setState({ isDateTimePickerStartDateVisible: true });
+
+  hideDateTimePickerStartDate = () => this.setState({ isDateTimePickerStartDateVisible: false });
+
+  // END/TO Date methods
+  showDateTimePickerEndDate = () => this.setState({ isDateTimePickerEndDateVisible: true });
+
+  hideDateTimePickerEndDate = () => this.setState({ isDateTimePickerEndDateVisible: false });
+
+  handleDatePickedStartDate = (date) => {
+    const dateMoment = moment(date);
+    const formattedDate = dateMoment.format('YYYY-MM-DD');
+    this.setState({ ...this.state, all: false, today: false, week: false, month: false, startDate: formattedDate });
+    this.hideDateTimePickerStartDate();
+  };
+
+  handleDatePickedEndDate = (date) => {
+    const dateMoment = moment(date);
+    const formattedDate = dateMoment.format('YYYY-MM-DD');
+    this.setState({ ...this.state, all: false, today: false, week: false, month: false, endDate: formattedDate });
+    this.hideDateTimePickerEndDate();
   };
 
   render() {
-    const { isOpen } = this.state;
+    const {
+      isOpen,
+      startDate,
+      endDate,
+      all,
+      today,
+      week,
+      month,
+    } = this.state;
     const { navigation, loading } = this.props;
+    const tripsList = safeGet(this.props, 'tripsList', []);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
 
     return (
@@ -98,39 +190,105 @@ export class MyTripsScreen extends Component<Props, State> {
           <View style={styles.dateSelect}>
             <View>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={styles.periodCubeSmall}>All</Text><Text style={styles.periodCubeSmall}>Today</Text>
+                <TouchableOpacity
+                  style={[styles.periodCubeSmall, all && { backgroundColor: COLORS.BLUE }]}
+                  onPress={() => {
+                    this.setState({ all: !all, today: false, week: false, month: false },
+                    () => this.setAllDate());
+                  }}
+                >
+                  <Text>All</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.periodCubeSmall, today && { backgroundColor: COLORS.BLUE }]}
+                  onPress={() => {
+                    this.setState({ all: false, today: !today, week: false, month: false },
+                    () => this.setTodaysDate());
+                  }}
+                >
+                  <Text>Today</Text>
+                </TouchableOpacity>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                <Text style={styles.periodCubeSmall}>Week</Text><Text style={styles.periodCubeSmall}>Month</Text>
+                <TouchableOpacity
+                  style={[styles.periodCubeSmall, week && { backgroundColor: COLORS.BLUE }]}
+                  onPress={() => {
+                    this.setState({ all: false, today: false, week: !week, month: false },
+                    () =>  this.setLastWeekDate());
+                  }}
+                >
+                  <Text>Week</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
+                  onPress={() => {
+                    this.setState({ all: false, today: false, week: false, month: !month },
+                    () => this.setLastMonthDate());
+                  }}
+                >
+                  <Text>Month</Text>
+                </TouchableOpacity>
               </View>
             </View>
             <View style={styles.periodCubeBig}>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={{ textAlign: 'left', width: 40 }}>From:</Text>
-                <TouchableOpacity onPress={this.showDateTimePicker}>
-                  <Text style={{ paddingLeft: 3 }}>TTMMJJ</Text>
+                <TouchableOpacity onPress={this.showDateTimePickerStartDate}>
+                  <Text style={{ paddingLeft: 3, width: 100 }}>{startDate}</Text>
                 </TouchableOpacity>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={{ textAlign: 'left', width: 40 }}>To:</Text>
-                <TouchableOpacity onPress={this.showDateTimePicker}>
-                  <Text style={{ paddingLeft: 3 }}>TTMMJJ</Text>
+                <TouchableOpacity onPress={this.showDateTimePickerEndDate}>
+                  <Text style={{ paddingLeft: 3, width: 100  }}>{endDate}</Text>
                 </TouchableOpacity>
               </View>
             </View>
           </View>
+          <TouchableOpacity
+            style={[styles.getTripsButton, ((!all && !today && !week && !month) && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')) && { opacity: 0.4 }]}
+            onPress={this.getTripsPress}
+            disabled={!all && !today && !week && !month && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')}
+          >
+            <Text style={styles.getTripsText}>Get trips</Text>
+          </TouchableOpacity>
 
-          <View style={{ display: 'flex', flexDirection: 'row', marginTop: 40 }}>
-            <Text style={styles.cubeLight}>{'Today\n12:23'}</Text>
-            <Text style={[styles.cubeLight, { marginRight: 10 }]}>{'Inffeldgasse 21a, 8010\nGraz'}</Text>
-            <PercentageCircle
-              radius={30}
-              percent={50}
-              color={COLORS.GREEN4}
-              borderWidth={2}
-              textStyle={{ fontSize: 12 }}
-            />
-          </View>
+
+          {/* render real trips */}
+          <ScrollView style={{ marginBottom: 100 }}>
+            {tripsList.map((trip) => {
+              return (<View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
+                <Text style={{ color: COLORS.BLUE, textAlign: 'center' }}>Trip info</Text>
+
+                <View style={{ flexDirection: 'row'}}>
+                  <Text style={{ fontSize: 10, width: 100 }}>{trip.start_at}</Text>
+                  <Text style={{ fontSize: 10, width: 100 }}>{trip.start_position_name}</Text>
+                  <PercentageCircle
+                    radius={30}
+                    percent={trip.risk_score}
+                    color={COLORS.GREEN4}
+                    borderWidth={2}
+                    textStyle={{ fontSize: 12 }}
+                />
+                </View>
+
+                <MapView
+                  style={{flex: 1, width: 200, height: 200}}
+                  region={{
+                  latitude: 42.882004,
+                  longitude: 74.582748,
+                  latitudeDelta: 0.0922,
+                  longitudeDelta: 0.0421,
+                }} />
+
+                <Text>Distance: {trip.distance}</Text>
+                <Text>Duration: {trip.duration}</Text>
+                <Text style={{ fontSize: 10, width: 200 }}>End position: {trip.end_position_name}</Text>
+              </View>
+            )})}
+          </ScrollView>
+
+
           <TouchableOpacity
             style={styles.goToNextScreen}
             onPress={() => NavigationService.navigate('Rankings')}
@@ -139,9 +297,14 @@ export class MyTripsScreen extends Component<Props, State> {
           </TouchableOpacity>
           {loading && <Loader />}
           <DateTimePicker
-            isVisible={this.state.isDateTimePickerVisible}
-            onConfirm={this.handleDatePicked}
-            onCancel={this.hideDateTimePicker}
+            isVisible={this.state.isDateTimePickerStartDateVisible}
+            onConfirm={this.handleDatePickedStartDate}
+            onCancel={this.hideDateTimePickerStartDate}
+          />
+          <DateTimePicker
+            isVisible={this.state.isDateTimePickerEndDateVisible}
+            onConfirm={this.handleDatePickedEndDate}
+            onCancel={this.hideDateTimePickerEndDate}
           />
         </View>
       </SideMenu>
@@ -168,8 +331,8 @@ const styles = StyleSheet.create({
     width: 90,
     marginLeft: 10,
     height: 30,
-    textAlign: 'center',
-    textAlignVertical: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   cubeLight: {
     borderColor: COLORS.BLUE,
@@ -234,10 +397,26 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: 20,
   },
+  getTripsButton: {
+    color: COLORS.BLUE,
+    backgroundColor: COLORS.BLUE,
+    width: 150,
+    height: 50,
+    alignSelf: 'flex-start',
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 15,
+    marginTop: 10,
+  },
+  getTripsText: {
+    color: COLORS.WHITE,
+  }
 });
 
 const mapStateToProps = (state) =>
   ({
+    tripsList: state.trip.tripsList,
     loading: state.loading,
     user: state.auth.user,
   });
