@@ -17,6 +17,9 @@ import {
   REQUEST_GET_TRIPS_INFO,
   REQUEST_GET_TRIPS_INFO_SUCCESS,
   REQUEST_GET_TRIPS_INFO_FAILURE,
+  REQUEST_GET_GRAPH_TRIPSCORE,
+  REQUEST_GET_GRAPH_TRIPSCORE_SUCCESS,
+  REQUEST_GET_GRAPH_TRIPSCORE_FAILURE,
 } from 'ldmaapp/src/actions/actionTypes';
 
 const loading = (state = false, action) => {
@@ -27,6 +30,7 @@ const loading = (state = false, action) => {
     case REQUEST_GET_TRIPS_ALL:
     case REQUEST_GET_TRIPS_INTERVAL:
     case REQUEST_GET_TRIPS_INFO:
+    case REQUEST_GET_GRAPH_TRIPSCORE:
       return true;
     case REQUEST_LOGIN_SUCCESS:
     case REQUEST_LOGIN_FAILURE:
@@ -40,6 +44,8 @@ const loading = (state = false, action) => {
     case REQUEST_GET_TRIPS_INTERVAL_FAILURE:
     case REQUEST_GET_TRIPS_INFO_SUCCESS:
     case REQUEST_GET_TRIPS_INFO_FAILURE:
+    case REQUEST_GET_GRAPH_TRIPSCORE_SUCCESS:
+    case REQUEST_GET_GRAPH_TRIPSCORE_FAILURE:
       return false;
     default:
       return state;

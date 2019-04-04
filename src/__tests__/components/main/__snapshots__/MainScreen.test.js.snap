@@ -210,58 +210,103 @@ min
         </View>
       </View>
     </View>
-    <View>
-      <LineChart
+    <Text
+      style={
+        Object {
+          "marginTop": 20,
+        }
+      }
+    >
+      Last 20 trip scores
+    </Text>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+        }
+      }
+    >
+      <YAxis
         contentInset={
           Object {
             "bottom": 20,
             "top": 20,
           }
         }
-        curve={[Function]}
-        data={
-          Array [
-            50,
-            10,
-            40,
-            95,
-            -4,
-            -24,
-            85,
-            91,
-            35,
-            53,
-            -53,
-            24,
-            50,
-            -20,
-            -80,
-          ]
-        }
-        height={100}
+        data={Array []}
+        formatLabel={[Function]}
         numberOfTicks={10}
-        style={
-          Object {
-            "height": 350,
-            "width": 675,
-          }
-        }
+        scale={[Function]}
+        spacingInner={0.05}
+        spacingOuter={0.05}
         svg={
           Object {
-            "stroke": "#32CD32",
+            "fill": "grey",
+            "fontSize": 10,
           }
         }
-        width={100}
-        xAccessor={[Function]}
-        xScale={[Function]}
         yAccessor={[Function]}
-        yScale={[Function]}
-      >
-        <Grid
-          belowChart={true}
-          direction="HORIZONTAL"
+      />
+      <View>
+        <LineChart
+          contentInset={
+            Object {
+              "bottom": 20,
+              "top": 20,
+            }
+          }
+          curve={[Function]}
+          data={Array []}
+          height={100}
+          numberOfTicks={10}
+          style={
+            Object {
+              "height": 250,
+              "width": 675,
+            }
+          }
+          svg={
+            Object {
+              "stroke": "#32CD32",
+            }
+          }
+          width={100}
+          xAccessor={[Function]}
+          xScale={[Function]}
+          yAccessor={[Function]}
+          yScale={[Function]}
+        >
+          <Grid
+            belowChart={true}
+            direction="HORIZONTAL"
+          />
+        </LineChart>
+        <XAxis
+          contentInset={
+            Object {
+              "left": 10,
+              "right": 10,
+            }
+          }
+          data={Array []}
+          formatLabel={[Function]}
+          scale={[Function]}
+          spacingInner={0.05}
+          spacingOuter={0.05}
+          style={
+            Object {
+              "marginHorizontal": -10,
+            }
+          }
+          svg={
+            Object {
+              "fill": "black",
+              "fontSize": 10,
+            }
+          }
+          xAccessor={[Function]}
         />
-      </LineChart>
+      </View>
     </View>
     <TouchableOpacity
       activeOpacity={0.2}

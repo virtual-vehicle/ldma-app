@@ -12,15 +12,15 @@ import { connect } from 'react-redux';
 import { get as safeGet } from 'lodash';
 import SideMenu from 'react-native-side-menu';
 import PercentageCircle from 'react-native-percentage-circle';
-import { LineChart, Grid } from 'react-native-svg-charts';
+import { LineChart, Grid, YAxis, XAxis } from 'react-native-svg-charts';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import {
 } from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getTripsInfo } from 'ldmaapp/src/actions/tripsInfoActions';
+import { getGraphTripscore } from 'ldmaapp/src/actions/graphTripscoreActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
-
 /* Config/Constants
 ============================================================================= */
 
@@ -35,6 +35,7 @@ type Props = {
   login: any,
   loading: boolean,
   tripsInfo: Array,
+  graphTripscoreList: Array,
 };
 
 export class MainScreen extends Component<Props, State> {
@@ -49,9 +50,10 @@ export class MainScreen extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { getTripsInfo } = this.props;
-    const auth_token = safeGet(this.props.user, 'auth_token', '');
+    const { getTripsInfo, getGraphTripscore, user } = this.props;
+    const auth_token = safeGet(user, 'auth_token', '');
     getTripsInfo(auth_token);
+    getGraphTripscore(auth_token);
   }
 
   onMenuItemSelected = () =>
@@ -72,9 +74,13 @@ export class MainScreen extends Component<Props, State> {
   render() {
     const { isOpen } = this.state;
 
-    const { loading, tripsInfo } = this.props;
+    const { loading, tripsInfo, graphTripscoreList } = this.props;
     const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
-    const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
+
+    let data = [];
+    if (graphTripscoreList) {
+      data = graphTripscoreList.map(scoreObj => scoreObj.risk_score);
+    }
 
     const numTrips = safeGet(tripsInfo, 'tripsList[0].value', '');
     const numEvents = safeGet(tripsInfo, 'tripsList[1].value', '');
@@ -125,15 +131,35 @@ export class MainScreen extends Component<Props, State> {
               </View>
             </View>
           </View>
-          <View>
-            <LineChart
-              style={{ height: 350, width: SCREEN_WIDTH * .9 }}
-              data={ data }
-              svg={{ stroke: COLORS.GREEN4 }}
-              contentInset={ contentInset }
-            >
+          <Text style={{ marginTop: 20 }}>Last 20 trip scores</Text>
+          <View style={{ flexDirection: 'row' }}>
+            <YAxis
+              data={data}
+              contentInset={contentInset}
+              svg={{
+                fill: 'grey',
+                fontSize: 10,
+              }}
+              numberOfTicks={ 10 }
+              formatLabel={ value => value }
+            />
+            <View>
+              <LineChart
+                style={{ height: 250, width: SCREEN_WIDTH * .9 }}
+                data={ data }
+                svg={{ stroke: COLORS.GREEN4 }}
+                contentInset={ contentInset }
+              >
               <Grid />
-            </LineChart>
+              </LineChart>
+              <XAxis
+                style={{ marginHorizontal: -10 }}
+                data={ data }
+                formatLabel={ index => index }
+                contentInset={{ left: 10, right: 10 }}
+                svg={{ fontSize: 10, fill: 'black' }}
+              />
+            </View>
           </View>
           <TouchableOpacity
             style={styles.goToNextScreen}
@@ -218,11 +244,13 @@ const mapStateToProps = (state) =>
     loading: state.loading,
     user: state.auth.user,
     tripsInfo: state.tripsInfo,
+    graphTripscoreList: state.graphTripscore.tripscoreList,
   });
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({
     getTripsInfo,
+    getGraphTripscore,
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
