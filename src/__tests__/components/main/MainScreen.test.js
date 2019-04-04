@@ -8,6 +8,7 @@ Enzyme.configure({ adapter: new Adapter() });
 function setup() {
   const props = {
     getTripsInfo: jest.fn(),
+    getGraphTripscore: jest.fn(),
   };
 
   const wrapper = shallow(<MainScreen {...props} />);

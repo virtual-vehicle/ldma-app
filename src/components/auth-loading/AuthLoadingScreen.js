@@ -18,7 +18,7 @@ export class AuthLoadingScreen extends Component {
     // This will switch to the App screen or Auth screen and this loading
     // screen will be unmounted and thrown away.
     const user = JSON.parse(userString);
-    const { dispatch, navigation } = this.props;
+    const { dispatch } = this.props;
     dispatch({ type: REQUEST_LOGIN_SUCCESS, user });
 
     if (!user) {
