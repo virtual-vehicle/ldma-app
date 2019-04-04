@@ -166,6 +166,7 @@ export class MyTripsScreen extends Component<Props, State> {
     } = this.state;
     const { navigation, loading } = this.props;
     const tripsList = safeGet(this.props, 'tripsList', []);
+    console.log("tripsList:", tripsList);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
 
     return (
@@ -272,7 +273,7 @@ export class MyTripsScreen extends Component<Props, State> {
                 />
                 </View>
 
-                <MapView
+                {/*<MapView
                   style={{flex: 1, width: 200, height: 200}}
                   region={{
                   latitude: 42.882004,
@@ -280,9 +281,13 @@ export class MyTripsScreen extends Component<Props, State> {
                   latitudeDelta: 0.0922,
                   longitudeDelta: 0.0421,
                 }} />
+              */}
 
                 <Text>Distance: {trip.distance}</Text>
                 <Text>Duration: {trip.duration}</Text>
+                <Text>Hard brakes: {trip.brakes}</Text>
+                <Text>Accelerations: {trip.accelerations}</Text>
+                <Text>Stand stills: {trip.standstills}</Text>
                 <Text style={{ fontSize: 10, width: 200 }}>End position: {trip.end_position_name}</Text>
               </View>
             )})}

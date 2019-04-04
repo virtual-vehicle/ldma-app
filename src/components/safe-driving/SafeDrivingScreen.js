@@ -73,7 +73,7 @@ export class SafeDrivingScreen extends Component<Props, State> {
     const totalTime = safeGet(tripsInfo, 'tripsList[3].value', '');
     const numAccelerations = safeGet(tripsInfo, 'tripsList[4].value', '');
     const numBrakes = safeGet(tripsInfo, 'tripsList[5].value', '');
-    const numStandHills = safeGet(tripsInfo, 'tripsList[6].value', '');
+    const numStandStills = safeGet(tripsInfo, 'tripsList[6].value', '');
     const driverScore = safeGet(tripsInfo, 'tripsList[7].value', '');
 
     return (
@@ -120,7 +120,7 @@ export class SafeDrivingScreen extends Component<Props, State> {
                   <Text style={styles.cube}>{`${numBrakes}\nbrakes`}</Text>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                  <Text style={styles.cube}>{`${numStandHills}\n stand hills`}</Text>
+                  <Text style={styles.cube}>{`${numStandStills}\n stand stills`}</Text>
                 </View>
               </View>
             </View>
