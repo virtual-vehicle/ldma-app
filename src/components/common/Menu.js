@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { Email } from 'react-native-openanything';
+import email from 'react-native-email';
 import { get as safeGet } from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import { COLORS } from 'ldmaapp/src/constants/colors';
@@ -28,7 +28,7 @@ export class Menu extends Component<Props> {
   onSupportClick = (emailTo) => {
     const { user } = this.props;
     const username = safeGet(user, 'username', '');
-    const email = emailTo;
+    const to = emailTo;
     const subject = 'LDMA: Feedback/Questions';
     const device = `${DeviceInfo.getBrand()} ${DeviceInfo.getModel()}`;
     const osVersion = `${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`;
@@ -41,7 +41,12 @@ export class Menu extends Component<Props> {
     User: ${username}
     App version: ${appVersion}`;
 
-    Email(email, subject, body).catch(err => console.error(err));
+    // it does not work in emulator/simulator, because apple does not allow it.
+    email(to, {
+      // Optional additional arguments
+      subject: subject,
+      body: body,
+    }).catch(console.error)
   }
 
   userLogout(e) {
