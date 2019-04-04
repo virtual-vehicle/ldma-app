@@ -13,8 +13,6 @@ import { connect } from 'react-redux';
 import SideMenu from 'react-native-side-menu';
 import { get as safeGet } from 'lodash';
 import { COLORS } from 'ldmaapp/src/constants/colors';
-import {
-} from 'ldmaapp/src/actions/uiActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getRanking } from 'ldmaapp/src/actions/rankingActions';
