@@ -24,6 +24,7 @@ import Menu from 'ldmaapp/src/components/common/Menu';
 import MapView from 'react-native-maps';
 import { getTripsAll, getTripsInterval } from 'ldmaapp/src/actions/tripActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
+import { getTimeOutOfWholeDate, getDateOutOfWholeDate } from 'ldmaapp/src/utils/format';
 /* Config/Constants
 ============================================================================= */
 
@@ -263,7 +264,7 @@ export class MyTripsScreen extends Component<Props, State> {
                 <View style={{ flexDirection: 'row' }}>
                   {/* FIRST COLUMN */}
                   <View style={{ flexDirection: 'column', width: '33.3%' }}>
-                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_at}</Text>
+                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${getTimeOutOfWholeDate(trip.start_at)}`}</Text>
                     <View
                     style={[
                       { alignItems: 'center', justifyContent: 'center', height: 170 },
@@ -282,7 +283,7 @@ export class MyTripsScreen extends Component<Props, State> {
                         />
                       </Svg>
                     </View>
-                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_at}</Text>
+                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm:ss')}`}</Text>
                   </View>
                   {/* SECOND COLUMN */}
                   <View style={{ flexDirection: 'column', width: '33.3%' }}>
