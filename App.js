@@ -29,22 +29,4 @@ class App extends React.Component {
   }
 }
 
-/*
-const codePushOptions = {
-  installMode: CodePush.InstallMode.IMMEDIATE,
-  checkFrequency: CodePush.CheckFrequency.ON_APP_RESUME,
-  updateDialog: true,
-};
-*/
-
-/* CodePush.getUpdateMetadata().then((update) => {
-  if (update) {
-    console.log("\n\n\n\n\n\n", update, "hi\n\n\n\n\n")
-  } else {
-    console.log("\n\n\n\n\n\n none hi\n\n\n\n\n")
-  }
-});
-*/
-
-// export default CodePush(codePushOptions)(App);
 export default App;

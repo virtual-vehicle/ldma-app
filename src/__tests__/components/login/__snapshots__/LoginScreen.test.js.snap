@@ -44,7 +44,7 @@ exports[`LoginScreen component should renders correctly 1`] = `
           }
         }
       >
-        <Component
+        <Image
           source={null}
           style={
             Object {
@@ -105,7 +105,7 @@ exports[`LoginScreen component should renders correctly 1`] = `
               }
             }
           >
-            <Component
+            <Image
               source={null}
               style={
                 Object {
@@ -127,6 +127,7 @@ exports[`LoginScreen component should renders correctly 1`] = `
               onChangeText={[Function]}
               placeholder="Username"
               placeholderTextColor="#d1d1d1"
+              rejectResponderTermination={true}
               style={
                 Object {
                   "backgroundColor": "#FFF",
@@ -164,7 +165,7 @@ exports[`LoginScreen component should renders correctly 1`] = `
               }
             }
           >
-            <Component
+            <Image
               source={null}
               style={
                 Object {
@@ -185,6 +186,7 @@ exports[`LoginScreen component should renders correctly 1`] = `
               onChangeText={[Function]}
               placeholder="Password"
               placeholderTextColor="#d1d1d1"
+              rejectResponderTermination={true}
               secureTextEntry={true}
               style={
                 Object {

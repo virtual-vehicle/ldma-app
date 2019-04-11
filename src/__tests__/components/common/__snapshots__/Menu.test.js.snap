@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Menu component renders correctly 1`] = `
-<ScrollView
+<ScrollViewMock
   scrollsToTop={false}
   style={
     Object {
@@ -216,5 +216,5 @@ exports[`Menu component renders correctly 1`] = `
       </TouchableOpacity>
     </View>
   </View>
-</ScrollView>
+</ScrollViewMock>
 `;

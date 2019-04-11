@@ -46,7 +46,7 @@ exports[`MainScreen component should renders correctly 1`] = `
         }
       }
     >
-      <Component
+      <Image
         source={null}
         style={
           Object {

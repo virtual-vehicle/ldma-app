@@ -46,7 +46,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
         }
       }
     >
-      <Component
+      <Image
         source={null}
         style={
           Object {
@@ -79,7 +79,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
         Rankings
       </Text>
     </View>
-    <ScrollView
+    <ScrollViewMock
       style={
         Object {
           "display": "flex",
@@ -94,7 +94,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           There is no ranking.
         </Text>
       </View>
-    </ScrollView>
+    </ScrollViewMock>
     <TouchableOpacity
       activeOpacity={0.2}
       onPress={[Function]}

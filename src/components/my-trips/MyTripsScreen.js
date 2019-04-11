@@ -254,10 +254,9 @@ export class MyTripsScreen extends Component<Props, State> {
             <Text style={styles.getTripsText}>Get trips</Text>
           </TouchableOpacity>
 
-
           {/* render real trips */}
           <ScrollView style={{ marginBottom: 100 }}>
-            {tripsList.map((trip) => {
+            {tripsList.map((trip, index) => {
               return (<View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
                 <Text style={{ color: COLORS.BLUE, textAlign: 'center' }}>Trip info</Text>
 
@@ -272,17 +271,16 @@ export class MyTripsScreen extends Component<Props, State> {
                     textStyle={{ fontSize: 12 }}
                 />
                 </View>
-
-                {/*<MapView
+                {index === 0 && <MapView
                   style={{flex: 1, width: 200, height: 200}}
                   region={{
-                  latitude: 42.882004,
-                  longitude: 74.582748,
-                  latitudeDelta: 0.0922,
-                  longitudeDelta: 0.0421,
-                }} />
-              */}
-
+                    latitude: 42.882004,
+                    longitude: 74.582748,
+                    latitudeDelta: 0.0922,
+                    longitudeDelta: 0.0421,
+                  }}
+                   />
+                }
                 <Text>Distance: {trip.distance}</Text>
                 <Text>Duration: {trip.duration}</Text>
                 <Text>Hard brakes: {trip.brakes}</Text>
@@ -292,8 +290,6 @@ export class MyTripsScreen extends Component<Props, State> {
               </View>
             )})}
           </ScrollView>
-
-
           <TouchableOpacity
             style={styles.goToNextScreen}
             onPress={() => NavigationService.navigate('Rankings')}
