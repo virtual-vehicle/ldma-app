@@ -21,10 +21,10 @@ import {
 import Svg,{ Line } from 'react-native-svg';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
-import MapView from 'react-native-maps';
+import MapView, { Polyline } from 'react-native-maps';
 import { getTripsAll, getTripsInterval } from 'ldmaapp/src/actions/tripActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
-import { getTimeOutOfWholeDate, getDateOutOfWholeDate } from 'ldmaapp/src/utils/format';
+import { getTimeOutOfWholeDate, getDateOutOfWholeDate, formatCoordinates } from 'ldmaapp/src/utils/format';
 /* Config/Constants
 ============================================================================= */
 
@@ -63,7 +63,6 @@ export class MyTripsScreen extends Component<Props, State> {
 
   componentDidMount() {
     const { getTripsAll, user } = this.props;
-    console.log("this.props:")
     getTripsAll(user);
   }
 
@@ -168,7 +167,6 @@ export class MyTripsScreen extends Component<Props, State> {
     } = this.state;
     const { navigation, loading } = this.props;
     const tripsList = safeGet(this.props, 'tripsList', []);
-    console.log("tripsList:", tripsList);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
 
     return (
@@ -292,12 +290,19 @@ export class MyTripsScreen extends Component<Props, State> {
                       (<MapView
                         style={{ width: 150, height: 150, marginTop: 10, marginLeft: -35 }}
                         region={{
-                          latitude: 42.882004,
-                          longitude: 74.582748,
-                          latitudeDelta: 0.0922,
-                          longitudeDelta: 0.0421,
+                          latitude: trip.gps_track.coordinates[0].lat,
+                          longitude: trip.gps_track.coordinates[0].lon,
+                          latitudeDelta: 0.05,
+                          longitudeDelta: 0.05,
                         }}
-                      />)
+                      >
+                      <Polyline
+                        coordinates={formatCoordinates(trip.gps_track.coordinates)}
+                        strokeColor="#0000ff" // fallback for when `strokeColors` is not supported by the map-provider
+                        strokeWidth={6}
+                      />
+                      </MapView>
+                      )
                       :
                       (
                       <View style={{ height: 150, justifyContent: 'center', alignItems: 'center' }}>
@@ -324,7 +329,7 @@ export class MyTripsScreen extends Component<Props, State> {
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.brakes} Hard\nbrakes`}</Text>
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.accelerations} Fast\naccel.`}</Text>
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.standstills} Stand\nstills`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>Distance: {Number(trip.distance).toFixed(1)}</Text>
+                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>Distance: {(Number(trip.distance).toFixed(1)/1000)}km</Text>
                     {/*<Text>Duration: {trip.duration}</Text>*/}
                   </View>
                 </View>

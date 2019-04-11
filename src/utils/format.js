@@ -20,3 +20,11 @@ export const getDateOutOfWholeDate = value => {
   const date = value.split("T")[0];
   return date;
 }
+
+export const formatCoordinates = coordinatesArray => {
+  if (!coordinatesArray) {
+    return [];
+  }
+  const newCoordinatesArray = coordinatesArray.map(elm => ({ latitude: elm.lat, longitude: elm.lon }));
+  return newCoordinatesArray;
+}
