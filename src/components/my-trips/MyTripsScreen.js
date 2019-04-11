@@ -18,6 +18,7 @@ import PercentageCircle from 'react-native-percentage-circle';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import {
 } from 'ldmaapp/src/actions/uiActions';
+import Svg,{ Line } from 'react-native-svg';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import MapView from 'react-native-maps';
@@ -255,38 +256,77 @@ export class MyTripsScreen extends Component<Props, State> {
           </TouchableOpacity>
 
           {/* render real trips */}
-          <ScrollView style={{ marginBottom: 100 }}>
+          <ScrollView style={{ marginBottom: 100, width: '100%' }}>
             {tripsList.map((trip, index) => {
               return (<View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
                 <Text style={{ color: COLORS.BLUE, textAlign: 'center' }}>Trip info</Text>
-
-                <View style={{ flexDirection: 'row'}}>
-                  <Text style={{ fontSize: 10, width: 100 }}>{trip.start_at}</Text>
-                  <Text style={{ fontSize: 10, width: 100 }}>{trip.start_position_name}</Text>
-                  <PercentageCircle
-                    radius={30}
-                    percent={trip.risk_score}
-                    color={COLORS.GREEN4}
-                    borderWidth={2}
-                    textStyle={{ fontSize: 12 }}
-                />
+                <View style={{ flexDirection: 'row' }}>
+                  {/* FIRST COLUMN */}
+                  <View style={{ flexDirection: 'column', width: '33.3%' }}>
+                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_at}</Text>
+                    <View
+                    style={[
+                      { alignItems: 'center', justifyContent: 'center', height: 170 },
+                    ]}>
+                      <Svg
+                        height="170"
+                        width="2"
+                      >
+                        <Line
+                          x1="0"
+                          y1="0"
+                          x2="0"
+                          y2="170"
+                          stroke={COLORS.BLUE}
+                          strokeWidth="2"
+                        />
+                      </Svg>
+                    </View>
+                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_at}</Text>
+                  </View>
+                  {/* SECOND COLUMN */}
+                  <View style={{ flexDirection: 'column', width: '33.3%' }}>
+                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_position_name}</Text>
+                    {index === 0 ?
+                      (<MapView
+                        style={{ width: 150, height: 150, marginTop: 10, marginLeft: -35 }}
+                        region={{
+                          latitude: 42.882004,
+                          longitude: 74.582748,
+                          latitudeDelta: 0.0922,
+                          longitudeDelta: 0.0421,
+                        }}
+                      />)
+                      :
+                      (
+                      <View style={{ height: 150, justifyContent: 'center', alignItems: 'center' }}>
+                        <TouchableOpacity
+                          style={styles.showMapButton}
+                          onPress={() => console.log("show map button")}
+                        >
+                          <Text style={{ color: COLORS.WHITE }}>Show Map</Text>
+                        </TouchableOpacity>
+                      </View>
+                      )
+                    }
+                    <Text style={{ fontSize: 10, width: 100, marginTop: 10, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.end_position_name}</Text>
+                  </View>
+                  {/* THIRD COLUMN */}
+                  <View style={{ flexDirection: 'column', width: '33.3%', alignItems: 'flex-end' }}>
+                    <PercentageCircle
+                      radius={30}
+                      percent={trip.risk_score}
+                      color={COLORS.GREEN4}
+                      borderWidth={2}
+                      textStyle={{ fontSize: 12 }}
+                    />
+                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.brakes} Hard\nbrakes`}</Text>
+                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.accelerations} Fast\naccel.`}</Text>
+                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.standstills} Stand\nstills`}</Text>
+                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>Distance: {Number(trip.distance).toFixed(1)}</Text>
+                    {/*<Text>Duration: {trip.duration}</Text>*/}
+                  </View>
                 </View>
-                {index === 0 && <MapView
-                  style={{flex: 1, width: 200, height: 200}}
-                  region={{
-                    latitude: 42.882004,
-                    longitude: 74.582748,
-                    latitudeDelta: 0.0922,
-                    longitudeDelta: 0.0421,
-                  }}
-                   />
-                }
-                <Text>Distance: {trip.distance}</Text>
-                <Text>Duration: {trip.duration}</Text>
-                <Text>Hard brakes: {trip.brakes}</Text>
-                <Text>Accelerations: {trip.accelerations}</Text>
-                <Text>Stand stills: {trip.standstills}</Text>
-                <Text style={{ fontSize: 10, width: 200 }}>End position: {trip.end_position_name}</Text>
               </View>
             )})}
           </ScrollView>
@@ -334,18 +374,6 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  cubeLight: {
-    borderColor: COLORS.BLUE,
-    borderWidth: 1,
-    fontSize: 16,
-    padding: 5,
-    paddingLeft: 10,
-    paddingRight: 10,
-    marginLeft: 10,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    height: 60,
   },
   periodCubeBig: {
     borderColor: COLORS.BLUE,
@@ -397,6 +425,15 @@ const styles = StyleSheet.create({
   goToNextScreenText: {
     color: COLORS.WHITE,
     fontSize: 20,
+  },
+  showMapButton: {
+    color: COLORS.BLUE,
+    backgroundColor: COLORS.BLUE,
+    width: '80%',
+    height: 50,
+    borderRadius: 5,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   getTripsButton: {
     color: COLORS.BLUE,
