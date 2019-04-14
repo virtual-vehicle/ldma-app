@@ -5,12 +5,12 @@ import {
   REQUEST_GET_TRIPS_INTERVAL,
   REQUEST_GET_TRIPS_INTERVAL_SUCCESS,
   REQUEST_GET_TRIPS_INTERVAL_FAILURE,
-  SET_VISIBLE_MAP,
+  SET_MAP_VISIBLE,
 } from 'ldmaapp/src/actions/actionTypes';
 import { tripService } from 'ldmaapp/src/services/tripService';
 
-export const setVisbleMap = tripIndex => ({
-  type: SET_VISIBLE_MAP,
+export const setMapVisible = tripIndex => ({
+  type: SET_MAP_VISIBLE,
   tripIndex,
 });
 

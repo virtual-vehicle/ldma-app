@@ -22,7 +22,7 @@ import Svg,{ Line } from 'react-native-svg';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import MapView, { Polyline } from 'react-native-maps';
-import { getTripsAll, getTripsInterval } from 'ldmaapp/src/actions/tripActions';
+import { getTripsAll, getTripsInterval, setMapVisible } from 'ldmaapp/src/actions/tripActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
 import { getTimeOutOfWholeDate, getDateOutOfWholeDate, formatCoordinates } from 'ldmaapp/src/utils/format';
 /* Config/Constants
@@ -155,6 +155,10 @@ export class MyTripsScreen extends Component<Props, State> {
     this.hideDateTimePickerEndDate();
   };
 
+  showMapPress = tripIndex => {
+    setMapVisible(tripIndex);
+  }
+
   render() {
     const {
       isOpen,
@@ -286,7 +290,7 @@ export class MyTripsScreen extends Component<Props, State> {
                   {/* SECOND COLUMN */}
                   <View style={{ flexDirection: 'column', width: '33.3%' }}>
                     <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_position_name}</Text>
-                    {index === 0 ?
+                    {trip.map_visible ?
                       (<MapView
                         style={{ width: 150, height: 150, marginTop: 10, marginLeft: -35 }}
                         region={{
@@ -308,7 +312,7 @@ export class MyTripsScreen extends Component<Props, State> {
                       <View style={{ height: 150, justifyContent: 'center', alignItems: 'center' }}>
                         <TouchableOpacity
                           style={styles.showMapButton}
-                          onPress={() => console.log("show map button")}
+                          onPress={() => this.showMapPress(index)}
                         >
                           <Text style={{ color: COLORS.WHITE }}>Show Map</Text>
                         </TouchableOpacity>
@@ -469,6 +473,7 @@ const mapDispatchToProps = (dispatch) =>
   bindActionCreators({
     getTripsAll,
     getTripsInterval,
+    setMapVisible,
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyTripsScreen);
