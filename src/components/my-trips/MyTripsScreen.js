@@ -156,6 +156,7 @@ export class MyTripsScreen extends Component<Props, State> {
   };
 
   showMapPress = tripIndex => {
+    const { setMapVisible } = this.props;
     setMapVisible(tripIndex);
   }
 
@@ -269,17 +270,17 @@ export class MyTripsScreen extends Component<Props, State> {
                     <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${getTimeOutOfWholeDate(trip.start_at)}`}</Text>
                     <View
                     style={[
-                      { alignItems: 'center', justifyContent: 'center', height: 170 },
+                      { alignItems: 'center', justifyContent: 'center', height: 180 },
                     ]}>
                       <Svg
-                        height="170"
+                        height="180"
                         width="2"
                       >
                         <Line
                           x1="0"
                           y1="0"
                           x2="0"
-                          y2="170"
+                          y2="180"
                           stroke={COLORS.BLUE}
                           strokeWidth="2"
                         />
@@ -309,7 +310,7 @@ export class MyTripsScreen extends Component<Props, State> {
                       )
                       :
                       (
-                      <View style={{ height: 150, justifyContent: 'center', alignItems: 'center' }}>
+                      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
                         <TouchableOpacity
                           style={styles.showMapButton}
                           onPress={() => this.showMapPress(index)}
@@ -319,7 +320,7 @@ export class MyTripsScreen extends Component<Props, State> {
                       </View>
                       )
                     }
-                    <Text style={{ fontSize: 10, width: 100, marginTop: 10, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.end_position_name}</Text>
+                    <Text style={{ fontSize: 10, width: 100, marginTop: 10, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, alignSelf: 'flex-end' }}>{trip.end_position_name}</Text>
                   </View>
                   {/* THIRD COLUMN */}
                   <View style={{ flexDirection: 'column', width: '33.3%', alignItems: 'flex-end' }}>
@@ -333,7 +334,7 @@ export class MyTripsScreen extends Component<Props, State> {
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.brakes} Hard\nbrakes`}</Text>
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.accelerations} Fast\naccel.`}</Text>
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.standstills} Stand\nstills`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>Distance: {(Number(trip.distance).toFixed(1)/1000)}km</Text>
+                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>Distance: {Number((trip.distance)/1000).toFixed(2)}km</Text>
                     {/*<Text>Duration: {trip.duration}</Text>*/}
                   </View>
                 </View>

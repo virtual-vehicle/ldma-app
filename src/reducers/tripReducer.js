@@ -26,16 +26,14 @@ const trip = (state = {}, action = {}) => {
         error: action.error,
       };
     case SET_MAP_VISIBLE:
-      console.log("set mape visible:");
-      console.log("state:", state);
       return {
         tripsList: [
-          ...state.slice(0, action.tripIndex),
+          ...state.tripsList.slice(0, action.tripIndex),
           {
-            ...state[action.tripIndex],
+            ...state.tripsList[action.tripIndex],
             map_visible: true,
           },
-          ...state.slice(action.tripIndex + 1),
+          ...state.tripsList.slice(action.tripIndex + 1),
         ],
       }
     default:
