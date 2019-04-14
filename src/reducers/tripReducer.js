@@ -5,6 +5,7 @@ import {
   REQUEST_GET_TRIPS_INTERVAL,
   REQUEST_GET_TRIPS_INTERVAL_SUCCESS,
   REQUEST_GET_TRIPS_INTERVAL_FAILURE,
+  SET_MAP_VISIBLE,
 } from 'ldmaapp/src/actions/actionTypes';
 
 const trip = (state = {}, action = {}) => {
@@ -24,6 +25,17 @@ const trip = (state = {}, action = {}) => {
       return {
         error: action.error,
       };
+    case SET_MAP_VISIBLE:
+      return {
+        tripsList: [
+          ...state.tripsList.slice(0, action.tripIndex),
+          {
+            ...state.tripsList[action.tripIndex],
+            map_visible: true,
+          },
+          ...state.tripsList.slice(action.tripIndex + 1),
+        ],
+      }
     default:
       return state;
   }

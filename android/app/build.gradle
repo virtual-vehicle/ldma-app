@@ -108,6 +108,21 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
+    signingConfigs {
+        release {
+            if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL")) {
+                storeFile file(System.getenv("BITRISE_SOURCE_DIR") + "/android.keystore")
+                storePassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PASSWORD")
+                keyAlias System.getenv("BITRISEIO_ANDROID_KEYSTORE_ALIAS")
+                keyPassword System.getenv("BITRISEIO_ANDROID_KEYSTORE_PRIVATE_KEY_PASSWORD")
+            } else {
+                storeFile file(MYAPP_RELEASE_STORE_FILE)
+                storePassword MYAPP_RELEASE_STORE_PASSWORD
+                keyAlias MYAPP_RELEASE_KEY_ALIAS
+                keyPassword MYAPP_RELEASE_KEY_PASSWORD
+            }
+        }
+    }
     splits {
         abi {
             reset()
