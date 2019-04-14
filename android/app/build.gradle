@@ -108,7 +108,7 @@ android {
             abiFilters "armeabi-v7a", "x86"
         }
     }
-    ssigningConfigs {
+    signingConfigs {
         release {
             if (System.getenv("BITRISEIO_ANDROID_KEYSTORE_URL")) {
                 storeFile file(System.getenv("BITRISE_SOURCE_DIR") + "/android.keystore")
