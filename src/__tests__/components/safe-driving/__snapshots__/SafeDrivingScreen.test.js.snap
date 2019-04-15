@@ -160,7 +160,7 @@ trips
               }
             }
           >
-            
+            0
 km
           </Text>
         </View>
@@ -204,7 +204,7 @@ events
               }
             }
           >
-            
+            0
 min
           </Text>
         </View>

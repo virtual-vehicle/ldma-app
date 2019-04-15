@@ -109,11 +109,11 @@ export class SafeDrivingScreen extends Component<Props, State> {
               <View>
                 <View style={{ display: 'flex', flexDirection: 'row' }}>
                   <Text style={styles.cube}>{`${numTrips}\ntrips`}</Text>
-                  <Text style={styles.cube}>{`${distance}\nkm`}</Text>
+                  <Text style={styles.cube}>{`${Number(distance/1000).toFixed(0)}\nkm`}</Text>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
                   <Text style={styles.cube}>{`${numEvents}\nevents`}</Text>
-                  <Text style={styles.cube}>{`${totalTime}\nmin`}</Text>
+                  <Text style={styles.cube}>{`${Number(totalTime/60).toFixed(0)}\nmin`}</Text>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
                   <Text style={styles.cube}>{`${numAccelerations}\naccelerations`}</Text>
