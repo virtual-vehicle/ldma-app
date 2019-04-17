@@ -91,6 +91,17 @@ export class MainScreen extends Component<Props, State> {
 
     const contentInset = { top: 20, bottom: 20 };
 
+    let startDate = '';
+    if (graphTripscoreList) {
+      startDate = safeGet(graphTripscoreList[0], 'start_at', '');
+    }
+
+    let endDate = '';
+    if (graphTripscoreList) {
+      const index = graphTripscoreList.length -1;
+      endDate = safeGet(graphTripscoreList[index], 'start_at', '');
+    }
+
     return (
       <SideMenu
         menu={menu}
@@ -156,7 +167,14 @@ export class MainScreen extends Component<Props, State> {
               <XAxis
                 style={{ marginHorizontal: -10 }}
                 data={ data }
-                formatLabel={ index => index }
+                formatLabel={ (value, index) => {
+                  if (index === 0) {
+                    return startDate;
+                  }
+                  else if (index === 19) {
+                    return endDate;
+                  }
+                }}
                 contentInset={{ left: 10, right: 10 }}
                 svg={{ fontSize: 10, fill: 'black' }}
               />
