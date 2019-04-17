@@ -28,3 +28,17 @@ export const formatCoordinates = coordinatesArray => {
   const newCoordinatesArray = coordinatesArray.map(elm => ({ latitude: elm.lat, longitude: elm.lon }));
   return newCoordinatesArray;
 }
+
+export const convertMinutesToHoursMinutes = minutes => {
+  if (!minutes) {
+    return `0 min`;
+  }
+  if (minutes < 60) {
+    return `${minutes}\nmin`;
+  }
+
+  const hours = Math.floor(minutes/60);
+  const remainMinutes = minutes % 60;
+
+  return `${hours} h\n${remainMinutes} min`;
+}

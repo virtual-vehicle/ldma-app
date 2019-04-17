@@ -18,6 +18,7 @@ import {
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import NavigationService from 'ldmaapp/src/utils/navigation';
+import { convertMinutesToHoursMinutes } from 'ldmaapp/src/utils/format';
 
 /* Config/Constants
 ============================================================================= */
@@ -113,7 +114,7 @@ export class SafeDrivingScreen extends Component<Props, State> {
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
                   <Text style={styles.cube}>{`${numEvents}\nevents`}</Text>
-                  <Text style={styles.cube}>{`${totalTime}\nmin`}</Text>
+                  <Text style={styles.cube}>{convertMinutesToHoursMinutes(totalTime)}</Text>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
                   <Text style={styles.cube}>{`${numAccelerations}\naccelerations`}</Text>

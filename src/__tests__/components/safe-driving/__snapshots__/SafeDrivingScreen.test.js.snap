@@ -204,8 +204,7 @@ events
               }
             }
           >
-            
-min
+            0 min
           </Text>
         </View>
         <View

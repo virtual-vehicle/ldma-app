@@ -21,6 +21,7 @@ import Menu from 'ldmaapp/src/components/common/Menu';
 import { getTripsInfo } from 'ldmaapp/src/actions/tripsInfoActions';
 import { getGraphTripscore } from 'ldmaapp/src/actions/graphTripscoreActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
+import { convertMinutesToHoursMinutes } from 'ldmaapp/src/utils/format';
 /* Config/Constants
 ============================================================================= */
 
@@ -127,8 +128,7 @@ export class MainScreen extends Component<Props, State> {
               </View>
               <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
                 <Text style={styles.cube}>{`${numEvents}\nevents`}</Text>
-                {/* TODO: if there hours add 3h 23min, otherwise only 23min  */}
-                <Text style={styles.cube}>{`${totalTime}\nmin`}</Text>
+                <Text style={styles.cube}>{convertMinutesToHoursMinutes(totalTime)}</Text>
               </View>
             </View>
           </View>
