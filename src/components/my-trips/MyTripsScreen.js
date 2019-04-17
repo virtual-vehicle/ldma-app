@@ -263,7 +263,7 @@ export class MyTripsScreen extends Component<Props, State> {
           <ScrollView style={{ marginBottom: 100, width: '100%' }}>
             {tripsList.map((trip, index) => {
               return (<View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
-                <Text style={{ color: COLORS.BLUE, textAlign: 'center' }}>Trip info</Text>
+                <Text style={{ color: COLORS.BLUE, textAlign: 'center', paddingBottom: 10 }}>Trip info</Text>
                 <View style={{ flexDirection: 'row' }}>
                   {/* FIRST COLUMN */}
                   <View style={{ flexDirection: 'column', width: '33.3%' }}>
@@ -334,7 +334,7 @@ export class MyTripsScreen extends Component<Props, State> {
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.brakes} Hard\nbrakes`}</Text>
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.accelerations} Fast\naccel.`}</Text>
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.standstills} Stand\nstills`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`Distance: ${trip.distance} km`}</Text>
+                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`Distance: \n${trip.distance} km`}</Text>
                   </View>
                 </View>
               </View>
