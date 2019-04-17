@@ -123,12 +123,12 @@ export class MainScreen extends Component<Props, State> {
             <View>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={styles.cube}>{`${numTrips}\ntrips`}</Text>
-                <Text style={styles.cube}>{`${Number(distance/1000).toFixed(0)}\nkm`}</Text>
+                <Text style={styles.cube}>{`${distance}\nkm`}</Text>
               </View>
               <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
                 <Text style={styles.cube}>{`${numEvents}\nevents`}</Text>
                 {/* TODO: if there hours add 3h 23min, otherwise only 23min  */}
-                <Text style={styles.cube}>{`${Number(totalTime/60).toFixed(0)}\nmin`}</Text>
+                <Text style={styles.cube}>{`${totalTime}\nmin`}</Text>
               </View>
             </View>
           </View>
