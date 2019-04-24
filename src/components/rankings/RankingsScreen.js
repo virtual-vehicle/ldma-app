@@ -96,12 +96,18 @@ export class RankingsScreen extends Component<Props, State> {
             <Text style={styles.headerText}>Rankings</Text>
           </View>
           <ScrollView style={styles.content}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderColor: COLORS.BLUE, borderWidth: 2, flex: 1, marginBottom: 10 }}>
+              <Text style={{ flex: 1, textAlign: 'center' }}>Id</Text>
+              <Text style={{ flex: 1, textAlign: 'center' }}>Distance</Text>
+              <Text style={{ flex: 1, textAlign: 'center' }}>Time</Text>
+              <Text style={{ flex: 1, textAlign: 'center' }}>Driver Score</Text>
+            </View>
             {rankingList.length > 0 ? rankingList.map((driver) => (
               <View style={styles.line} key={driver.driver_id}>
                 <Text style={[styles.cube, { backgroundColor: COLORS.BLUE, color: COLORS.WHITE }]}>{driver.driver_id}</Text>
-                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_distance)} km`}</Text>
-                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_time)} min`}</Text>
-                <Text style={[styles.cube, { fontSize: 18 }]}>{`${formatToTwoDecimals(driver.driver_score)}%`}</Text>
+                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_distance)}\nkm`}</Text>
+                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_time)}\nmin`}</Text>
+                <Text style={[styles.cube]}>{`${formatToTwoDecimals(driver.driver_score)}%`}</Text>
               </View>
             )) :
             <View>

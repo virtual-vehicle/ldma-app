@@ -1,3 +1,4 @@
+import { driverScoreComparator } from 'ldmaapp/src/utils/sort';
 import {
   REQUEST_GET_RANKING,
   REQUEST_GET_RANKING_SUCCESS,
@@ -12,7 +13,7 @@ const ranking = (state = {}, action = {}) => {
       };
     case REQUEST_GET_RANKING_SUCCESS:
       return {
-        rankingList: action.rankingList,
+        rankingList: (action.rankingList).sort(driverScoreComparator),
       };
     case REQUEST_GET_RANKING_FAILURE:
       return {

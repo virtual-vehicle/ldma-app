@@ -89,6 +89,59 @@ exports[`RankingsScreen component should renders correctly 1`] = `
         }
       }
     >
+      <View
+        style={
+          Object {
+            "borderColor": "#7F7FFF",
+            "borderWidth": 2,
+            "flex": 1,
+            "flexDirection": "row",
+            "justifyContent": "space-between",
+            "marginBottom": 10,
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "flex": 1,
+              "textAlign": "center",
+            }
+          }
+        >
+          Id
+        </Text>
+        <Text
+          style={
+            Object {
+              "flex": 1,
+              "textAlign": "center",
+            }
+          }
+        >
+          Distance
+        </Text>
+        <Text
+          style={
+            Object {
+              "flex": 1,
+              "textAlign": "center",
+            }
+          }
+        >
+          Time
+        </Text>
+        <Text
+          style={
+            Object {
+              "flex": 1,
+              "textAlign": "center",
+            }
+          }
+        >
+          Driver Score
+        </Text>
+      </View>
       <View>
         <Text>
           There is no ranking.
