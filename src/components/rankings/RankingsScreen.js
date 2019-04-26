@@ -15,9 +15,10 @@ import { get as safeGet } from 'lodash';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
-import { getRanking } from 'ldmaapp/src/actions/rankingActions';
+import { getRanking, setRankingListSortParams } from 'ldmaapp/src/actions/rankingActions';
 import { formatToTwoDecimals } from 'ldmaapp/src/utils/format';
 import NavigationService from 'ldmaapp/src/utils/navigation';
+import { rankingListSortSelector, getSortedRankingListCollection } from 'ldmaapp/src/selectors/rankingSelectors';
 /* Config/Constants
 ============================================================================= */
 
@@ -33,6 +34,7 @@ type Props = {
   login: any,
   loading: boolean,
   rankingList: any,
+  setRankingListSortParams: any
 };
 
 export class RankingsScreen extends Component<Props, State> {
@@ -72,6 +74,7 @@ export class RankingsScreen extends Component<Props, State> {
     const {
       navigation,
       loading,
+      setRankingListSortParams,
     } = this.props;
     const rankingList = safeGet(this.props, 'rankingList', []);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
@@ -97,10 +100,10 @@ export class RankingsScreen extends Component<Props, State> {
           </View>
           <ScrollView style={styles.content}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderColor: COLORS.BLUE, borderWidth: 2, flex: 1, marginBottom: 10 }}>
-              <Text style={{ flex: 1, textAlign: 'center' }}>Id</Text>
-              <Text style={{ flex: 1, textAlign: 'center' }}>Distance</Text>
-              <Text style={{ flex: 1, textAlign: 'center' }}>Time</Text>
-              <Text style={{ flex: 1, textAlign: 'center' }}>Driver Score</Text>
+              <Text style={{ flex: 1, textAlign: 'center' }} onPress={() => setRankingListSortParams('driver_id')}>Id</Text>
+              <Text style={{ flex: 1, textAlign: 'center' }} onPress={() => setRankingListSortParams('driving_distance', 'float')}>Distance</Text>
+              <Text style={{ flex: 1, textAlign: 'center' }} onPress={() => setRankingListSortParams('driving_time', 'float')}>Time</Text>
+              <Text style={{ flex: 1, textAlign: 'center' }} onPress={() => setRankingListSortParams('driver_score', 'float')}>Driver Score</Text>
             </View>
             {rankingList.length > 0 ? rankingList.map((driver) => (
               <View style={styles.line} key={driver.driver_id}>
@@ -198,7 +201,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = (state) =>
   ({
-    rankingList: state.ranking.rankingList,
+    rankingList: getSortedRankingListCollection(state),
+    rankingListSortParams: rankingListSortSelector(state),
     loading: state.loading,
     user: state.auth.user,
   });
@@ -206,6 +210,7 @@ const mapStateToProps = (state) =>
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({
     getRanking,
+    setRankingListSortParams,
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(RankingsScreen);
