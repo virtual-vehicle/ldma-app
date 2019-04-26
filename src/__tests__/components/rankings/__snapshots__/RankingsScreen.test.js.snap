@@ -102,6 +102,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
         }
       >
         <Text
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
@@ -112,6 +113,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           Id
         </Text>
         <Text
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
@@ -122,6 +124,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           Distance
         </Text>
         <Text
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
@@ -132,6 +135,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           Time
         </Text>
         <Text
+          onPress={[Function]}
           style={
             Object {
               "flex": 1,
