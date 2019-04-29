@@ -106,6 +106,8 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           style={
             Object {
               "flex": 1,
+              "paddingBottom": 7,
+              "paddingTop": 7,
               "textAlign": "center",
             }
           }
@@ -117,6 +119,8 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           style={
             Object {
               "flex": 1,
+              "paddingBottom": 7,
+              "paddingTop": 7,
               "textAlign": "center",
             }
           }
@@ -128,6 +132,8 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           style={
             Object {
               "flex": 1,
+              "paddingBottom": 7,
+              "paddingTop": 7,
               "textAlign": "center",
             }
           }
@@ -139,6 +145,8 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           style={
             Object {
               "flex": 1,
+              "paddingBottom": 7,
+              "paddingTop": 7,
               "textAlign": "center",
             }
           }

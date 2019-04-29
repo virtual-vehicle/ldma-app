@@ -100,10 +100,10 @@ export class RankingsScreen extends Component<Props, State> {
           </View>
           <ScrollView style={styles.content}>
             <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderColor: COLORS.BLUE, borderWidth: 2, flex: 1, marginBottom: 10 }}>
-              <Text style={{ flex: 1, textAlign: 'center' }} onPress={() => setRankingListSortParams('driver_id')}>Id</Text>
-              <Text style={{ flex: 1, textAlign: 'center' }} onPress={() => setRankingListSortParams('driving_distance', 'float')}>Distance</Text>
-              <Text style={{ flex: 1, textAlign: 'center' }} onPress={() => setRankingListSortParams('driving_time', 'float')}>Time</Text>
-              <Text style={{ flex: 1, textAlign: 'center' }} onPress={() => setRankingListSortParams('driver_score', 'float')}>Driver Score</Text>
+              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driver_id')}>Id</Text>
+              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driving_distance', 'float')}>Distance</Text>
+              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driving_time', 'float')}>Time</Text>
+              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driver_score', 'float')}>Driver Score</Text>
             </View>
             {rankingList.length > 0 ? rankingList.map((driver) => (
               <View style={styles.line} key={driver.driver_id}>
