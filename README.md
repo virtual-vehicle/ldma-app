@@ -1,7 +1,3 @@
-## Project architecture
-
-![project architecture](https://raw.githubusercontent.com/nadzic/ldma-app/develop/diagram/draw-io-diagram.png?token=AF57yRb98XFWToGziDnpKQGj8XiH6d5Gks5cbpxnwA%3D%3D)
-
 ## Installation
 
 Clone project and do following:
