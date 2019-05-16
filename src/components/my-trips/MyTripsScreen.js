@@ -293,7 +293,7 @@ export class MyTripsScreen extends Component<Props, State> {
                     <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_position_name}</Text>
                     {trip.map_visible ?
                       (<MapView
-                        style={{ width: 150, height: 150, marginTop: 10, marginLeft: -35 }}
+                        style={styles.map}
                         region={{
                           latitude: trip.gps_track.coordinates[0].lat,
                           longitude: trip.gps_track.coordinates[0].lon,
@@ -384,6 +384,12 @@ const styles = StyleSheet.create({
     height: 30,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  map: {
+    width: 150,
+    height: 150,
+    marginTop: 10,
+    marginLeft: -35,
   },
   periodCubeBig: {
     borderColor: COLORS.BLUE,
