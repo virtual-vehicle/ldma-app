@@ -24,7 +24,8 @@ exports[`MainScreen component should renders correctly 1`] = `
   toleranceX={10}
   toleranceY={10}
 >
-  <View
+  <ImageBackground
+    source={null}
     style={
       Object {
         "alignItems": "center",
@@ -60,7 +61,7 @@ exports[`MainScreen component should renders correctly 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#7F7FFF",
+          "backgroundColor": "transparent",
           "display": "flex",
           "height": 60,
           "justifyContent": "center",
@@ -334,6 +335,6 @@ events
         Safe Driving
       </Text>
     </TouchableOpacity>
-  </View>
+  </ImageBackground>
 </SideMenu>
 `;

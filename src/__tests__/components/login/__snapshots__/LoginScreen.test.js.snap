@@ -27,19 +27,16 @@ exports[`LoginScreen component should renders correctly 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "alignSelf": "stretch",
           "flex": 1,
-          "justifyContent": "space-between",
         }
       }
     >
       <View
         style={
           Object {
-            "height": 90,
-            "marginBottom": 65,
-            "marginTop": 65,
-            "width": 180,
+            "height": 150,
+            "marginTop": 226.78000000000003,
+            "width": 150,
             "zIndex": 100,
           }
         }
@@ -48,8 +45,8 @@ exports[`LoginScreen component should renders correctly 1`] = `
           source={null}
           style={
             Object {
-              "height": 90,
-              "width": 180,
+              "height": 150,
+              "width": 150,
             }
           }
         />
@@ -57,40 +54,14 @@ exports[`LoginScreen component should renders correctly 1`] = `
       <View
         style={
           Object {
-            "marginBottom": 65,
-            "marginTop": 10,
-            "zIndex": 100,
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "fontSize": 25,
-              "fontStyle": "italic",
-            }
-          }
-        >
-          Ldma
-        </Text>
-      </View>
-      <View
-        style={
-          Object {
-            "marginBottom": "45%",
-            "width": "88%",
+            "alignItems": "center",
+            "marginTop": 204.102,
           }
         }
       >
         <View
           style={
             Object {
-              "borderBottomWidth": 2,
-              "borderColor": "#7F7FFF",
-              "borderLeftWidth": 2,
-              "borderRadius": 5,
-              "borderRightWidth": 2,
-              "borderTopWidth": 2,
               "position": "relative",
             }
           }
@@ -101,6 +72,8 @@ exports[`LoginScreen component should renders correctly 1`] = `
                 "alignItems": "center",
                 "flexDirection": "row",
                 "justifyContent": "center",
+                "marginLeft": "7.5%",
+                "marginRight": "7.5%",
                 "position": "relative",
               }
             }
@@ -109,32 +82,49 @@ exports[`LoginScreen component should renders correctly 1`] = `
               source={null}
               style={
                 Object {
-                  "bottom": 16,
-                  "height": 25,
-                  "left": 25,
+                  "height": 22,
+                  "left": 0,
                   "margin": 5,
                   "padding": 10,
                   "position": "absolute",
-                  "width": 25,
+                  "top": 0,
+                  "width": 22,
                   "zIndex": 100,
                 }
               }
             />
+            <Text
+              style={
+                Object {
+                  "color": "#FFF",
+                  "fontSize": 10,
+                  "left": 60,
+                  "letterSpacing": 1,
+                  "lineHeight": 10,
+                  "position": "absolute",
+                  "top": 0,
+                }
+              }
+            >
+              USERNAME
+            </Text>
             <TextInput
               allowFontScaling={true}
               autoCapitalize="none"
               autoCorrect={false}
               onChangeText={[Function]}
-              placeholder="Username"
-              placeholderTextColor="#d1d1d1"
+              placeholder="Enter username"
+              placeholderTextColor="rgba(255, 255, 255, 0.5)"
               rejectResponderTermination={true}
               style={
                 Object {
-                  "backgroundColor": "#FFF",
                   "borderTopLeftRadius": 5,
                   "borderTopRightRadius": 5,
-                  "fontSize": 18,
-                  "height": 66,
+                  "color": "rgba(255, 255, 255, 0.5)",
+                  "fontSize": 14,
+                  "height": 58,
+                  "letterSpacing": 0,
+                  "lineHeight": 14,
                   "paddingLeft": 60,
                   "width": "100%",
                 }
@@ -143,24 +133,27 @@ exports[`LoginScreen component should renders correctly 1`] = `
               value=""
             />
           </View>
-          <View
-            style={
-              Object {
-                "borderBottomColor": "#cacaca",
-                "borderBottomWidth": 0.5,
-                "left": "6%",
-                "position": "absolute",
-                "top": 65,
-                "width": "88%",
+          <View>
+            <Image
+              source={null}
+              style={
+                Object {
+                  "height": 1,
+                  "width": "100%",
+                  "zIndex": 200,
+                }
               }
-            }
-          />
+            />
+          </View>
           <View
             style={
               Object {
                 "alignItems": "center",
                 "flexDirection": "row",
                 "justifyContent": "center",
+                "marginLeft": "7.5%",
+                "marginRight": "7.5%",
+                "marginTop": 20,
                 "position": "relative",
               }
             }
@@ -169,38 +162,82 @@ exports[`LoginScreen component should renders correctly 1`] = `
               source={null}
               style={
                 Object {
-                  "bottom": 17,
-                  "height": 24,
-                  "left": 25,
+                  "height": 23,
+                  "left": 0,
                   "margin": 5,
                   "position": "absolute",
-                  "width": 24,
+                  "top": 0,
+                  "width": 20,
                   "zIndex": 100,
                 }
               }
             />
+            <Text
+              style={
+                Object {
+                  "color": "#FFF",
+                  "fontSize": 10,
+                  "left": 60,
+                  "letterSpacing": 1,
+                  "lineHeight": 10,
+                  "position": "absolute",
+                  "top": 0,
+                }
+              }
+            >
+              PASSWORD
+            </Text>
             <TextInput
               allowFontScaling={true}
               autoCapitalize="none"
               autoCorrect={false}
               onChangeText={[Function]}
-              placeholder="Password"
+              placeholder="••••••••"
               placeholderTextColor="#d1d1d1"
               rejectResponderTermination={true}
               secureTextEntry={true}
               style={
                 Object {
-                  "backgroundColor": "#FFF",
                   "borderBottomLeftRadius": 5,
                   "borderBottomRightRadius": 5,
-                  "fontSize": 18,
-                  "height": 66,
+                  "color": "rgba(255, 255, 255, 0.5)",
+                  "fontSize": 14,
+                  "height": 58,
+                  "letterSpacing": 0,
+                  "lineHeight": 14,
                   "paddingLeft": 60,
                   "width": "100%",
                 }
               }
               underlineColorAndroid="transparent"
               value=""
+            />
+          </View>
+          <Text
+            style={
+              Object {
+                "bottom": 20,
+                "color": "rgba(255, 255, 255, 0.5)",
+                "fontSize": 13,
+                "letterSpacing": 0,
+                "lineHeight": 13,
+                "position": "absolute",
+                "right": "7.5%",
+              }
+            }
+          >
+            Help
+          </Text>
+          <View>
+            <Image
+              source={null}
+              style={
+                Object {
+                  "height": 1,
+                  "width": "100%",
+                  "zIndex": 200,
+                }
+              }
             />
           </View>
         </View>
@@ -210,12 +247,14 @@ exports[`LoginScreen component should renders correctly 1`] = `
           style={
             Object {
               "alignItems": "center",
-              "backgroundColor": "#7F7FFF",
-              "borderRadius": 5,
-              "height": 50,
+              "backgroundColor": "transparent",
+              "borderColor": "rgba(255, 255, 255, 0.5)",
+              "borderRadius": 50,
+              "borderWidth": 1,
+              "height": 55,
               "justifyContent": "center",
-              "marginTop": 30,
-              "width": "100%",
+              "marginTop": 40,
+              "width": 630,
             }
           }
         >
@@ -223,11 +262,13 @@ exports[`LoginScreen component should renders correctly 1`] = `
             style={
               Object {
                 "color": "#FFF",
-                "fontSize": 20,
+                "fontSize": 14,
+                "letterSpacing": 0,
+                "lineHeight": 14,
               }
             }
           >
-            Log In
+            Sign In
           </Text>
         </TouchableOpacity>
         <View
@@ -239,6 +280,39 @@ exports[`LoginScreen component should renders correctly 1`] = `
             }
           }
         />
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <Text
+          style={
+            Object {
+              "color": "rgba(255, 255, 255, 0.5)",
+              "fontSize": 10,
+              "letterSpacing": 1,
+              "lineHeight": 10,
+            }
+          }
+        >
+          DON’T HAVE AN ACCOUNT?
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 10,
+              "letterSpacing": 1,
+              "lineHeight": 10,
+              "paddingLeft": 7.5,
+            }
+          }
+        >
+          SIGN UP
+        </Text>
       </View>
       <ModalSimple
         headline="Invalid Username or Password.

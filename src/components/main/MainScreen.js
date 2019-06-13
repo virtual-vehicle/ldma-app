@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  ImageBackground,
   Image,
   Dimensions,
 } from 'react-native';
@@ -108,7 +109,10 @@ export class MainScreen extends Component<Props, State> {
         isOpen={isOpen}
         onChange={isOpen => this.updateMenuState(isOpen)}
       >
-        <View style={styles.container}>
+        <ImageBackground
+        style={styles.container}
+        source={require('ldmaapp/assets/png/bg.png')}
+        >
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.menuButton}
@@ -187,7 +191,7 @@ export class MainScreen extends Component<Props, State> {
             <Text style={styles.goToNextScreenText}>{`Safe Driving`}</Text>
           </TouchableOpacity>
           {loading && <Loader />}
-        </View>
+        </ImageBackground>
       </SideMenu>
     );
   }
@@ -236,7 +240,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 60,
-    backgroundColor: COLORS.BLUE,
+    backgroundColor: 'transparent',
   },
   headerText: {
     color: COLORS.WHITE,

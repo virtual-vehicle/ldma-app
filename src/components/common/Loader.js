@@ -3,7 +3,7 @@ import {
   View,
   StyleSheet,
 } from 'react-native';
-import { Bubbles } from 'react-native-loader';
+import { Pulse } from 'react-native-loader';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 
 type Props = {
@@ -15,7 +15,7 @@ class Loader extends Component<Props> {
     const { white } = this.props;
     return (
       <View style={styles.loading}>
-        <Bubbles
+        <Pulse
           size={10}
           color={white ? COLORS.WHITE : COLORS.BLACK}
         />

@@ -15,10 +15,9 @@ exports[`Loader component renders correctly in black color 1`] = `
     }
   }
 >
-  <Bubbles
+  <Pulse
     color="#000"
     size={10}
-    spaceBetween={6}
   />
 </View>
 `;
@@ -38,10 +37,9 @@ exports[`Loader component renders correctly in white color and again in black co
     }
   }
 >
-  <Bubbles
+  <Pulse
     color="#FFF"
     size={10}
-    spaceBetween={6}
   />
 </View>
 `;
@@ -61,10 +59,9 @@ exports[`Loader component renders correctly in white color and again in black co
     }
   }
 >
-  <Bubbles
+  <Pulse
     color="#000"
     size={10}
-    spaceBetween={6}
   />
 </View>
 `;

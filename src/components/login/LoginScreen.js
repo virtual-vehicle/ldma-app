@@ -23,9 +23,10 @@ import Loader from 'ldmaapp/src/components/common/Loader';
 
 /* eslint-disable global-require */
 
-const BUTTON_HEIGHT = 50;
-const INPUT_FIELDS_HEIGHT = 66;
+const BUTTON_HEIGHT = 55;
+const INPUT_FIELDS_HEIGHT = 58;
 const SCREEN_HEIGHT = Dimensions.get('window').height;
+const SCREEN_WIDTH = Dimensions.get('window').width;
 
 type Props = {
   dispatch: any,
@@ -72,64 +73,84 @@ export class LoginScreen extends Component<Props, State> {
         <View style={styles.container}>
           <ImageBackground
             style={styles.backgroundImage}
-            source={require('ldmaapp/assets/png/background_white.png')}
+            source={require('ldmaapp/assets/png/bg.png')}
           >
-            <View style={styles.logoWrapper}>
+            <View style={styles.markWrapper}>
               <Image
-                style={styles.logo}
-                source={require('ldmaapp/assets/png/logo_blue.png')}
+                style={styles.mark}
+                source={require('ldmaapp/assets/png/mark.png')}
               />
             </View>
-            <View style={styles.titleWrapper}>
-              <Text style={{ fontSize: 25, fontStyle: 'italic' }}>Ldma</Text>
-            </View>
-            <View style={{ marginBottom: SCREEN_HEIGHT > 800 ? '45%' : '30%', width: '88%' }}>
-              <View style={{ position: 'relative', borderColor: COLORS.BLUE, borderBottomWidth: 2, borderLeftWidth: 2, borderRightWidth: 2, borderTopWidth: 2, borderRadius: 5 }}>
+            <View style={{ alignItems: 'center', marginTop: 0.153 * SCREEN_HEIGHT }}>
+              <View style={{ position: 'relative' }}>
                 <View style={styles.usernameSection}>
                   <Image
                     source={require('ldmaapp/assets/png/username.png')}
                     style={styles.usernameImage}
                   />
+                  <Text style={{ position: 'absolute', color: COLORS.WHITE, fontSize: 10, lineHeight: 10, letterSpacing: 1, left: 60, top: 0 }}>
+                    USERNAME
+                  </Text>
                   <TextInput
                     style={styles.usernameInput}
                     underlineColorAndroid="transparent"
-                    placeholder="Username"
+                    placeholder="Enter username"
                     autoCapitalize="none"
                     autoCorrect={false}
-                    placeholderTextColor={COLORS.LIGHTGREY}
+                    placeholderTextColor={'rgba(255, 255, 255, 0.5)'}
                     value={this.state.username}
                     onChangeText={(text) => this.setState({ username: text })}
                   />
                 </View>
-                <View style={styles.lineSeparator} />
+                <View>
+                  <Image
+                    source={require('ldmaapp/assets/png/line.png')}
+                    style={styles.lineImage}
+                  />
+                </View>
                 <View style={styles.passwordSection}>
                   <Image
                     source={require('ldmaapp/assets/png/password.png')}
                     style={styles.passwordImage}
                   />
+                  <Text style={{ position: 'absolute', color: COLORS.WHITE, fontSize: 10, lineHeight: 10, letterSpacing: 1, left: 60, top: 0 }}>
+                    PASSWORD
+                  </Text>
                   <TextInput
                     style={styles.passwordInput}
                     secureTextEntry
                     underlineColorAndroid="transparent"
-                    placeholder="Password"
+                    placeholder="••••••••"
                     autoCapitalize="none"
                     autoCorrect={false}
                     placeholderTextColor={COLORS.LIGHTGREY}
                     value={this.state.password}
                     onChangeText={(text) => this.setState({ password: text })}
-
                   />
                 </View>
+                <Text style={{ position: 'absolute', color: 'rgba(255, 255, 255, 0.5)', fontSize: 13, lineHeight: 13, letterSpacing: 0, right: '7.5%', bottom: 20 }}>
+                  Help
+                </Text>
+                <View>
+                <Image
+                  source={require('ldmaapp/assets/png/line.png')}
+                  style={styles.lineImage}
+                />
+              </View>
               </View>
               <TouchableOpacity
                 style={styles.loginButton}
                 onPress={(e) => this.userLogin(e)}
               >
-                <Text style={styles.loginText}>Log In</Text>
+                <Text style={styles.loginText}>Sign In</Text>
               </TouchableOpacity>
               <View style={styles.createForgetSection} />
             </View>
-            {loading && <Loader />}
+            <View style={{ flexDirection: 'row' }}>
+              <Text style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: 10, lineHeight: 10, letterSpacing: 1 }}>DON’T HAVE AN ACCOUNT?</Text>
+              <Text style={{ color: COLORS.WHITE, fontSize: 10, lineHeight: 10, letterSpacing: 1, paddingLeft: 7.5 }}>SIGN UP</Text>
+            </View>
+            {loading && <Loader white />}
             <ModalSimple
               isVisible={invalidCredentialsModalOpen}
               onPress={closeInvalidCredentialsModal}
@@ -151,99 +172,101 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     alignItems: 'center',
-    alignSelf: 'stretch',
-    justifyContent: 'space-between',
   },
-  logoWrapper: {
-    marginTop: 65,
-    marginBottom: 65,
+  markWrapper: {
+    marginTop: SCREEN_HEIGHT * .17,
     zIndex: 100,
-    width: 180,
-    height: 90,
+    width: 150,
+    height: 150,
   },
-  logo: {
-    width: 180,
-    height: 90,
-  },
-  titleWrapper: {
-    marginTop: 10,
-    marginBottom: 65,
-    zIndex: 100,
+  mark: {
+    width: 150,
+    height: 150,
   },
   createForgetSection: {
     justifyContent: 'center',
     flexDirection: 'row',
     paddingTop: 18,
   },
-  lineSeparator: {
-    borderBottomColor: COLORS.GREY,
-    borderBottomWidth: 0.5,
-    width: '88%',
-    position: 'absolute',
-    top: 65,
-    left: '6%',
-  },
   loginButton: {
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.BLUE,
-    width: '100%',
-    borderRadius: 5,
+    backgroundColor: 'transparent',
+    width: 0.84 * SCREEN_WIDTH,
+    borderRadius: 50,
     height: BUTTON_HEIGHT,
-    marginTop: 30,
+    marginTop: 40,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
   },
   usernameSection: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+    marginLeft: '7.5%',
+    marginRight: '7.5%',
   },
   usernameImage: {
     padding: 10,
     margin: 5,
-    height: 25,
-    width: 25,
+    height: 22,
+    width: 22,
     position: 'absolute',
-    left: 25,
-    bottom: 16,
+    top: 0,
     zIndex: 100,
+    left: 0,
+  },
+  lineImage: {
+    width: '100%',
+    zIndex: 200,
+    height: 1,
   },
   usernameInput: {
     width: '100%',
     height: INPUT_FIELDS_HEIGHT,
-    backgroundColor: COLORS.WHITE,
     borderTopLeftRadius: 5,
     borderTopRightRadius: 5,
     paddingLeft: 60,
-    fontSize: 18,
+    fontSize: 14,
+    lineHeight: 14,
+    letterSpacing: 0,
+    color: 'rgba(255, 255, 255, 0.5)',
   },
   passwordSection: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     position: 'relative',
+    marginLeft: '7.5%',
+    marginRight: '7.5%',
+    marginTop: 20,
   },
   passwordImage: {
     margin: 5,
-    height: 24,
-    width: 24,
+    height: 23,
+    width: 20,
     position: 'absolute',
-    left: 25,
-    bottom: 17,
+    top: 0,
+    left: 0,
     zIndex: 100,
   },
   passwordInput: {
     width: '100%',
     height: INPUT_FIELDS_HEIGHT,
-    backgroundColor: COLORS.WHITE,
     borderBottomLeftRadius: 5,
     borderBottomRightRadius: 5,
     paddingLeft: 60,
-    fontSize: 18,
+    fontSize: 14,
+    lineHeight: 14,
+    letterSpacing: 0,
+    color: 'rgba(255, 255, 255, 0.5)',
   },
   loginText: {
     color: COLORS.WHITE,
-    fontSize: 20,
+    fontSize: 14,
+    lineHeight: 14,
+    letterSpacing: 0,
   },
 });
 
