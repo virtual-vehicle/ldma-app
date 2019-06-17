@@ -15,4 +15,9 @@ export const COLORS = {
   DARKGREY2: '#6E6E6E',
   RED: '#e11027',
   LIGHTRED: '#fff8f8',
+  // new colors:
+  SEAFOAM_BLUE: '#50d2c2',
+  SWEET_READ: '#ff3366',
+  SWEET_ORANGE: '#ee8f6e',
+  PURPLE: '#d667cd'
 };
