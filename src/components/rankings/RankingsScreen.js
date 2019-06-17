@@ -4,10 +4,10 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  ImageBackground,
   Image,
   Dimensions,
   ScrollView,
-  ImageBackground,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -167,26 +167,6 @@ export class RankingsScreen extends Component<Props, State> {
             <Text>{`There is no ranking.`}</Text>
           </View>
           }
-          {/*}
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderColor: COLORS.BLUE, borderWidth: 2, flex: 1, marginBottom: 10 }}>
-              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driver_id')}>Id</Text>
-              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driving_distance', 'float')}>Distance</Text>
-              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driving_time', 'float')}>Time</Text>
-              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driver_score', 'float')}>Driver Score</Text>
-            </View>
-            {rankingList.length > 0 ? rankingList.map((driver) => (
-              <View style={styles.line} key={driver.driver_id}>
-                <Text style={[styles.cube, { backgroundColor: COLORS.BLUE, color: COLORS.WHITE }]}>{driver.driver_id}</Text>
-                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_distance)}\nkm`}</Text>
-                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_time)}\nmin`}</Text>
-                <Text style={[styles.cube]}>{`${formatToTwoDecimals(driver.driver_score)}%`}</Text>
-              </View>
-            )) :
-            <View>
-              <Text>{`There is no ranking.`}</Text>
-            </View>
-            }
-            */}
           </ScrollView>
           <TouchableOpacity
             style={styles.goToNextScreen}
@@ -238,14 +218,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   goToNextScreen: {
-    position: 'absolute',
-    bottom: SCREEN_WIDTH * 0.10,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.BLUE,
-    width: FIELDS_WIDTH,
-    borderRadius: 5,
+    backgroundColor: 'transparent',
+    width: 0.84 * SCREEN_WIDTH,
+    borderRadius: 50,
     height: BUTTON_HEIGHT,
+    marginTop: 40,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
   },
   goToNextScreenText: {
     color: COLORS.WHITE,
