@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   View,
   TouchableOpacity,
@@ -17,7 +17,8 @@ import { COLORS } from 'ldmaapp/src/constants/colors';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getRanking, setRankingListSortParams } from 'ldmaapp/src/actions/rankingActions';
-import { formatToTwoDecimals } from 'ldmaapp/src/utils/format';
+import { formatToZeroDecimals } from 'ldmaapp/src/utils/format';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import NavigationService from 'ldmaapp/src/utils/navigation';
 import { rankingListSortSelector, getSortedRankingListCollection } from 'ldmaapp/src/selectors/rankingSelectors';
 /* Config/Constants
@@ -86,10 +87,10 @@ export class RankingsScreen extends Component<Props, State> {
         isOpen={isOpen}
         onChange={isOpen => this.updateMenuState(isOpen)}
       >
-         <ImageBackground
-                    style={styles.container}
-                     source={require('ldmaapp/assets/png/bg.png')}
-          >
+      <ImageBackground
+        style={styles.container}
+        source={require('ldmaapp/assets/png/bg.png')}
+      >
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.menuButton}
@@ -103,24 +104,69 @@ export class RankingsScreen extends Component<Props, State> {
             <Text style={styles.headerText}>Rankings</Text>
           </View>
           <ScrollView style={styles.content}>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', borderColor: COLORS.BLUE, borderWidth: 2, flex: 1, marginBottom: 10 }}>
-              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driver_id')}>Id</Text>
-              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driving_distance', 'float')}>Distance</Text>
-              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driving_time', 'float')}>Time</Text>
-              <Text style={{ flex: 1, textAlign: 'center', paddingTop: 7, paddingBottom: 7 }} onPress={() => setRankingListSortParams('driver_score', 'float')}>Driver Score</Text>
-            </View>
-            {rankingList.length > 0 ? rankingList.map((driver) => (
-              <View style={styles.line} key={driver.driver_id}>
-                <Text style={[styles.cube, { backgroundColor: COLORS.BLUE, color: COLORS.WHITE }]}>{driver.driver_id}</Text>
-                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_distance)}\nkm`}</Text>
-                <Text style={styles.cube}>{`${formatToTwoDecimals(driver.driving_time)}\nmin`}</Text>
-                <Text style={[styles.cube]}>{`${formatToTwoDecimals(driver.driver_score)}%`}</Text>
-              </View>
-            )) :
-            <View>
-              <Text>{`There is no ranking.`}</Text>
-            </View>
+          {rankingList.length > 0 ? rankingList.map((driver, index) => {
+
+            let color;
+            if (index % 4 === 0) {
+              color = COLORS.SWEET_READ
             }
+            else if (index % 4 === 1) {
+              color = COLORS.SWEET_ORANGE
+            }
+            else if (index % 4 === 2) {
+              color = COLORS.SEAFOAM_BLUE
+            }
+            else {
+              color = COLORS.PURPLE
+            }
+            return (
+            <Fragment key={driver.driver_id}>
+              <View style={{ width: SCREEN_WIDTH - 60, flexDirection: 'row', justifyContent: 'space-between', position: 'relative' }}>
+              <Text style={{ position: 'absolute', left: 0, top: 0, width: 40, height: 40, zIndex: 1000 }} onPress={() => setRankingListSortParams('driver_score', 'float')}></Text>
+              <AnimatedCircularProgress
+                size={40}
+                width={5}
+                fill={driver.driver_score}
+                tintColor={color}
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor="transparent">
+              {
+                (fill) => (
+                  <Text style={{ color: color }}>
+                    •
+                  </Text>
+                )
+              }
+              </AnimatedCircularProgress>
+              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ fontSize: 10, lineHeight: 10, letterSpacing: 1.0, color: COLORS.WHITE }} onPress={() => setRankingListSortParams('driver_id')}>ID</Text>
+                <Text style={{ fontSize: 30, lineHeight: 30, letterSpacing: 0.5, color: COLORS.WHITE, paddingTop: 5 }} onPress={() => setRankingListSortParams('driver_id')}>{driver.driver_id}</Text>
+              </View>
+
+              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ fontSize: 10, lineHeight: 10, letterSpacing: 1.0, color: COLORS.WHITE }} onPress={() => setRankingListSortParams('driving_distance', 'float')}>DISTANCE (km)</Text>
+                <Text style={{ fontSize: 30, lineHeight: 30, letterSpacing: 0.5, color: COLORS.WHITE, paddingTop: 5 }} onPress={() => setRankingListSortParams('driving_distance', 'float')}>{formatToZeroDecimals(driver.driving_distance)}</Text>
+              </View>
+
+              <View style={{ justifyContent: 'center', alignItems: 'center' }}>
+                <Text style={{ fontSize: 10, lineHeight: 10, letterSpacing: 1.0, color: COLORS.WHITE }} onPress={() => setRankingListSortParams('driving_time', 'float')}>TIME (min)</Text>
+                <Text style={{ fontSize: 30, lineHeight: 30, letterSpacing: 0.5, color: COLORS.WHITE, paddingTop: 5 }} onPress={() => setRankingListSortParams('driving_time', 'float')}>{formatToZeroDecimals(driver.driving_time)}</Text>
+              </View>
+
+            </View>
+
+            <View>
+              <Image
+                source={require('ldmaapp/assets/png/line.png')}
+                style={styles.lineImage}
+              />
+            </View>
+          </Fragment>
+          )}) :
+          <View>
+            <Text>{`There is no ranking.`}</Text>
+          </View>
+          }
           </ScrollView>
           <TouchableOpacity
             style={styles.goToNextScreen}
@@ -146,23 +192,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginTop: 40,
     marginBottom: 100,
-  },
-  line: {
-    display: 'flex',
-    flexDirection: 'row',
-    marginBottom: 10,
-  },
-  cube: {
-    borderColor: COLORS.BLUE,
-    borderWidth: 3,
-    fontSize: 14,
-    padding: 2,
-    paddingTop: 5,
-    width: SCREEN_WIDTH * 0.2,
-    textAlign: 'center',
-    textAlignVertical: 'center',
-    marginLeft: 5,
-    marginRight: 5,
+    paddingLeft: 15,
   },
   menuButton: {
     position: 'absolute',
@@ -201,6 +231,13 @@ const styles = StyleSheet.create({
   goToNextScreenText: {
     color: COLORS.WHITE,
     fontSize: 20,
+  },
+  lineImage: {
+    width: '100%',
+    zIndex: 200,
+    height: 1,
+    marginTop: 25,
+    marginBottom: 25,
   },
 });
 

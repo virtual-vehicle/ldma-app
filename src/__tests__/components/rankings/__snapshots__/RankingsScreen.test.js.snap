@@ -24,7 +24,8 @@ exports[`RankingsScreen component should renders correctly 1`] = `
   toleranceX={10}
   toleranceY={10}
 >
-  <View
+  <ImageBackground
+    source={null}
     style={
       Object {
         "alignItems": "center",
@@ -60,7 +61,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#7F7FFF",
+          "backgroundColor": "transparent",
           "display": "flex",
           "height": 60,
           "justifyContent": "center",
@@ -86,74 +87,10 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           "flexDirection": "column",
           "marginBottom": 100,
           "marginTop": 40,
+          "paddingLeft": 15,
         }
       }
     >
-      <View
-        style={
-          Object {
-            "borderColor": "#7F7FFF",
-            "borderWidth": 2,
-            "flex": 1,
-            "flexDirection": "row",
-            "justifyContent": "space-between",
-            "marginBottom": 10,
-          }
-        }
-      >
-        <Text
-          onPress={[Function]}
-          style={
-            Object {
-              "flex": 1,
-              "paddingBottom": 7,
-              "paddingTop": 7,
-              "textAlign": "center",
-            }
-          }
-        >
-          Id
-        </Text>
-        <Text
-          onPress={[Function]}
-          style={
-            Object {
-              "flex": 1,
-              "paddingBottom": 7,
-              "paddingTop": 7,
-              "textAlign": "center",
-            }
-          }
-        >
-          Distance
-        </Text>
-        <Text
-          onPress={[Function]}
-          style={
-            Object {
-              "flex": 1,
-              "paddingBottom": 7,
-              "paddingTop": 7,
-              "textAlign": "center",
-            }
-          }
-        >
-          Time
-        </Text>
-        <Text
-          onPress={[Function]}
-          style={
-            Object {
-              "flex": 1,
-              "paddingBottom": 7,
-              "paddingTop": 7,
-              "textAlign": "center",
-            }
-          }
-        >
-          Driver Score
-        </Text>
-      </View>
       <View>
         <Text>
           There is no ranking.
@@ -166,13 +103,14 @@ exports[`RankingsScreen component should renders correctly 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#7F7FFF",
-          "borderRadius": 5,
-          "bottom": 75,
+          "backgroundColor": "transparent",
+          "borderColor": "rgba(255, 255, 255, 0.5)",
+          "borderRadius": 50,
+          "borderWidth": 1,
           "height": 50,
           "justifyContent": "center",
-          "position": "absolute",
-          "width": "88%",
+          "marginTop": 40,
+          "width": 630,
         }
       }
     >
@@ -187,6 +125,6 @@ exports[`RankingsScreen component should renders correctly 1`] = `
         Main
       </Text>
     </TouchableOpacity>
-  </View>
+  </ImageBackground>
 </SideMenu>
 `;

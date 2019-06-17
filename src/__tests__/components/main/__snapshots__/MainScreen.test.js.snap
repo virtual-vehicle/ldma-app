@@ -101,7 +101,6 @@ exports[`MainScreen component should renders correctly 1`] = `
         <PercentageCircle
           bgcolor="#e3e3e3"
           borderWidth={10}
-          color="#32CD32"
           innerColor="#fff"
           percent=""
           radius={67}
@@ -267,7 +266,7 @@ events
           }
           svg={
             Object {
-              "stroke": "#32CD32",
+              "stroke": undefined,
             }
           }
           width={100}
@@ -314,13 +313,14 @@ events
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#7F7FFF",
-          "borderRadius": 5,
-          "bottom": 75,
+          "backgroundColor": "transparent",
+          "borderColor": "rgba(255, 255, 255, 0.5)",
+          "borderRadius": 50,
+          "borderWidth": 1,
           "height": 50,
           "justifyContent": "center",
-          "position": "absolute",
-          "width": "88%",
+          "marginTop": 40,
+          "width": 630,
         }
       }
     >

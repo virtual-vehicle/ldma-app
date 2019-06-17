@@ -1,8 +1,8 @@
-export const formatToTwoDecimals = value => {
+export const formatToZeroDecimals = value => {
   if (!value) {
     return false;
   }
-  return Number.parseFloat(value).toFixed(2);
+  return Number.parseFloat(value).toFixed(0);
 };
 
 export const getTimeOutOfWholeDate = value=> {

@@ -24,7 +24,8 @@ exports[`SafeDrivingScreen component should renders correctly 1`] = `
   toleranceX={10}
   toleranceY={10}
 >
-  <View
+  <ImageBackground
+    source={null}
     style={
       Object {
         "alignItems": "center",
@@ -60,7 +61,7 @@ exports[`SafeDrivingScreen component should renders correctly 1`] = `
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#7F7FFF",
+          "backgroundColor": "transparent",
           "display": "flex",
           "height": 60,
           "justifyContent": "center",
@@ -286,13 +287,14 @@ brakes
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#7F7FFF",
-          "borderRadius": 5,
-          "bottom": 75,
+          "backgroundColor": "transparent",
+          "borderColor": "rgba(255, 255, 255, 0.5)",
+          "borderRadius": 50,
+          "borderWidth": 1,
           "height": 50,
           "justifyContent": "center",
-          "position": "absolute",
-          "width": "88%",
+          "marginTop": 40,
+          "width": 630,
         }
       }
     >
@@ -307,6 +309,6 @@ brakes
         My Trips
       </Text>
     </TouchableOpacity>
-  </View>
+  </ImageBackground>
 </SideMenu>
 `;
