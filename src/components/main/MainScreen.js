@@ -130,7 +130,7 @@ export class MainScreen extends Component<Props, State> {
               <PercentageCircle
                 radius={67}
                 percent={driverScore}
-                color={COLORS.GREEN4}
+                color={COLORS.SEFOAMBLUE}
                 borderWidth={10}
                 textStyle={{ fontSize: 30 }}
               />
@@ -163,7 +163,7 @@ export class MainScreen extends Component<Props, State> {
               <LineChart
                 style={{ height: 250, width: SCREEN_WIDTH * .9 }}
                 data={ data }
-                svg={{ stroke: COLORS.GREEN4 }}
+                svg={{ stroke: COLORS.SEFOAMBLUE }}
                 contentInset={ contentInset }
               >
               <Grid />
@@ -247,14 +247,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   goToNextScreen: {
-    position: 'absolute',
-    bottom: SCREEN_WIDTH * 0.10,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.BLUE,
-    width: FIELDS_WIDTH,
-    borderRadius: 5,
+    backgroundColor: 'transparent',
+    width: 0.84 * SCREEN_WIDTH,
+    borderRadius: 50,
     height: BUTTON_HEIGHT,
+    marginTop: 40,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
   },
   goToNextScreenText: {
     color: COLORS.WHITE,

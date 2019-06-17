@@ -4,6 +4,7 @@ import {
   TouchableOpacity,
   Text,
   StyleSheet,
+  ImageBackground,
   Image,
   Dimensions,
   ScrollView,
@@ -85,7 +86,10 @@ export class RankingsScreen extends Component<Props, State> {
         isOpen={isOpen}
         onChange={isOpen => this.updateMenuState(isOpen)}
       >
-        <View style={styles.container}>
+         <ImageBackground
+                    style={styles.container}
+                     source={require('ldmaapp/assets/png/bg.png')}
+          >
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.menuButton}
@@ -125,7 +129,7 @@ export class RankingsScreen extends Component<Props, State> {
             <Text style={styles.goToNextScreenText}>{`Main`}</Text>
           </TouchableOpacity>
           {loading && <Loader />}
-        </View>
+        </ImageBackground>
       </SideMenu>
     );
   }
@@ -177,21 +181,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: 60,
-    backgroundColor: COLORS.BLUE,
+    backgroundColor: 'transparent',
   },
   headerText: {
     color: COLORS.WHITE,
     fontSize: 20,
   },
   goToNextScreen: {
-    position: 'absolute',
-    bottom: SCREEN_WIDTH * 0.10,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: COLORS.BLUE,
-    width: FIELDS_WIDTH,
-    borderRadius: 5,
+    backgroundColor: 'transparent',
+    width: 0.84 * SCREEN_WIDTH,
+    borderRadius: 50,
     height: BUTTON_HEIGHT,
+    marginTop: 40,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
   },
   goToNextScreenText: {
     color: COLORS.WHITE,

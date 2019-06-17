@@ -15,4 +15,5 @@ export const COLORS = {
   DARKGREY2: '#6E6E6E',
   RED: '#e11027',
   LIGHTRED: '#fff8f8',
+  SEFOAMBLUE: '#50d2c2'
 };
