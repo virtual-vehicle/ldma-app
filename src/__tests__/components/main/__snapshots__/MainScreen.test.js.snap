@@ -101,6 +101,7 @@ exports[`MainScreen component should renders correctly 1`] = `
         <PercentageCircle
           bgcolor="#e3e3e3"
           borderWidth={10}
+          color="#50d2c2"
           innerColor="#fff"
           percent=""
           radius={67}
@@ -266,7 +267,7 @@ events
           }
           svg={
             Object {
-              "stroke": undefined,
+              "stroke": "#50d2c2",
             }
           }
           width={100}

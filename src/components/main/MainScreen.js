@@ -130,7 +130,7 @@ export class MainScreen extends Component<Props, State> {
               <PercentageCircle
                 radius={67}
                 percent={driverScore}
-                color={COLORS.SEFOAM_BLUE}
+                color={COLORS.SEAFOAM_BLUE}
                 borderWidth={10}
                 textStyle={{ fontSize: 30 }}
               />
@@ -163,7 +163,7 @@ export class MainScreen extends Component<Props, State> {
               <LineChart
                 style={{ height: 250, width: SCREEN_WIDTH * .9 }}
                 data={ data }
-                svg={{ stroke: COLORS.SEFOAM_BLUE }}
+                svg={{ stroke: COLORS.SEAFOAM_BLUE }}
                 contentInset={ contentInset }
               >
               <Grid />
