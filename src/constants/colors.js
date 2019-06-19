@@ -17,7 +17,7 @@ export const COLORS = {
   LIGHTRED: '#fff8f8',
   // new colors:
   SEAFOAM_BLUE: '#50d2c2',
-  SWEET_READ: '#ff3366',
+  SWEET_RED: '#ff3366',
   SWEET_ORANGE: '#ee8f6e',
   PURPLE: '#d667cd'
 };
