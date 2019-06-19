@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { get as safeGet } from 'lodash';
 import SideMenu from 'react-native-side-menu';
-import PercentageCircle from 'react-native-percentage-circle';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { LineChart, Grid, YAxis, XAxis } from 'react-native-svg-charts';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import {
@@ -125,29 +125,42 @@ export class MainScreen extends Component<Props, State> {
           <View style={styles.header}>
             <Text style={styles.headerText}>TripViz</Text>
           </View>
-          <View style={styles.content}>
-            <View style={styles.percent}>
-              <PercentageCircle
-                radius={67}
-                percent={driverScore}
-                color={COLORS.SEAFOAM_BLUE}
-                borderWidth={10}
-                textStyle={{ fontSize: 30 }}
-              />
-              <Text style={{ paddingTop: 10 }}>Driving Score (total)</Text>
+          <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 20 }}>
+              <AnimatedCircularProgress
+                size={67}
+                width={3}
+                fill={Number(driverScore)}
+                tintColor={COLORS.SEAFOAM_BLUE}
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor="transparent">
+              {
+                (fill) => (
+                  <Text style={{ color: COLORS.WHITE}}>
+                    {fill+"%\nScore"}
+                  </Text>
+                )
+              }
+              </AnimatedCircularProgress>
+              
+          </View>
+          <View style={{ flexDirection: 'row', paddingTop: 10, justifyContent: 'space-evenly', width: SCREEN_WIDTH,  marginLeft: 20, marginRight: 20 }}>
+            <View style={styles.content}>
+              <Image source={require('ldmaapp/assets/png/completed.png')}/>
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Trips</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numTrips}</Text>
             </View>
-            <View>
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={styles.cube}>{`${numTrips}\ntrips`}</Text>
-                <Text style={styles.cube}>{`${distance}\nkm`}</Text>
-              </View>
-              <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                <Text style={styles.cube}>{`${numEvents}\nevents`}</Text>
-                <Text style={styles.cube}>{convertMinutesToHoursMinutes(totalTime)}</Text>
-              </View>
+            <View style={styles.content}>
+              <Image source={require('ldmaapp/assets/png/snoozed.png')}/>
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Distance</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{distance}</Text>
+            </View>
+            <View style={styles.content}>
+              <Image source={require('ldmaapp/assets/png/overdue.png')}/>
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Events</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numEvents}</Text>
             </View>
           </View>
-          <Text style={{ marginTop: 20 }}>Last 20 trip scores</Text>
+          <Text style={{ color: COLORS.WHITE, marginTop: 20 }}>Last 20 trip scores</Text>
           <View style={{ flexDirection: 'row' }}>
             <YAxis
               data={data}
@@ -163,7 +176,7 @@ export class MainScreen extends Component<Props, State> {
               <LineChart
                 style={{ height: 250, width: SCREEN_WIDTH * .9 }}
                 data={ data }
-                svg={{ stroke: COLORS.SEAFOAM_BLUE }}
+                svg={{ stroke: COLORS.WHITE }}
                 contentInset={ contentInset }
               >
               <Grid />
@@ -205,18 +218,10 @@ const styles = StyleSheet.create({
   },
   content: {
     display: 'flex',
-    flexDirection: 'row',
-    marginTop: 40,
-  },
-  cube: {
-    borderColor: COLORS.GREEN4,
-    borderWidth: 3,
-    fontSize: 16,
-    padding: 2,
-    paddingTop: 5,
-    width: 90,
-    textAlign: 'center',
-    marginLeft: 10,
+    height: 100,
+    paddingTop: 10,
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   percent: {
     display: 'flex',
@@ -253,7 +258,7 @@ const styles = StyleSheet.create({
     width: 0.84 * SCREEN_WIDTH,
     borderRadius: 50,
     height: BUTTON_HEIGHT,
-    marginTop: 40,
+    marginTop: 20,
     borderWidth: 1,
     borderColor: 'rgba(255, 255, 255, 0.5)',
   },

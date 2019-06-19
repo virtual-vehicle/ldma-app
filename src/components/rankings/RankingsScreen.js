@@ -108,7 +108,7 @@ export class RankingsScreen extends Component<Props, State> {
 
             let color;
             if (index % 4 === 0) {
-              color = COLORS.SWEET_READ
+              color = COLORS.SWEET_RED
             }
             else if (index % 4 === 1) {
               color = COLORS.SWEET_ORANGE
