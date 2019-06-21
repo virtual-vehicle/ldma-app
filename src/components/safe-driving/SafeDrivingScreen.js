@@ -12,7 +12,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { get as safeGet } from 'lodash';
 import SideMenu from 'react-native-side-menu';
-import PercentageCircle from 'react-native-percentage-circle';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import {
 } from 'ldmaapp/src/actions/uiActions';
@@ -85,9 +85,9 @@ export class SafeDrivingScreen extends Component<Props, State> {
         onChange={isOpen => this.updateMenuState(isOpen)}
       >
         <ImageBackground
-            style={styles.container}
-             source={require('ldmaapp/assets/png/bg.png')}
-         >
+          style={styles.container}
+          source={require('ldmaapp/assets/png/bg.png')}
+        >
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.menuButton}
@@ -97,45 +97,72 @@ export class SafeDrivingScreen extends Component<Props, State> {
               style={styles.menu}
             />
           </TouchableOpacity>
-            <View style={styles.header}>
-              <Text style={styles.headerText}>Safe Driving</Text>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Safe Driving</Text>
+          </View>
+          <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 20 }}>
+            <AnimatedCircularProgress
+              size={67}
+              width={3}
+              fill={Number(driverScore)}
+              tintColor={COLORS.SEAFOAM_BLUE}
+              onAnimationComplete={() => console.log('onAnimationComplete')}
+              backgroundColor="transparent">
+              {
+                (fill) => (
+                  <View>
+                    <Text style={{ color: COLORS.WHITE }}>
+                      {`${fill}%`}
+                    </Text>
+                    <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>
+                      Score
+                    </Text>
+                  </View>
+                )
+              }
+            </AnimatedCircularProgress>
+          </View>
+          <View style={{ flexDirection: 'row', paddingTop: 10, justifyContent: 'space-evenly', width: SCREEN_WIDTH, marginLeft: 20, marginRight: 20 }}>
+            <View style={styles.content}>
+              <Image source={require('ldmaapp/assets/png/completed.png')} />
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Trips</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numTrips}</Text>
             </View>
             <View style={styles.content}>
-              <View style={styles.percent}>
-                <PercentageCircle
-                  radius={67}
-                  percent={driverScore}
-                  color={COLORS.GREEN4}
-                  borderWidth={10}
-                  textStyle={{ fontSize: 30 }}>
-                </PercentageCircle>
-                <Text style={{ paddingTop: 10 }}>Driving Score (total)</Text>
-              </View>
-              <View>
-                <View style={{ display: 'flex', flexDirection: 'row' }}>
-                  <Text style={styles.cube}>{`${numTrips}\ntrips`}</Text>
-                  <Text style={styles.cube}>{`${distance}\nkm`}</Text>
-                </View>
-                <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                  <Text style={styles.cube}>{`${numEvents}\nevents`}</Text>
-                  <Text style={styles.cube}>{convertMinutesToHoursMinutes(totalTime)}</Text>
-                </View>
-                <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                  <Text style={styles.cube}>{`${numAccelerations}\naccelerations`}</Text>
-                  <Text style={styles.cube}>{`${numBrakes}\nbrakes`}</Text>
-                </View>
-                <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                  <Text style={styles.cube}>{`${numStandStills}\n stand stills`}</Text>
-                </View>
-              </View>
+              <Image source={require('ldmaapp/assets/png/snoozed.png')} />
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Distance</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{distance}</Text>
             </View>
-              <TouchableOpacity
-                style={styles.goToNextScreen}
-                onPress={() => NavigationService.navigate('MyTrips')}
-              >
-                <Text style={styles.goToNextScreenText}>{`My Trips`}</Text>
-              </TouchableOpacity>
-              {loading && <Loader />}
+            <View style={styles.content}>
+              <Image source={require('ldmaapp/assets/png/overdue.png')} />
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Events</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numEvents}</Text>
+            </View>
+          </View>
+          <View style={{ flexDirection: 'row', paddingTop: 10, justifyContent: 'space-evenly', width: SCREEN_WIDTH, marginLeft: 20, marginRight: 20 }}>
+            <View style={styles.content}>
+              <Image source={require('ldmaapp/assets/png/completed.png')} />
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Accelerations</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numAccelerations}</Text>
+            </View>
+            <View style={styles.content}>
+              <Image source={require('ldmaapp/assets/png/snoozed.png')} />
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Brakes</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numBrakes}</Text>
+            </View>
+            <View style={styles.content}>
+              <Image source={require('ldmaapp/assets/png/overdue.png')} />
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Stand stills</Text>
+              <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numStandStills}</Text>
+            </View>
+          </View>
+          <TouchableOpacity
+            style={styles.goToNextScreen}
+            onPress={() => NavigationService.navigate('MyTrips')}
+          >
+            <Text style={styles.goToNextScreenText}>{`My Trips`}</Text>
+          </TouchableOpacity>
+          {loading && <Loader />}
         </ImageBackground>
       </SideMenu>
     );
@@ -149,24 +176,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   content: {
+    flex: 1,
     display: 'flex',
-    flexDirection: 'row',
-    marginTop: 40,
-  },
-  cube: {
-    borderColor: COLORS.GREEN4,
-    borderWidth: 3,
-    fontSize: 16,
-    padding: 2,
-    paddingTop: 5,
-    width: 90,
-    textAlign: 'center',
-    marginLeft: 10,
-  },
-  percent: {
-    display: 'flex',
+    height: 100,
+    paddingTop: 10,
+    justifyContent: 'space-around',
     alignItems: 'center',
-    marginRight: 20,
   },
   menuButton: {
     position: 'absolute',
