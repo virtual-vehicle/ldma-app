@@ -85,7 +85,33 @@ exports[`SafeDrivingScreen component should renders correctly 1`] = `
         Object {
           "display": "flex",
           "flexDirection": "row",
-          "marginTop": 40,
+          "paddingTop": 20,
+        }
+      }
+    >
+      <AnimatedCircularProgress
+        backgroundColor="transparent"
+        duration={500}
+        easing={[Function]}
+        fill={0}
+        onAnimationComplete={[Function]}
+        prefill={0}
+        size={67}
+        tintColor="#50d2c2"
+        width={3}
+      >
+        <Component />
+      </AnimatedCircularProgress>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "space-evenly",
+          "marginLeft": 20,
+          "marginRight": 20,
+          "paddingTop": 10,
+          "width": 750,
         }
       }
     >
@@ -94,191 +120,243 @@ exports[`SafeDrivingScreen component should renders correctly 1`] = `
           Object {
             "alignItems": "center",
             "display": "flex",
-            "marginRight": 20,
+            "flex": 1,
+            "height": 100,
+            "justifyContent": "space-around",
+            "paddingTop": 10,
           }
         }
       >
-        <PercentageCircle
-          bgcolor="#e3e3e3"
-          borderWidth={10}
-          color="#32CD32"
-          innerColor="#fff"
-          percent=""
-          radius={67}
-          textStyle={
-            Object {
-              "fontSize": 30,
-            }
-          }
+        <Image
+          source={null}
         />
         <Text
           style={
             Object {
-              "paddingTop": 10,
+              "color": "#FFF",
+              "fontSize": 11,
+              "letterSpacing": 1,
+              "lineHeight": 11,
             }
           }
         >
-          Driving Score (total)
+          Trips
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 20,
+              "letterSpacing": 1,
+              "lineHeight": 20,
+            }
+          }
+        >
+          “
         </Text>
       </View>
-      <View>
-        <View
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flex": 1,
+            "height": 100,
+            "justifyContent": "space-around",
+            "paddingTop": 10,
+          }
+        }
+      >
+        <Image
+          source={null}
+        />
+        <Text
           style={
             Object {
-              "display": "flex",
-              "flexDirection": "row",
+              "color": "#FFF",
+              "fontSize": 11,
+              "letterSpacing": 1,
+              "lineHeight": 11,
             }
           }
         >
-          <Text
-            style={
-              Object {
-                "borderColor": "#32CD32",
-                "borderWidth": 3,
-                "fontSize": 16,
-                "marginLeft": 10,
-                "padding": 2,
-                "paddingTop": 5,
-                "textAlign": "center",
-                "width": 90,
-              }
-            }
-          >
-            “
-trips
-          </Text>
-          <Text
-            style={
-              Object {
-                "borderColor": "#32CD32",
-                "borderWidth": 3,
-                "fontSize": 16,
-                "marginLeft": 10,
-                "padding": 2,
-                "paddingTop": 5,
-                "textAlign": "center",
-                "width": 90,
-              }
-            }
-          >
-            
-km
-          </Text>
-        </View>
-        <View
+          Distance
+        </Text>
+        <Text
           style={
             Object {
-              "display": "flex",
-              "flexDirection": "row",
-              "marginTop": 10,
+              "color": "#FFF",
+              "fontSize": 20,
+              "letterSpacing": 1,
+              "lineHeight": 20,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flex": 1,
+            "height": 100,
+            "justifyContent": "space-around",
+            "paddingTop": 10,
+          }
+        }
+      >
+        <Image
+          source={null}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 11,
+              "letterSpacing": 1,
+              "lineHeight": 11,
             }
           }
         >
-          <Text
-            style={
-              Object {
-                "borderColor": "#32CD32",
-                "borderWidth": 3,
-                "fontSize": 16,
-                "marginLeft": 10,
-                "padding": 2,
-                "paddingTop": 5,
-                "textAlign": "center",
-                "width": 90,
-              }
-            }
-          >
-            
-events
-          </Text>
-          <Text
-            style={
-              Object {
-                "borderColor": "#32CD32",
-                "borderWidth": 3,
-                "fontSize": 16,
-                "marginLeft": 10,
-                "padding": 2,
-                "paddingTop": 5,
-                "textAlign": "center",
-                "width": 90,
-              }
-            }
-          >
-            0 min
-          </Text>
-        </View>
-        <View
+          Events
+        </Text>
+        <Text
           style={
             Object {
-              "display": "flex",
-              "flexDirection": "row",
-              "marginTop": 10,
+              "color": "#FFF",
+              "fontSize": 20,
+              "letterSpacing": 1,
+              "lineHeight": 20,
+            }
+          }
+        />
+      </View>
+    </View>
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "space-evenly",
+          "marginLeft": 20,
+          "marginRight": 20,
+          "paddingTop": 10,
+          "width": 750,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flex": 1,
+            "height": 100,
+            "justifyContent": "space-around",
+            "paddingTop": 10,
+          }
+        }
+      >
+        <Image
+          source={null}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 11,
+              "letterSpacing": 1,
+              "lineHeight": 11,
             }
           }
         >
-          <Text
-            style={
-              Object {
-                "borderColor": "#32CD32",
-                "borderWidth": 3,
-                "fontSize": 16,
-                "marginLeft": 10,
-                "padding": 2,
-                "paddingTop": 5,
-                "textAlign": "center",
-                "width": 90,
-              }
-            }
-          >
-            
-accelerations
-          </Text>
-          <Text
-            style={
-              Object {
-                "borderColor": "#32CD32",
-                "borderWidth": 3,
-                "fontSize": 16,
-                "marginLeft": 10,
-                "padding": 2,
-                "paddingTop": 5,
-                "textAlign": "center",
-                "width": 90,
-              }
-            }
-          >
-            
-brakes
-          </Text>
-        </View>
-        <View
+          Accelerations
+        </Text>
+        <Text
           style={
             Object {
-              "display": "flex",
-              "flexDirection": "row",
-              "marginTop": 10,
+              "color": "#FFF",
+              "fontSize": 20,
+              "letterSpacing": 1,
+              "lineHeight": 20,
+            }
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flex": 1,
+            "height": 100,
+            "justifyContent": "space-around",
+            "paddingTop": 10,
+          }
+        }
+      >
+        <Image
+          source={null}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 11,
+              "letterSpacing": 1,
+              "lineHeight": 11,
             }
           }
         >
-          <Text
-            style={
-              Object {
-                "borderColor": "#32CD32",
-                "borderWidth": 3,
-                "fontSize": 16,
-                "marginLeft": 10,
-                "padding": 2,
-                "paddingTop": 5,
-                "textAlign": "center",
-                "width": 90,
-              }
+          Brakes
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 20,
+              "letterSpacing": 1,
+              "lineHeight": 20,
             }
-          >
-            
- stand stills
-          </Text>
-        </View>
+          }
+        />
+      </View>
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "display": "flex",
+            "flex": 1,
+            "height": 100,
+            "justifyContent": "space-around",
+            "paddingTop": 10,
+          }
+        }
+      >
+        <Image
+          source={null}
+        />
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 11,
+              "letterSpacing": 1,
+              "lineHeight": 11,
+            }
+          }
+        >
+          Stand stills
+        </Text>
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 20,
+              "letterSpacing": 1,
+              "lineHeight": 20,
+            }
+          }
+        />
       </View>
     </View>
     <TouchableOpacity
