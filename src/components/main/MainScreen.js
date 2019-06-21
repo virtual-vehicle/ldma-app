@@ -135,13 +135,17 @@ export class MainScreen extends Component<Props, State> {
                 backgroundColor="transparent">
               {
                 (fill) => (
-                  <Text style={{ color: COLORS.WHITE}}>
-                    {fill+"%\nScore"}
-                  </Text>
+                  <View>
+                    <Text style={{ color: COLORS.WHITE }}>
+                    {`${fill}%`}
+                    </Text>
+                    <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>
+                      Score
+                    </Text>
+                  </View>
                 )
               }
               </AnimatedCircularProgress>
-              
           </View>
           <View style={{ flexDirection: 'row', paddingTop: 10, justifyContent: 'space-evenly', width: SCREEN_WIDTH,  marginLeft: 20, marginRight: 20 }}>
             <View style={styles.content}>
@@ -222,11 +226,6 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     justifyContent: 'space-around',
     alignItems: 'center',
-  },
-  percent: {
-    display: 'flex',
-    alignItems: 'center',
-    marginRight: 20,
   },
   menuButton: {
     position: 'absolute',
