@@ -135,13 +135,13 @@ export class MainScreen extends Component<Props, State> {
                 backgroundColor="transparent">
               {
                 (fill) => (
-                  <Text style={{ color: COLORS.WHITE}}>
-                    {fill+"%\nScore"}
+                  <Text style={{ color: COLORS.WHITE, fontSize: 11, lineHeight: 11, textAlign: 'center'}}>
+                    {fill+"%\nscore"}
                   </Text>
                 )
               }
               </AnimatedCircularProgress>
-              
+
           </View>
           <View style={{ flexDirection: 'row', paddingTop: 10, justifyContent: 'space-evenly', width: SCREEN_WIDTH,  marginLeft: 20, marginRight: 20 }}>
             <View style={styles.content}>
@@ -151,7 +151,7 @@ export class MainScreen extends Component<Props, State> {
             </View>
             <View style={styles.content}>
               <Image source={require('ldmaapp/assets/png/snoozed.png')}/>
-              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Distance</Text>
+              <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Distance (km)</Text>
               <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{distance}</Text>
             </View>
             <View style={styles.content}>
