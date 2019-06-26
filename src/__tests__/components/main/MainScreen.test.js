@@ -1,7 +1,7 @@
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
-import { MainScreen } from 'ldmaapp/src/components/main/MainScreen';
+import { HomeScreen } from 'ldmaapp/src/components/home/HomeScreen';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -11,7 +11,7 @@ function setup() {
     getGraphTripscore: jest.fn(),
   };
 
-  const wrapper = shallow(<MainScreen {...props} />);
+  const wrapper = shallow(<HomeScreen {...props} />);
 
   return {
     props,
@@ -19,7 +19,7 @@ function setup() {
   };
 }
 
-describe('MainScreen component', () => {
+describe('HomeScreen component', () => {
   it('should renders correctly', () => {
     const { wrapper } = setup();
     expect(wrapper).toMatchSnapshot();

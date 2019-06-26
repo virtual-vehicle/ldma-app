@@ -64,27 +64,7 @@ exports[`Menu component renders correctly 1`] = `
         }
       }
     >
-      TripViz -&gt;
-    </Text>
-    <View
-      style={
-        Object {
-          "borderBottomColor": "#cacaca",
-          "borderBottomWidth": 0.5,
-          "marginBottom": 20,
-          "marginTop": 19.5,
-        }
-      }
-    />
-    <Text
-      onPress={[Function]}
-      style={
-        Object {
-          "fontSize": 18,
-        }
-      }
-    >
-      Safe Driving -&gt;
+      Home -&gt;
     </Text>
     <View
       style={
@@ -124,7 +104,7 @@ exports[`Menu component renders correctly 1`] = `
         }
       }
     >
-      My Rankings -&gt;
+      Rankings -&gt;
     </Text>
     <View
       style={

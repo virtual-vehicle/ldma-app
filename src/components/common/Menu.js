@@ -69,17 +69,10 @@ export class Menu extends Component<Props> {
         <View style={styles.content}>
           <Text
             style={styles.item}
-            onPress={() => NavigationService.navigate('Main')}
+            onPress={() => NavigationService.navigate('Home')}
           >
-            TripViz ->
+            Home ->
           </Text>
-          <View style={styles.lineSeparator} />
-            <Text
-              style={styles.item}
-              onPress={() => NavigationService.navigate('SafeDriving')}
-            >
-              Safe Driving ->
-            </Text>
           <View style={styles.lineSeparator} />
             <Text
               style={styles.item}
@@ -92,7 +85,7 @@ export class Menu extends Component<Props> {
               style={styles.item}
               onPress={() => NavigationService.navigate('Rankings')}
             >
-              My Rankings ->
+              Rankings ->
             </Text>
           <View style={styles.lineSeparator} />
           <Text

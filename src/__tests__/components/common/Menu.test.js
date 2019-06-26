@@ -18,6 +18,6 @@ describe('Menu component', () => {
 
   it('check the texts', () => {
     const wrapper = shallow(<Menu user={user} />);
-    expect(wrapper.find('Text')).toHaveLength(11);
+    expect(wrapper.find('Text')).toHaveLength(10);
   });
 });

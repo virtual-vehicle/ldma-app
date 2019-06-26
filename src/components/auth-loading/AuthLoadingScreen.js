@@ -24,7 +24,7 @@ export class AuthLoadingScreen extends Component {
     if (!user) {
       NavigationService.navigate('Login');
     } else {
-      NavigationService.navigate('Main');
+      NavigationService.navigate('Home');
     }
   };
 

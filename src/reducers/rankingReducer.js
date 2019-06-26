@@ -8,7 +8,7 @@ import {
 const initialState = {
   sortParams: {
     key: 'driver_id',
-    order: 'asc',
+    order: 'desc',
     type: null,
   },
 };

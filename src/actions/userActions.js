@@ -16,7 +16,7 @@ export const login = (username, password) => {
       .then(
         user => {
           dispatch(success(user));
-          NavigationService.navigate('Main');
+          NavigationService.navigate('Home');
         },
         errorCode => {
           dispatch(openIvalidCredentialsModal());

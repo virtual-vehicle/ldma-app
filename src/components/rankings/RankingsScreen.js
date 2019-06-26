@@ -52,7 +52,7 @@ export class RankingsScreen extends Component<Props, State> {
 
   componentDidMount() {
     const { getRanking, user } = this.props;
-    const auth_token = safeGet(this.props.user, 'auth_token', '');
+    const auth_token = safeGet(user, 'auth_token', '');
     getRanking(auth_token);
   }
 
@@ -170,9 +170,9 @@ export class RankingsScreen extends Component<Props, State> {
           </ScrollView>
           <TouchableOpacity
             style={styles.goToNextScreen}
-            onPress={() => NavigationService.navigate('Main')}
+            onPress={() => NavigationService.navigate('Home')}
           >
-            <Text style={styles.goToNextScreenText}>{`Main`}</Text>
+            <Text style={styles.goToNextScreenText}>{`Home`}</Text>
           </TouchableOpacity>
           {loading && <Loader />}
         </ImageBackground>
@@ -191,7 +191,6 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'column',
     marginTop: 40,
-    marginBottom: 100,
     paddingLeft: 15,
   },
   menuButton: {

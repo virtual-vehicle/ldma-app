@@ -85,7 +85,6 @@ exports[`RankingsScreen component should renders correctly 1`] = `
         Object {
           "display": "flex",
           "flexDirection": "column",
-          "marginBottom": 100,
           "marginTop": 40,
           "paddingLeft": 15,
         }
@@ -122,7 +121,7 @@ exports[`RankingsScreen component should renders correctly 1`] = `
           }
         }
       >
-        Main
+        Home
       </Text>
     </TouchableOpacity>
   </ImageBackground>

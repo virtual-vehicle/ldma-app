@@ -7,6 +7,7 @@ import {
   ImageBackground,
   Image,
   Dimensions,
+  ScrollView
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -22,7 +23,6 @@ import Menu from 'ldmaapp/src/components/common/Menu';
 import { getTripsInfo } from 'ldmaapp/src/actions/tripsInfoActions';
 import { getGraphTripscore } from 'ldmaapp/src/actions/graphTripscoreActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
-import { convertMinutesToHoursMinutes } from 'ldmaapp/src/utils/format';
 /* Config/Constants
 ============================================================================= */
 
@@ -40,7 +40,7 @@ type Props = {
   graphTripscoreList: Array,
 };
 
-export class MainScreen extends Component<Props, State> {
+export class HomeScreen extends Component<Props, State> {
   constructor(props) {
     super(props);
 
@@ -87,8 +87,10 @@ export class MainScreen extends Component<Props, State> {
     const numTrips = safeGet(tripsInfo, 'tripsList[0].value', '');
     const numEvents = safeGet(tripsInfo, 'tripsList[1].value', '');
     const distance = safeGet(tripsInfo, 'tripsList[2].value', '');
-    const totalTime = safeGet(tripsInfo, 'tripsList[3].value', '');
     const driverScore = safeGet(tripsInfo, 'tripsList[7].value', '');
+    const numAccelerations = safeGet(tripsInfo, 'tripsList[4].value', '');
+    const numBrakes = safeGet(tripsInfo, 'tripsList[5].value', '');
+    const numStandStills = safeGet(tripsInfo, 'tripsList[6].value', '');
 
     const contentInset = { top: 20, bottom: 20 };
 
@@ -113,6 +115,7 @@ export class MainScreen extends Component<Props, State> {
         style={styles.container}
         source={require('ldmaapp/assets/png/bg.png')}
         >
+        <ScrollView contentContainerStyle={{ alignItems: 'center', width: SCREEN_WIDTH }}>
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.menuButton}
@@ -123,7 +126,7 @@ export class MainScreen extends Component<Props, State> {
             />
           </TouchableOpacity>
           <View style={styles.header}>
-            <Text style={styles.headerText}>TripViz</Text>
+            <Text style={styles.headerText}>Home</Text>
           </View>
           <View style={{ display: 'flex', flexDirection: 'row', paddingTop: 20 }}>
               <AnimatedCircularProgress
@@ -147,7 +150,7 @@ export class MainScreen extends Component<Props, State> {
               }
               </AnimatedCircularProgress>
           </View>
-          <View style={{ flexDirection: 'row', paddingTop: 10, justifyContent: 'space-evenly', width: SCREEN_WIDTH,  marginLeft: 20, marginRight: 20 }}>
+          <View style={{ flexDirection: 'row', paddingTop: 5, justifyContent: 'space-evenly', width: SCREEN_WIDTH,  marginLeft: 20, marginRight: 20 }}>
             <View style={styles.content}>
               <Image source={require('ldmaapp/assets/png/completed.png')}/>
               <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Trips</Text>
@@ -158,12 +161,35 @@ export class MainScreen extends Component<Props, State> {
               <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Distance (km)</Text>
               <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{distance}</Text>
             </View>
+          </View>
+
+          <View style={{ flexDirection: 'row', paddingTop: 5, justifyContent: 'space-evenly', width: SCREEN_WIDTH,  marginLeft: 20, marginRight: 20 }}>
             <View style={styles.content}>
               <Image source={require('ldmaapp/assets/png/overdue.png')}/>
               <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Events</Text>
               <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numEvents}</Text>
             </View>
           </View>
+
+          <View style={{ flexDirection: 'row', paddingTop: 5, justifyContent: 'space-evenly', width: SCREEN_WIDTH,  marginLeft: 20, marginRight: 20 }}>
+          <View style={styles.content}>
+          <Image source={require('ldmaapp/assets/png/completed.png')} />
+          <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Accelerations</Text>
+          <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numAccelerations}</Text>
+        </View>
+        <View style={styles.content}>
+          <Image source={require('ldmaapp/assets/png/overdue.png')} />
+          <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Brakes</Text>
+          <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numBrakes}</Text>
+        </View>
+        <View style={styles.content}>
+          <Image source={require('ldmaapp/assets/png/snoozed.png')} />
+          <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>Stand stills</Text>
+          <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numStandStills}</Text>
+        </View>
+          </View>
+
+
           <Text style={{ color: COLORS.WHITE, marginTop: 20 }}>Last 20 trip scores</Text>
           <View style={{ flexDirection: 'row' }}>
             <YAxis
@@ -203,11 +229,12 @@ export class MainScreen extends Component<Props, State> {
           </View>
           <TouchableOpacity
             style={styles.goToNextScreen}
-            onPress={() => NavigationService.navigate('SafeDriving')}
+            onPress={() => NavigationService.navigate('MyTrips')}
           >
-            <Text style={styles.goToNextScreenText}>{`Safe Driving`}</Text>
+            <Text style={styles.goToNextScreenText}>{`My Trips`}</Text>
           </TouchableOpacity>
           {loading && <Loader />}
+          </ScrollView>
         </ImageBackground>
       </SideMenu>
     );
@@ -222,6 +249,7 @@ const styles = StyleSheet.create({
   },
   content: {
     display: 'flex',
+    flex: 1,
     height: 100,
     paddingTop: 10,
     justifyContent: 'space-around',
@@ -281,4 +309,4 @@ const mapDispatchToProps = (dispatch) =>
     getGraphTripscore,
   }, dispatch);
 
-export default connect(mapStateToProps, mapDispatchToProps)(MainScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

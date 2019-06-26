@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`MainScreen component should renders correctly 1`] = `
+exports[`HomeScreen component should renders correctly 1`] = `
 <SideMenu
   animationFunction={[Function]}
   animationStyle={[Function]}
@@ -34,326 +34,478 @@ exports[`MainScreen component should renders correctly 1`] = `
       }
     }
   >
-    <TouchableOpacity
-      activeOpacity={0.2}
-      onPress={[Function]}
-      style={
-        Object {
-          "left": 15,
-          "padding": 10,
-          "position": "absolute",
-          "top": 8,
-          "zIndex": 1000,
-        }
-      }
-    >
-      <Image
-        source={null}
-        style={
-          Object {
-            "height": 30,
-            "width": 30,
-          }
-        }
-      />
-    </TouchableOpacity>
-    <View
-      style={
+    <ScrollViewMock
+      contentContainerStyle={
         Object {
           "alignItems": "center",
-          "backgroundColor": "transparent",
-          "display": "flex",
-          "height": 60,
-          "justifyContent": "center",
-          "width": "100%",
-        }
-      }
-    >
-      <Text
-        style={
-          Object {
-            "color": "#FFF",
-            "fontSize": 20,
-          }
-        }
-      >
-        TripViz
-      </Text>
-    </View>
-    <View
-      style={
-        Object {
-          "display": "flex",
-          "flexDirection": "row",
-          "paddingTop": 20,
-        }
-      }
-    >
-      <AnimatedCircularProgress
-        backgroundColor="transparent"
-        duration={500}
-        easing={[Function]}
-        fill={0}
-        onAnimationComplete={[Function]}
-        prefill={0}
-        size={67}
-        tintColor="#50d2c2"
-        width={3}
-      >
-        <Component />
-      </AnimatedCircularProgress>
-    </View>
-    <View
-      style={
-        Object {
-          "flexDirection": "row",
-          "justifyContent": "space-evenly",
-          "marginLeft": 20,
-          "marginRight": 20,
-          "paddingTop": 10,
           "width": 750,
         }
       }
     >
-      <View
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
         style={
           Object {
-            "alignItems": "center",
-            "display": "flex",
-            "height": 100,
-            "justifyContent": "space-around",
-            "paddingTop": 10,
+            "left": 15,
+            "padding": 10,
+            "position": "absolute",
+            "top": 8,
+            "zIndex": 1000,
           }
         }
       >
         <Image
           source={null}
-        />
-        <Text
           style={
             Object {
-              "color": "#FFF",
-              "fontSize": 11,
-              "letterSpacing": 1,
-              "lineHeight": 11,
-            }
-          }
-        >
-          Trips
-        </Text>
-        <Text
-          style={
-            Object {
-              "color": "#FFF",
-              "fontSize": 20,
-              "letterSpacing": 1,
-              "lineHeight": 20,
+              "height": 30,
+              "width": 30,
             }
           }
         />
-      </View>
+      </TouchableOpacity>
       <View
         style={
           Object {
             "alignItems": "center",
+            "backgroundColor": "transparent",
             "display": "flex",
-            "height": 100,
-            "justifyContent": "space-around",
-            "paddingTop": 10,
+            "height": 60,
+            "justifyContent": "center",
+            "width": "100%",
           }
         }
       >
-        <Image
-          source={null}
-        />
-        <Text
-          style={
-            Object {
-              "color": "#FFF",
-              "fontSize": 11,
-              "letterSpacing": 1,
-              "lineHeight": 11,
-            }
-          }
-        >
-          Distance (km)
-        </Text>
         <Text
           style={
             Object {
               "color": "#FFF",
               "fontSize": 20,
-              "letterSpacing": 1,
-              "lineHeight": 20,
             }
           }
-        />
+        >
+          Home
+        </Text>
       </View>
       <View
         style={
           Object {
-            "alignItems": "center",
             "display": "flex",
-            "height": 100,
-            "justifyContent": "space-around",
-            "paddingTop": 10,
+            "flexDirection": "row",
+            "paddingTop": 20,
           }
         }
       >
-        <Image
-          source={null}
-        />
-        <Text
+        <AnimatedCircularProgress
+          backgroundColor="transparent"
+          duration={500}
+          easing={[Function]}
+          fill={0}
+          onAnimationComplete={[Function]}
+          prefill={0}
+          size={67}
+          tintColor="#50d2c2"
+          width={3}
+        >
+          <Component />
+        </AnimatedCircularProgress>
+      </View>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+            "justifyContent": "space-evenly",
+            "marginLeft": 20,
+            "marginRight": 20,
+            "paddingTop": 5,
+            "width": 750,
+          }
+        }
+      >
+        <View
           style={
             Object {
-              "color": "#FFF",
-              "fontSize": 11,
-              "letterSpacing": 1,
-              "lineHeight": 11,
+              "alignItems": "center",
+              "display": "flex",
+              "flex": 1,
+              "height": 100,
+              "justifyContent": "space-around",
+              "paddingTop": 10,
             }
           }
         >
-          Events
-        </Text>
-        <Text
+          <Image
+            source={null}
+          />
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 11,
+                "letterSpacing": 1,
+                "lineHeight": 11,
+              }
+            }
+          >
+            Trips
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 20,
+                "letterSpacing": 1,
+                "lineHeight": 20,
+              }
+            }
+          />
+        </View>
+        <View
           style={
             Object {
-              "color": "#FFF",
-              "fontSize": 20,
-              "letterSpacing": 1,
-              "lineHeight": 20,
+              "alignItems": "center",
+              "display": "flex",
+              "flex": 1,
+              "height": 100,
+              "justifyContent": "space-around",
+              "paddingTop": 10,
             }
           }
-        />
+        >
+          <Image
+            source={null}
+          />
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 11,
+                "letterSpacing": 1,
+                "lineHeight": 11,
+              }
+            }
+          >
+            Distance (km)
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 20,
+                "letterSpacing": 1,
+                "lineHeight": 20,
+              }
+            }
+          />
+        </View>
       </View>
-    </View>
-    <Text
-      style={
-        Object {
-          "color": "#FFF",
-          "marginTop": 20,
-        }
-      }
-    >
-      Last 20 trip scores
-    </Text>
-    <View
-      style={
-        Object {
-          "flexDirection": "row",
-        }
-      }
-    >
-      <YAxis
-        contentInset={
+      <View
+        style={
           Object {
-            "bottom": 20,
-            "top": 20,
+            "flexDirection": "row",
+            "justifyContent": "space-evenly",
+            "marginLeft": 20,
+            "marginRight": 20,
+            "paddingTop": 5,
+            "width": 750,
           }
         }
-        data={Array []}
-        formatLabel={[Function]}
-        numberOfTicks={10}
-        scale={[Function]}
-        spacingInner={0.05}
-        spacingOuter={0.05}
-        svg={
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flex": 1,
+              "height": 100,
+              "justifyContent": "space-around",
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Image
+            source={null}
+          />
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 11,
+                "letterSpacing": 1,
+                "lineHeight": 11,
+              }
+            }
+          >
+            Events
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 20,
+                "letterSpacing": 1,
+                "lineHeight": 20,
+              }
+            }
+          />
+        </View>
+      </View>
+      <View
+        style={
           Object {
-            "fill": "grey",
-            "fontSize": 10,
+            "flexDirection": "row",
+            "justifyContent": "space-evenly",
+            "marginLeft": 20,
+            "marginRight": 20,
+            "paddingTop": 5,
+            "width": 750,
           }
         }
-        yAccessor={[Function]}
-      />
-      <View>
-        <LineChart
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flex": 1,
+              "height": 100,
+              "justifyContent": "space-around",
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Image
+            source={null}
+          />
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 11,
+                "letterSpacing": 1,
+                "lineHeight": 11,
+              }
+            }
+          >
+            Accelerations
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 20,
+                "letterSpacing": 1,
+                "lineHeight": 20,
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flex": 1,
+              "height": 100,
+              "justifyContent": "space-around",
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Image
+            source={null}
+          />
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 11,
+                "letterSpacing": 1,
+                "lineHeight": 11,
+              }
+            }
+          >
+            Brakes
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 20,
+                "letterSpacing": 1,
+                "lineHeight": 20,
+              }
+            }
+          />
+        </View>
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "display": "flex",
+              "flex": 1,
+              "height": 100,
+              "justifyContent": "space-around",
+              "paddingTop": 10,
+            }
+          }
+        >
+          <Image
+            source={null}
+          />
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 11,
+                "letterSpacing": 1,
+                "lineHeight": 11,
+              }
+            }
+          >
+            Stand stills
+          </Text>
+          <Text
+            style={
+              Object {
+                "color": "#FFF",
+                "fontSize": 20,
+                "letterSpacing": 1,
+                "lineHeight": 20,
+              }
+            }
+          />
+        </View>
+      </View>
+      <Text
+        style={
+          Object {
+            "color": "#FFF",
+            "marginTop": 20,
+          }
+        }
+      >
+        Last 20 trip scores
+      </Text>
+      <View
+        style={
+          Object {
+            "flexDirection": "row",
+          }
+        }
+      >
+        <YAxis
           contentInset={
             Object {
               "bottom": 20,
               "top": 20,
             }
           }
-          curve={[Function]}
-          data={Array []}
-          height={100}
-          numberOfTicks={10}
-          style={
-            Object {
-              "height": 250,
-              "width": 675,
-            }
-          }
-          svg={
-            Object {
-              "stroke": "#FFF",
-            }
-          }
-          width={100}
-          xAccessor={[Function]}
-          xScale={[Function]}
-          yAccessor={[Function]}
-          yScale={[Function]}
-        >
-          <Grid
-            belowChart={true}
-            direction="HORIZONTAL"
-          />
-        </LineChart>
-        <XAxis
-          contentInset={
-            Object {
-              "left": 10,
-              "right": 10,
-            }
-          }
           data={Array []}
           formatLabel={[Function]}
+          numberOfTicks={10}
           scale={[Function]}
           spacingInner={0.05}
           spacingOuter={0.05}
-          style={
-            Object {
-              "marginHorizontal": -10,
-            }
-          }
           svg={
             Object {
-              "fill": "black",
+              "fill": "grey",
               "fontSize": 10,
             }
           }
-          xAccessor={[Function]}
+          yAccessor={[Function]}
         />
+        <View>
+          <LineChart
+            contentInset={
+              Object {
+                "bottom": 20,
+                "top": 20,
+              }
+            }
+            curve={[Function]}
+            data={Array []}
+            height={100}
+            numberOfTicks={10}
+            style={
+              Object {
+                "height": 250,
+                "width": 675,
+              }
+            }
+            svg={
+              Object {
+                "stroke": "#FFF",
+              }
+            }
+            width={100}
+            xAccessor={[Function]}
+            xScale={[Function]}
+            yAccessor={[Function]}
+            yScale={[Function]}
+          >
+            <Grid
+              belowChart={true}
+              direction="HORIZONTAL"
+            />
+          </LineChart>
+          <XAxis
+            contentInset={
+              Object {
+                "left": 10,
+                "right": 10,
+              }
+            }
+            data={Array []}
+            formatLabel={[Function]}
+            scale={[Function]}
+            spacingInner={0.05}
+            spacingOuter={0.05}
+            style={
+              Object {
+                "marginHorizontal": -10,
+              }
+            }
+            svg={
+              Object {
+                "fill": "black",
+                "fontSize": 10,
+              }
+            }
+            xAccessor={[Function]}
+          />
+        </View>
       </View>
-    </View>
-    <TouchableOpacity
-      activeOpacity={0.2}
-      onPress={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "transparent",
-          "borderColor": "rgba(255, 255, 255, 0.5)",
-          "borderRadius": 50,
-          "borderWidth": 1,
-          "height": 50,
-          "justifyContent": "center",
-          "marginTop": 20,
-          "width": 630,
-        }
-      }
-    >
-      <Text
+      <TouchableOpacity
+        activeOpacity={0.2}
+        onPress={[Function]}
         style={
           Object {
-            "color": "#FFF",
-            "fontSize": 20,
+            "alignItems": "center",
+            "backgroundColor": "transparent",
+            "borderColor": "rgba(255, 255, 255, 0.5)",
+            "borderRadius": 50,
+            "borderWidth": 1,
+            "height": 50,
+            "justifyContent": "center",
+            "marginTop": 20,
+            "width": 630,
           }
         }
       >
-        Safe Driving
-      </Text>
-    </TouchableOpacity>
+        <Text
+          style={
+            Object {
+              "color": "#FFF",
+              "fontSize": 20,
+            }
+          }
+        >
+          My Trips
+        </Text>
+      </TouchableOpacity>
+    </ScrollViewMock>
   </ImageBackground>
 </SideMenu>
 `;
