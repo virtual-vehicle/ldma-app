@@ -3,6 +3,7 @@ import AuthLoadingScreen from 'ldmaapp/src/components/auth-loading/AuthLoadingSc
 import LoginScreen from 'ldmaapp/src/components/login/LoginScreen';
 import HomeScreen from 'ldmaapp/src/components/home/HomeScreen';
 import MyTripsScreen from 'ldmaapp/src/components/my-trips/MyTripsScreen';
+import TripDetailsScreen from 'ldmaapp/src/components/trip-details/TripDetailsScreen';
 import RankingsScreen from 'ldmaapp/src/components/rankings/RankingsScreen';
 
 // used config from here: https://github.com/react-navigation/react-navigation/issues/707#issuecomment-299859578
@@ -32,7 +33,7 @@ const MainCardNavigator = createStackNavigator({
     },
   },
   TripDetails: {
-    screen: TripDetails,
+    screen: TripDetailsScreen,
     navigationOptions: {
       header: null,
     },
