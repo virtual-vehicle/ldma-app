@@ -4,6 +4,7 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
+import MapView, { Polyline } from 'react-native-maps';
 
 type Props = {
   white: boolean,

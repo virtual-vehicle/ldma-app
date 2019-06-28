@@ -339,6 +339,11 @@ export class MyTripsScreen extends Component<Props, State> {
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.accelerations} Fast\naccel.`}</Text>
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.standstills} Stand\nstills`}</Text>
                     <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`Distance: \n${trip.distance} km`}</Text>
+                    <TouchableOpacity
+                      onPress={() => NavigationService.navigate('TripDetails')}
+                    >
+                      <Text>{`Trip Details`}</Text>
+                    </TouchableOpacity>
                   </View>
                 </View>
               </View>
