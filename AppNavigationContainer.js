@@ -31,6 +31,12 @@ const MainCardNavigator = createStackNavigator({
       header: null,
     },
   },
+  TripDetails: {
+    screen: TripDetails,
+    navigationOptions: {
+      header: null,
+    },
+  },
   Rankings: {
     screen: RankingsScreen,
     navigationOptions: {
