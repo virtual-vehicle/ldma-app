@@ -375,7 +375,6 @@ export class MyTripsScreen extends Component<Props, State> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLORS.WHITE,
     alignItems: 'center',
   },
   dateSelect: {
