@@ -56,16 +56,36 @@ exports[`Menu component renders correctly 1`] = `
       }
     }
   >
-    <Text
-      onPress={[Function]}
+    <View
       style={
         Object {
-          "fontSize": 18,
+          "alignItems": "center",
+          "flexDirection": "row",
         }
       }
     >
-      Home -&gt;
-    </Text>
+      <Image
+        source={null}
+        style={
+          Object {
+            "height": 25,
+            "resizeMode": "center",
+            "width": 25,
+          }
+        }
+      />
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "fontSize": 18,
+            "paddingLeft": 20,
+          }
+        }
+      >
+        Home
+      </Text>
+    </View>
     <View
       style={
         Object {
@@ -76,16 +96,36 @@ exports[`Menu component renders correctly 1`] = `
         }
       }
     />
-    <Text
-      onPress={[Function]}
+    <View
       style={
         Object {
-          "fontSize": 18,
+          "alignItems": "center",
+          "flexDirection": "row",
         }
       }
     >
-      My Trips -&gt;
-    </Text>
+      <Image
+        source={null}
+        style={
+          Object {
+            "height": 25,
+            "resizeMode": "center",
+            "width": 25,
+          }
+        }
+      />
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "fontSize": 18,
+            "paddingLeft": 20,
+          }
+        }
+      >
+        My Trips
+      </Text>
+    </View>
     <View
       style={
         Object {
@@ -96,16 +136,36 @@ exports[`Menu component renders correctly 1`] = `
         }
       }
     />
-    <Text
-      onPress={[Function]}
+    <View
       style={
         Object {
-          "fontSize": 18,
+          "alignItems": "center",
+          "flexDirection": "row",
         }
       }
     >
-      Rankings -&gt;
-    </Text>
+      <Image
+        source={null}
+        style={
+          Object {
+            "height": 25,
+            "resizeMode": "center",
+            "width": 25,
+          }
+        }
+      />
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "fontSize": 18,
+            "paddingLeft": 20,
+          }
+        }
+      >
+        Rankings
+      </Text>
+    </View>
     <View
       style={
         Object {
@@ -116,16 +176,36 @@ exports[`Menu component renders correctly 1`] = `
         }
       }
     />
-    <Text
-      onPress={[Function]}
+    <View
       style={
         Object {
-          "fontSize": 18,
+          "alignItems": "center",
+          "flexDirection": "row",
         }
       }
     >
-      Log Out
-    </Text>
+      <Image
+        source={null}
+        style={
+          Object {
+            "height": 25,
+            "resizeMode": "center",
+            "width": 25,
+          }
+        }
+      />
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "fontSize": 18,
+            "paddingLeft": 20,
+          }
+        }
+      >
+        Log Out
+      </Text>
+    </View>
     <View
       style={
         Object {

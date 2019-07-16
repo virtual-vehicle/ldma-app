@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   Text,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -67,33 +68,45 @@ export class Menu extends Component<Props> {
           <Text style={styles.nameText}>{username}</Text>
         </View>
         <View style={styles.content}>
-          <Text
-            style={styles.item}
-            onPress={() => NavigationService.navigate('Home')}
-          >
-            Home ->
-          </Text>
-          <View style={styles.lineSeparator} />
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/home.png')} />
             <Text
-              style={styles.item}
+              style={styles.itemText}
+              onPress={() => NavigationService.navigate('Home')}
+            >
+              Home
+            </Text>
+          </View>
+          <View style={styles.lineSeparator} />
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/trips.png')} />
+            <Text
+              style={styles.itemText}
               onPress={() => NavigationService.navigate('MyTrips')}
             >
-              My Trips ->
+              My Trips
             </Text>
+          </View>
           <View style={styles.lineSeparator} />
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/ranking.png')} />
             <Text
-              style={styles.item}
+              style={styles.itemText}
               onPress={() => NavigationService.navigate('Rankings')}
             >
-              Rankings ->
+              Rankings
             </Text>
+          </View>
           <View style={styles.lineSeparator} />
-          <Text
-            onPress={(e) => this.userLogout(e)}
-            style={styles.item}
-          >
-            Log Out
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/logout.png')} />
+            <Text
+              onPress={(e) => this.userLogout(e)}
+              style={styles.itemText}
+            >
+              Log Out
           </Text>
+          </View>
           <View style={styles.lineSeparator} />
           <View>
             <Text style={styles.headlineText}>Customer support</Text>
@@ -111,7 +124,7 @@ export class Menu extends Component<Props> {
           </View>
         </View>
 
-      </ScrollView>
+      </ScrollView >
     );
   }
 }
@@ -143,8 +156,18 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: 13,
   },
-  item: {
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  itemImage: {
+    height: 25,
+    width: 25,
+    resizeMode: "center",
+  },
+  itemText: {
     fontSize: 18,
+    paddingLeft: 20,
   },
   content: {
     paddingLeft: 18,
