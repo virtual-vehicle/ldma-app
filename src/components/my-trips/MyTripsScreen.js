@@ -7,7 +7,7 @@ import {
   ImageBackground,
   Image,
   Dimensions,
-  ScrollView,
+  FlatList,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -19,7 +19,7 @@ import PercentageCircle from 'react-native-percentage-circle';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import {
 } from 'ldmaapp/src/actions/uiActions';
-import Svg,{ Line } from 'react-native-svg';
+import Svg, { Line } from 'react-native-svg';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import MapView, { Polyline } from 'react-native-maps';
@@ -42,6 +42,108 @@ type Props = {
   loading: boolean,
 };
 
+export class TripListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      map_visible: false,
+    };
+  }
+
+  showMapPress() {
+    this.setState(previousState => (
+      { map_visible: !previousState.map_visible }
+    ));
+  }
+
+  render() {
+    const { trip, index } = this.props
+    return (
+      <View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
+        <Text style={{ color: COLORS.BLUE, textAlign: 'center', paddingBottom: 10 }}>Trip info</Text>
+        <View style={{ flexDirection: 'row' }}>
+          {/* FIRST COLUMN */}
+          <View style={{ flexDirection: 'column', width: '33.3%' }}>
+            <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${getTimeOutOfWholeDate(trip.start_at)}`}</Text>
+            <View
+              style={[
+                { alignItems: 'center', justifyContent: 'center', height: 180 },
+              ]}>
+              <Svg
+                height="180"
+                width="2"
+              >
+                <Line
+                  x1="0"
+                  y1="0"
+                  x2="0"
+                  y2="180"
+                  stroke={COLORS.BLUE}
+                  strokeWidth="2"
+                />
+              </Svg>
+            </View>
+            <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm:ss')}`}</Text>
+          </View>
+          {/* SECOND COLUMN */}
+          <View style={{ flexDirection: 'column', width: '33.3%' }}>
+            <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_position_name}</Text>
+            {this.state.map_visible ?
+              (<MapView
+                liteMode={true}
+                style={styles.map}
+                region={{
+                  latitude: trip.gps_track.coordinates[0].lat,
+                  longitude: trip.gps_track.coordinates[0].lon,
+                  latitudeDelta: 0.05,
+                  longitudeDelta: 0.05,
+                }}
+              >
+                <Polyline
+                  coordinates={formatCoordinates(trip.gps_track.coordinates)}
+                  strokeColor="#0000ff" // fallback for when `strokeColors` is not supported by the map-provider
+                  strokeWidth={6}
+                />
+              </MapView>
+              )
+              :
+              (
+                <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+                  <TouchableOpacity
+                    style={styles.showMapButton}
+                    onPress={() => this.showMapPress(index)}
+                  >
+                    <Text style={{ color: COLORS.WHITE }}>Show Map</Text>
+                  </TouchableOpacity>
+                </View>
+              )
+            }
+            <Text style={{ fontSize: 10, width: 100, marginTop: 10, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, alignSelf: 'flex-end' }}>{trip.end_position_name}</Text>
+          </View>
+          {/* THIRD COLUMN */}
+          <View style={{ flexDirection: 'column', width: '33.3%', alignItems: 'flex-end' }}>
+            <PercentageCircle
+              radius={30}
+              percent={trip.risk_score}
+              color={COLORS.GREEN4}
+              borderWidth={2}
+              textStyle={{ fontSize: 12 }}
+            />
+            <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.brakes} Hard\nbrakes`}</Text>
+            <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.accelerations} Fast\naccel.`}</Text>
+            <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.standstills} Stand\nstills`}</Text>
+            <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`Distance: \n${trip.distance} km`}</Text>
+            <TouchableOpacity
+              onPress={() => NavigationService.navigate('TripDetails', {trip: trip})}
+            >
+              <Text>{`Trip Details`}</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+    );
+  }
+}
 export class MyTripsScreen extends Component<Props, State> {
 
   constructor(props) {
@@ -111,7 +213,7 @@ export class MyTripsScreen extends Component<Props, State> {
   }
 
   setLastWeekDate() {
-    const weekAgoDate = moment().subtract(7,'d').format('YYYY-MM-DD');
+    const weekAgoDate = moment().subtract(7, 'd').format('YYYY-MM-DD');
     const todayDate = moment().format('YYYY-MM-DD');
     const { week } = this.state;
     if (week) {
@@ -122,7 +224,7 @@ export class MyTripsScreen extends Component<Props, State> {
   }
 
   setLastMonthDate() {
-    const monthAgoDate = moment().subtract(1,'months').format('YYYY-MM-DD');
+    const monthAgoDate = moment().subtract(1, 'months').format('YYYY-MM-DD');
     const todayDate = moment().format('YYYY-MM-DD');
     const { month } = this.state;
     if (month) {
@@ -156,11 +258,6 @@ export class MyTripsScreen extends Component<Props, State> {
     this.hideDateTimePickerEndDate();
   };
 
-  showMapPress = tripIndex => {
-    const { setMapVisible } = this.props;
-    setMapVisible(tripIndex);
-  }
-
   render() {
     const {
       isOpen,
@@ -181,10 +278,10 @@ export class MyTripsScreen extends Component<Props, State> {
         isOpen={isOpen}
         onChange={isOpen => this.updateMenuState(isOpen)}
       >
-         <ImageBackground
-                        style={styles.container}
-                        source={require('ldmaapp/assets/png/bg.png')}
-                        >
+        <ImageBackground
+          style={styles.container}
+          source={require('ldmaapp/assets/png/bg.png')}
+        >
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.menuButton}
@@ -204,7 +301,7 @@ export class MyTripsScreen extends Component<Props, State> {
                   style={[styles.periodCubeSmall, all && { backgroundColor: COLORS.BLUE }]}
                   onPress={() => {
                     this.setState({ all: !all, today: false, week: false, month: false },
-                    () => this.setAllDate());
+                      () => this.setAllDate());
                   }}
                 >
                   <Text>All</Text>
@@ -213,7 +310,7 @@ export class MyTripsScreen extends Component<Props, State> {
                   style={[styles.periodCubeSmall, today && { backgroundColor: COLORS.BLUE }]}
                   onPress={() => {
                     this.setState({ all: false, today: !today, week: false, month: false },
-                    () => this.setTodaysDate());
+                      () => this.setTodaysDate());
                   }}
                 >
                   <Text>Today</Text>
@@ -224,7 +321,7 @@ export class MyTripsScreen extends Component<Props, State> {
                   style={[styles.periodCubeSmall, week && { backgroundColor: COLORS.BLUE }]}
                   onPress={() => {
                     this.setState({ all: false, today: false, week: !week, month: false },
-                    () =>  this.setLastWeekDate());
+                      () => this.setLastWeekDate());
                   }}
                 >
                   <Text>Week</Text>
@@ -233,7 +330,7 @@ export class MyTripsScreen extends Component<Props, State> {
                   style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
                   onPress={() => {
                     this.setState({ all: false, today: false, week: false, month: !month },
-                    () => this.setLastMonthDate());
+                      () => this.setLastMonthDate());
                   }}
                 >
                   <Text>Month</Text>
@@ -250,7 +347,7 @@ export class MyTripsScreen extends Component<Props, State> {
               <View style={{ display: 'flex', flexDirection: 'row' }}>
                 <Text style={{ textAlign: 'left', width: 40 }}>To:</Text>
                 <TouchableOpacity onPress={this.showDateTimePickerEndDate}>
-                  <Text style={{ paddingLeft: 3, width: 100  }}>{endDate}</Text>
+                  <Text style={{ paddingLeft: 3, width: 100 }}>{endDate}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -264,91 +361,20 @@ export class MyTripsScreen extends Component<Props, State> {
           </TouchableOpacity>
 
           {/* render real trips */}
-          <ScrollView style={{ marginBottom: 100, width: '100%' }}>
-            {tripsList.map((trip, index) => {
-              return (<View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
-                <Text style={{ color: COLORS.BLUE, textAlign: 'center', paddingBottom: 10 }}>Trip info</Text>
-                <View style={{ flexDirection: 'row' }}>
-                  {/* FIRST COLUMN */}
-                  <View style={{ flexDirection: 'column', width: '33.3%' }}>
-                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${getTimeOutOfWholeDate(trip.start_at)}`}</Text>
-                    <View
-                    style={[
-                      { alignItems: 'center', justifyContent: 'center', height: 180 },
-                    ]}>
-                      <Svg
-                        height="180"
-                        width="2"
-                      >
-                        <Line
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="180"
-                          stroke={COLORS.BLUE}
-                          strokeWidth="2"
-                        />
-                      </Svg>
-                    </View>
-                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm:ss')}`}</Text>
-                  </View>
-                  {/* SECOND COLUMN */}
-                  <View style={{ flexDirection: 'column', width: '33.3%' }}>
-                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_position_name}</Text>
-                    {trip.map_visible ?
-                      (<MapView
-                        style={styles.map}
-                        region={{
-                          latitude: trip.gps_track.coordinates[0].lat,
-                          longitude: trip.gps_track.coordinates[0].lon,
-                          latitudeDelta: 0.05,
-                          longitudeDelta: 0.05,
-                        }}
-                      >
-                      <Polyline
-                        coordinates={formatCoordinates(trip.gps_track.coordinates)}
-                        strokeColor="#0000ff" // fallback for when `strokeColors` is not supported by the map-provider
-                        strokeWidth={6}
-                      />
-                      </MapView>
-                      )
-                      :
-                      (
-                      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <TouchableOpacity
-                          style={styles.showMapButton}
-                          onPress={() => this.showMapPress(index)}
-                        >
-                          <Text style={{ color: COLORS.WHITE }}>Show Map</Text>
-                        </TouchableOpacity>
-                      </View>
-                      )
-                    }
-                    <Text style={{ fontSize: 10, width: 100, marginTop: 10, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, alignSelf: 'flex-end' }}>{trip.end_position_name}</Text>
-                  </View>
-                  {/* THIRD COLUMN */}
-                  <View style={{ flexDirection: 'column', width: '33.3%', alignItems: 'flex-end' }}>
-                    <PercentageCircle
-                      radius={30}
-                      percent={trip.risk_score}
-                      color={COLORS.GREEN4}
-                      borderWidth={2}
-                      textStyle={{ fontSize: 12 }}
-                    />
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.brakes} Hard\nbrakes`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.accelerations} Fast\naccel.`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.standstills} Stand\nstills`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`Distance: \n${trip.distance} km`}</Text>
-                    <TouchableOpacity
-                      onPress={() => NavigationService.navigate('TripDetails')}
-                    >
-                      <Text>{`Trip Details`}</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            )})}
-          </ScrollView>
+          <FlatList
+            data={tripsList}
+            keyExtractor={(item) => item.trip_id}
+            renderItem={({ item, index }) =>
+              (
+                <TripListItem trip={item} index={index} />
+              )}
+            // Performance settings
+            removeClippedSubviews={true} // Unmount components when outside of window 
+            initialNumToRender={1} // Reduce initial render amount
+            maxToRenderPerBatch={3} // Reduce number in each render batch
+            updateCellsBatchingPeriod={10} // Increase time between renders
+            windowSize={11} // Reduce the window size
+          />
           <TouchableOpacity
             style={styles.goToNextScreen}
             onPress={() => NavigationService.navigate('Rankings')}
