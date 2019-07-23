@@ -18,49 +18,65 @@ exports[`Menu component renders correctly 1`] = `
   <View
     style={
       Object {
-        "backgroundColor": "#d1d1d1",
+        "alignItems": "center",
         "flex": 1,
-        "height": 90,
-        "justifyContent": "flex-end",
-        "paddingBottom": 14,
-        "paddingLeft": 18,
+        "flexDirection": "row",
+        "height": 100,
+        "justifyContent": "flex-start",
+        "paddingBottom": 25,
+        "paddingLeft": 25,
+        "paddingRight": 272.5,
+        "paddingTop": 25,
         "width": "80%",
       }
     }
   >
-    <Text
+    <Image
+      source={null}
       style={
         Object {
-          "color": "#FFF",
-          "fontSize": 13,
-        }
-      }
-    >
-      VERSION 
-    </Text>
-    <Text
-      style={
-        Object {
-          "color": "#FFF",
-          "fontSize": 18,
+          "borderRadius": 1042,
+          "height": 50,
+          "marginRight": 25,
+          "resizeMode": "contain",
+          "width": 50,
         }
       }
     />
+    <View>
+      <Text
+        style={
+          Object {
+            "color": "#4A4A4A",
+            "fontSize": 18,
+          }
+        }
+      />
+    </View>
   </View>
   <View
     style={
       Object {
-        "paddingLeft": 18,
-        "paddingRight": 265.5,
-        "paddingTop": 36,
+        "paddingLeft": 25,
+        "paddingRight": 272.5,
       }
     }
   >
     <View
       style={
         Object {
+          "borderBottomColor": "#cacaca",
+          "borderBottomWidth": 0.5,
+          "marginBottom": 31.5,
+        }
+      }
+    />
+    <View
+      style={
+        Object {
           "alignItems": "center",
           "flexDirection": "row",
+          "marginBottom": 31.5,
         }
       }
     >
@@ -69,7 +85,7 @@ exports[`Menu component renders correctly 1`] = `
         style={
           Object {
             "height": 25,
-            "resizeMode": "center",
+            "resizeMode": "contain",
             "width": 25,
           }
         }
@@ -79,7 +95,7 @@ exports[`Menu component renders correctly 1`] = `
         style={
           Object {
             "fontSize": 18,
-            "paddingLeft": 20,
+            "marginLeft": 25,
           }
         }
       >
@@ -89,18 +105,9 @@ exports[`Menu component renders correctly 1`] = `
     <View
       style={
         Object {
-          "borderBottomColor": "#cacaca",
-          "borderBottomWidth": 0.5,
-          "marginBottom": 20,
-          "marginTop": 19.5,
-        }
-      }
-    />
-    <View
-      style={
-        Object {
           "alignItems": "center",
           "flexDirection": "row",
+          "marginBottom": 31.5,
         }
       }
     >
@@ -109,7 +116,7 @@ exports[`Menu component renders correctly 1`] = `
         style={
           Object {
             "height": 25,
-            "resizeMode": "center",
+            "resizeMode": "contain",
             "width": 25,
           }
         }
@@ -119,7 +126,7 @@ exports[`Menu component renders correctly 1`] = `
         style={
           Object {
             "fontSize": 18,
-            "paddingLeft": 20,
+            "marginLeft": 25,
           }
         }
       >
@@ -129,18 +136,9 @@ exports[`Menu component renders correctly 1`] = `
     <View
       style={
         Object {
-          "borderBottomColor": "#cacaca",
-          "borderBottomWidth": 0.5,
-          "marginBottom": 20,
-          "marginTop": 19.5,
-        }
-      }
-    />
-    <View
-      style={
-        Object {
           "alignItems": "center",
           "flexDirection": "row",
+          "marginBottom": 31.5,
         }
       }
     >
@@ -149,7 +147,7 @@ exports[`Menu component renders correctly 1`] = `
         style={
           Object {
             "height": 25,
-            "resizeMode": "center",
+            "resizeMode": "contain",
             "width": 25,
           }
         }
@@ -159,7 +157,7 @@ exports[`Menu component renders correctly 1`] = `
         style={
           Object {
             "fontSize": 18,
-            "paddingLeft": 20,
+            "marginLeft": 25,
           }
         }
       >
@@ -171,8 +169,7 @@ exports[`Menu component renders correctly 1`] = `
         Object {
           "borderBottomColor": "#cacaca",
           "borderBottomWidth": 0.5,
-          "marginBottom": 20,
-          "marginTop": 19.5,
+          "marginBottom": 31.5,
         }
       }
     />
@@ -181,6 +178,7 @@ exports[`Menu component renders correctly 1`] = `
         Object {
           "alignItems": "center",
           "flexDirection": "row",
+          "marginBottom": 31.5,
         }
       }
     >
@@ -189,7 +187,7 @@ exports[`Menu component renders correctly 1`] = `
         style={
           Object {
             "height": 25,
-            "resizeMode": "center",
+            "resizeMode": "contain",
             "width": 25,
           }
         }
@@ -199,11 +197,11 @@ exports[`Menu component renders correctly 1`] = `
         style={
           Object {
             "fontSize": 18,
-            "paddingLeft": 20,
+            "marginLeft": 25,
           }
         }
       >
-        Log Out
+        Logout
       </Text>
     </View>
     <View
@@ -211,8 +209,7 @@ exports[`Menu component renders correctly 1`] = `
         Object {
           "borderBottomColor": "#cacaca",
           "borderBottomWidth": 0.5,
-          "marginBottom": 20,
-          "marginTop": 19.5,
+          "marginBottom": 31.5,
         }
       }
     />
@@ -274,6 +271,21 @@ exports[`Menu component renders correctly 1`] = `
           nik.adzic@v2c2.at
         </Text>
       </TouchableOpacity>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#4A4A4A",
+              "fontSize": 14,
+            },
+            Object {
+              "marginTop": 20,
+            },
+          ]
+        }
+      >
+        Version 
+      </Text>
     </View>
   </View>
 </ScrollViewMock>
