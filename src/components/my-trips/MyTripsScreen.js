@@ -59,7 +59,7 @@ export class TripListItem extends Component {
   render() {
     const { trip, index } = this.props
     return (
-      <View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
+      <TouchableOpacity style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id} onPress={() => NavigationService.navigate('TripDetails', {trip: trip})}>
         <Text style={{ color: COLORS.BLUE, textAlign: 'center', paddingBottom: 10 }}>Trip info</Text>
         <View style={{ flexDirection: 'row' }}>
           {/* FIRST COLUMN */}
@@ -90,7 +90,6 @@ export class TripListItem extends Component {
             <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_position_name}</Text>
             {this.state.map_visible ?
               (<MapView
-                liteMode={true}
                 style={styles.map}
                 region={{
                   latitude: trip.gps_track.coordinates[0].lat,
@@ -140,7 +139,7 @@ export class TripListItem extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }
