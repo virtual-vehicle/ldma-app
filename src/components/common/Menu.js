@@ -15,6 +15,7 @@ import { get as safeGet } from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import { logout } from 'ldmaapp/src/actions/userActions';
+import { selectNavigationItem } from 'ldmaapp/src/actions/navigationActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -22,7 +23,9 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 type Props = {
   logout: any,
+  selectNavigationItem: any,
   navigation: any,
+  selected_navigation_item: String,
 };
 
 export class Menu extends Component<Props> {
@@ -52,12 +55,19 @@ export class Menu extends Component<Props> {
 
   userLogout(e) {
     e.preventDefault();
-    const { logout } = this.props;
+    const { logout, selectNavigationItem } = this.props;
+    selectNavigationItem('Home');
     logout();
   }
 
+  navigate(navItem) {
+    const { selectNavigationItem } = this.props;
+    selectNavigationItem(navItem);
+    NavigationService.navigate(navItem);
+  }
+
   render() {
-    const { user } = this.props;
+    const { user, selected_navigation_item } = this.props;
     const username = safeGet(user, 'username', '');
 
     const appVersion = DeviceInfo.getReadableVersion();
@@ -74,8 +84,8 @@ export class Menu extends Component<Props> {
           <View style={styles.itemContainer}>
             <Image style={styles.itemImage} source={require('ldmaapp/assets/png/home.png')} />
             <Text
-              style={styles.itemText}
-              onPress={() => NavigationService.navigate('Home')}
+              style={selected_navigation_item === 'Home' ? styles.itemTextSelected : styles.itemText}
+              onPress={() => this.navigate('Home')}
             >
               Home
             </Text>
@@ -83,8 +93,8 @@ export class Menu extends Component<Props> {
           <View style={styles.itemContainer}>
             <Image style={styles.itemImage} source={require('ldmaapp/assets/png/trips.png')} />
             <Text
-              style={styles.itemText}
-              onPress={() => NavigationService.navigate('MyTrips')}
+              style={selected_navigation_item === 'MyTrips' ? styles.itemTextSelected : styles.itemText}
+              onPress={() => this.navigate('MyTrips')}
             >
               My Trips
             </Text>
@@ -92,8 +102,8 @@ export class Menu extends Component<Props> {
           <View style={styles.itemContainer}>
             <Image style={styles.itemImage} source={require('ldmaapp/assets/png/ranking.png')} />
             <Text
-              style={styles.itemText}
-              onPress={() => NavigationService.navigate('Rankings')}
+              style={selected_navigation_item === 'Rankings' ? styles.itemTextSelected : styles.itemText}
+              onPress={() => this.navigate('Rankings')}
             >
               Rankings
             </Text>
@@ -186,6 +196,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginLeft: 25,
   },
+  itemTextSelected: {
+    color: COLORS.RED,
+    fontSize: 18,
+    marginLeft: 25,
+  },
   lineSeparator: {
     borderBottomColor: COLORS.GREY,
     borderBottomWidth: 0.5,
@@ -205,11 +220,13 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) =>
   ({
     user: state.auth.user,
+    selected_navigation_item: state.navigation.selected_navigation_item,
   });
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({
     logout,
+    selectNavigationItem,
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);

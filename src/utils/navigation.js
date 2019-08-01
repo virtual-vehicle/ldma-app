@@ -26,6 +26,7 @@ function resetState() {
   _navigator.dispatch(
     StackActions.reset({
       index: 0,
+      key: undefined,
       actions: [NavigationActions.navigate({ routeName: 'Login' })],
     })
   );
