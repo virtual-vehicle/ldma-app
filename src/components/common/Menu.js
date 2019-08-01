@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   Text,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -62,38 +63,51 @@ export class Menu extends Component<Props> {
     const appVersion = DeviceInfo.getReadableVersion();
     return (
       <ScrollView scrollsToTop={false} style={styles.container}>
-        <View style={styles.versionNameSection}>
-          <Text style={styles.versionText}>VERSION {appVersion}</Text>
-          <Text style={styles.nameText}>{username}</Text>
+        <View style={styles.userSection}>
+          <Image style={styles.userImage} source={require('ldmaapp/assets/png/userpic.png')} />
+          <View>
+            <Text style={styles.nameText}>{username}</Text>
+          </View>
         </View>
         <View style={styles.content}>
-          <Text
-            style={styles.item}
-            onPress={() => NavigationService.navigate('Home')}
-          >
-            Home ->
-          </Text>
           <View style={styles.lineSeparator} />
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/home.png')} />
             <Text
-              style={styles.item}
+              style={styles.itemText}
+              onPress={() => NavigationService.navigate('Home')}
+            >
+              Home
+            </Text>
+          </View>
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/trips.png')} />
+            <Text
+              style={styles.itemText}
               onPress={() => NavigationService.navigate('MyTrips')}
             >
-              My Trips ->
+              My Trips
             </Text>
-          <View style={styles.lineSeparator} />
+          </View>
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/ranking.png')} />
             <Text
-              style={styles.item}
+              style={styles.itemText}
               onPress={() => NavigationService.navigate('Rankings')}
             >
-              Rankings ->
+              Rankings
             </Text>
+          </View>
           <View style={styles.lineSeparator} />
-          <Text
-            onPress={(e) => this.userLogout(e)}
-            style={styles.item}
-          >
-            Log Out
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/logout.png')} />
+            <Text
+              onPress={(e) => this.userLogout(e)}
+              style={styles.itemText}
+            >
+              Logout
           </Text>
+          </View>
           <View style={styles.lineSeparator} />
           <View>
             <Text style={styles.headlineText}>Customer support</Text>
@@ -108,10 +122,11 @@ export class Menu extends Component<Props> {
             >
               <Text style={styles.emailText}>nik.adzic@v2c2.at</Text>
             </TouchableOpacity>
+            <Text style={[styles.headlineText, { marginTop: 20 }]}>Version {appVersion}</Text>
           </View>
         </View>
 
-      </ScrollView>
+      </ScrollView >
     );
   }
 }
@@ -126,36 +141,55 @@ const styles = StyleSheet.create({
     borderRightColor: COLORS.RED,
     borderStyle: 'solid',
   },
-  versionNameSection: {
-    backgroundColor: COLORS.LIGHTGREY,
+  userSection: {
     flex: 1,
-    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     width: '80%',
-    height: 90,
-    paddingLeft: 18,
-    paddingBottom: 14,
+    height: 100,
+    paddingTop: 25,
+    paddingLeft: 25,
+    paddingBottom: 25,
+    paddingRight: (WINDOW_WIDTH * 0.33) + 25,
+  },  
+  userImage: {
+    height: 50,
+    width: 50,
+    resizeMode: "contain",
+    borderRadius: Math.round(Dimensions.get('window').width + Dimensions.get('window').height) / 2,
+    marginRight: 25,
   },
   nameText: {
-    color: COLORS.WHITE,
+    color: COLORS.GREY2,
     fontSize: 18,
   },
   versionText: {
     color: COLORS.WHITE,
     fontSize: 13,
   },
-  item: {
-    fontSize: 18,
-  },
   content: {
-    paddingLeft: 18,
-    paddingRight: (WINDOW_WIDTH * 0.33) + 18,
-    paddingTop: 36,
+    paddingLeft: 25,
+    paddingRight: (WINDOW_WIDTH * 0.33) + 25,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 31.5,
+  },
+  itemImage: {
+    height: 25,
+    width: 25,
+    resizeMode: "contain",
+  },
+  itemText: {
+    fontSize: 18,
+    marginLeft: 25,
   },
   lineSeparator: {
     borderBottomColor: COLORS.GREY,
     borderBottomWidth: 0.5,
-    marginTop: 19.5,
-    marginBottom: 20,
+    marginBottom: 31.5,
   },
   headlineText: {
     color: COLORS.GREY2,
