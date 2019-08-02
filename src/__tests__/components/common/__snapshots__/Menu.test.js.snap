@@ -35,10 +35,9 @@ exports[`Menu component renders correctly 1`] = `
       source={null}
       style={
         Object {
-          "borderRadius": 1042,
+          "borderRadius": 50,
           "height": 50,
           "marginRight": 25,
-          "resizeMode": "contain",
           "width": 50,
         }
       }

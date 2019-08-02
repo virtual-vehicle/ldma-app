@@ -6,6 +6,7 @@ import ranking from './rankingReducer';
 import trip from './tripReducer';
 import tripsInfo from './tripsInfoReducer';
 import graphTripscore from './graphTripscoreReducer';
+import navigation from './navigationReducer';
 
 const ldmaApp = combineReducers({
   ui,
@@ -15,6 +16,7 @@ const ldmaApp = combineReducers({
   trip,
   tripsInfo,
   graphTripscore,
+  navigation,
 });
 
 export default ldmaApp;
