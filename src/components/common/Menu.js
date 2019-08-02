@@ -25,7 +25,7 @@ type Props = {
   logout: any,
   selectNavigationItem: any,
   navigation: any,
-  selected_navigation_item: String,
+  selectedNavigationItem: String,
 };
 
 export class Menu extends Component<Props> {
@@ -67,7 +67,7 @@ export class Menu extends Component<Props> {
   }
 
   render() {
-    const { user, selected_navigation_item } = this.props;
+    const { user, selectedNavigationItem } = this.props;
     const username = safeGet(user, 'username', '');
 
     const appVersion = DeviceInfo.getReadableVersion();
@@ -82,27 +82,27 @@ export class Menu extends Component<Props> {
         <View style={styles.content}>
           <View style={styles.lineSeparator} />
           <View style={styles.itemContainer}>
-            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/home.png')} />
+            <Image style={styles.itemImage} source={selectedNavigationItem === 'Home' ? require('ldmaapp/assets/png/home_red.png') : require('ldmaapp/assets/png/home.png')} />
             <Text
-              style={selected_navigation_item === 'Home' ? styles.itemTextSelected : styles.itemText}
+              style={selectedNavigationItem === 'Home' ? styles.itemTextSelected : styles.itemText}
               onPress={() => this.navigate('Home')}
             >
               Home
             </Text>
           </View>
           <View style={styles.itemContainer}>
-            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/trips.png')} />
+            <Image style={styles.itemImage} source={selectedNavigationItem === 'MyTrips' ? require('ldmaapp/assets/png/trips_red.png') : require('ldmaapp/assets/png/trips.png')} />
             <Text
-              style={selected_navigation_item === 'MyTrips' ? styles.itemTextSelected : styles.itemText}
+              style={selectedNavigationItem === 'MyTrips' ? styles.itemTextSelected : styles.itemText}
               onPress={() => this.navigate('MyTrips')}
             >
               My Trips
             </Text>
           </View>
           <View style={styles.itemContainer}>
-            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/ranking.png')} />
+            <Image style={styles.itemImage} source={selectedNavigationItem === 'Rankings' ? require('ldmaapp/assets/png/ranking_red.png') : require('ldmaapp/assets/png/ranking.png')} />
             <Text
-              style={selected_navigation_item === 'Rankings' ? styles.itemTextSelected : styles.itemText}
+              style={selectedNavigationItem === 'Rankings' ? styles.itemTextSelected : styles.itemText}
               onPress={() => this.navigate('Rankings')}
             >
               Rankings
@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
   userImage: {
     height: 50,
     width: 50,
-    resizeMode: "contain",
     borderRadius: 50,
     marginRight: 25,
   },
@@ -216,7 +215,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) =>
   ({
     user: state.auth.user,
-    selected_navigation_item: state.navigation.selected_navigation_item,
+    selectedNavigationItem: state.navigation.selectedNavigationItem,
   });
 
 const mapDispatchToProps = (dispatch) =>

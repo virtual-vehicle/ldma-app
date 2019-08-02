@@ -3,7 +3,7 @@ import {
 } from 'ldmaapp/src/actions/actionTypes';
 
 const initialState = {
-    selected_navigation_item: 'Home',
+    selectedNavigationItem: 'Home',
   };
 
 const navigation = (state = initialState, action = {}) => {
@@ -11,11 +11,11 @@ const navigation = (state = initialState, action = {}) => {
         case SELECT_NAVIGATION_ITEM:
             return {
                 ...state,
-                selected_navigation_item: action.navItem,
+                selectedNavigationItem: action.navItem,
             }
       default:
         return state;
     }
   };
-  
+
   export default navigation;
