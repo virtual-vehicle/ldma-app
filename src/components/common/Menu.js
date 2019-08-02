@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     paddingLeft: 25,
     paddingBottom: 25,
     paddingRight: (WINDOW_WIDTH * 0.33) + 25,
-  },  
+  },
   userImage: {
     height: 50,
     width: 50,
@@ -163,10 +163,6 @@ const styles = StyleSheet.create({
   nameText: {
     color: COLORS.GREY2,
     fontSize: 18,
-  },
-  versionText: {
-    color: COLORS.WHITE,
-    fontSize: 13,
   },
   content: {
     paddingLeft: 25,
