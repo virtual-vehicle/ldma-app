@@ -1,10 +1,10 @@
 import {
-    SELECT_NAVIGATION_ITEM,
+  SELECT_NAVIGATION_ITEM,
 } from 'ldmaapp/src/actions/actionTypes';
 
 const initialState = {
-    selectedNavigationItem: 'Home',
-  };
+  selectedNavigationItem: 'Home',
+};
 
 const navigation = (state = initialState, action = {}) => {
     switch (action.type) {
