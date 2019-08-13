@@ -7,14 +7,13 @@ import {
   TouchableOpacity,
   Image,
   Dimensions,
-  Button,
 } from 'react-native';
+import Svg, { Line } from 'react-native-svg';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import TripMap from 'ldmaapp/src/components/trip-details/TripMap'
 import SideMenu from 'react-native-side-menu';
 import moment from 'moment';
-import MapView, { Polyline, Marker, Callout } from 'react-native-maps';
 import PercentageCircle from 'react-native-percentage-circle';
 import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
 
@@ -35,8 +34,8 @@ class TextContainer extends PureComponent<Props> {
     const { label, value } = this.props;
     return (
       <View style={{ alignItems: "center" }}>
-        <Text style={{ textAlign: 'center', color: COLORS.WHITE }}>{label}</Text>
-        <Text style={{ textAlign: 'center', color: COLORS.WHITE }}>{value}</Text>
+        <Text style={{ textAlign: 'center' }}>{label}</Text>
+        <Text style={{ textAlign: 'center' }}>{value}</Text>
       </View>
     );
   }
@@ -92,23 +91,41 @@ class TripDetailsScreen extends Component<Props> {
           </TouchableOpacity>
           {/* Trip Details */}
           <View style={styles.header}>
-            <Text style={styles.headerText}>Trip Details</Text>
+            <Text style={styles.headerText}>Trip Detail</Text>
           </View>
 
-          <Text>{trip.trip_id}</Text>
-          <View style={{ flexDirection: "row" }}>
-            <View>
-              <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.GREEN }}>{`${start_date.format('DD.MM.YYYY')}\n${start_date.format('HH:mm:ss')}`}</Text>
-              <View style={{ flexDirection: "row" }}>
-                <Text>Duration: {trip.duration} min</Text>
-              </View>
-              <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.RED }}>{`${end_date.format('DD.MM.YYYY')}\n${end_date.format('HH:mm:ss')}`}</Text>
+          <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around' }}>
+            <View style={{ width: '40%', justifyContent: 'flex-start', borderWidth: 1, borderColor: COLORS.GREEN }}>
+              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center' }}>{`${start_date.format('DD.MM.YYYY')}\n${start_date.format('HH:mm')}`}</Text>
+              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center' }}>{trip.start_position_name}</Text>
             </View>
-            <View>
-              <Text style={{ color: COLORS.WHITE, fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.GREEN }}>{trip.start_position_name}</Text>
-              <Text>Distance: {trip.distance} km</Text>
-              <Text style={{ color: COLORS.WHITE, fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.RED, marginTop: 0 }}>{trip.end_position_name}</Text>
+            <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
+              <Text style={{ padding: 5, fontSize: 14, textAlign: 'center' }}>{trip.duration} min</Text>
+              <Svg
+                height="2"
+                width="60"
+              >
+                <Line
+                  x1="0"
+                  y1="0"
+                  x2="100"
+                  y2="0"
+                  stroke={COLORS.GREY2}
+                  strokeWidth="2"
+                />
+              </Svg>
+              <Text style={{ padding: 5, fontSize: 14, textAlign: 'center' }}>{trip.distance} km</Text>
             </View>
+            <View style={{ width: '40%', justifyContent: 'flex-start', borderWidth: 1, borderColor: COLORS.RED }}>
+              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center' }}>{`${end_date.format('DD.MM.YYYY')}\n${end_date.format('HH:mm')}`}</Text>
+              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center' }}>{trip.end_position_name}</Text>
+            </View>
+          </View>
+          <View style={styles.lineSeparator} />
+          <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around' }}>
+            <TextContainer label={"Hard\nbrakes"} value={trip.brakes} />
+            <TextContainer label={"Fast\naccelerations"} value={trip.accelerations} />
+            <TextContainer label={"Stand\nstills"} value={trip.standstills} />
             <PercentageCircle
               radius={30}
               percent={trip.risk_score}
@@ -117,12 +134,8 @@ class TripDetailsScreen extends Component<Props> {
               textStyle={{ fontSize: 12, color: getRiskScoreColor(trip.risk_score) }}
             />
           </View>
+          <View style={styles.lineSeparator} />
           <TripMap trip={trip} style={styles.map} />
-          <View style={{ width: '100%', flex: 1, flexDirection: 'row', justifyContent: 'space-around' }}>
-            <TextContainer label={"Hard\nbrakes"} value={trip.brakes} />
-            <TextContainer label={"Fast\naccelerations"} value={trip.accelerations} />
-            <TextContainer label={"Stand\nstills"} value={trip.standstills} />
-          </View>
           <View style={styles.lineSeparator} />
 
         </ImageBackground>
@@ -161,15 +174,15 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '95%',
-    height: '40%',
+    height: '55%',
     marginTop: 10,
     marginLeft: 0,
   },
   lineSeparator: {
     borderBottomColor: COLORS.RED,
     borderBottomWidth: 0.5,
-    marginTop: 19.5,
-    marginBottom: 20,
+    marginTop: 10,
+    marginBottom: 10,
   },
 });
 
