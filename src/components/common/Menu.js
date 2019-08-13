@@ -5,6 +5,7 @@ import {
   ScrollView,
   View,
   Text,
+  Image,
   TouchableOpacity,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
@@ -14,6 +15,7 @@ import { get as safeGet } from 'lodash';
 import DeviceInfo from 'react-native-device-info';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import { logout } from 'ldmaapp/src/actions/userActions';
+import { selectNavigationItem } from 'ldmaapp/src/actions/navigationActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -21,7 +23,9 @@ const WINDOW_HEIGHT = Dimensions.get('window').height;
 
 type Props = {
   logout: any,
+  selectNavigationItem: any,
   navigation: any,
+  selectedNavigationItem: String,
 };
 
 export class Menu extends Component<Props> {
@@ -51,49 +55,69 @@ export class Menu extends Component<Props> {
 
   userLogout(e) {
     e.preventDefault();
-    const { logout } = this.props;
+    const { logout, selectNavigationItem } = this.props;
+    selectNavigationItem('Home');
     logout();
   }
 
+  navigate(navItem) {
+    const { selectNavigationItem } = this.props;
+    selectNavigationItem(navItem);
+    NavigationService.navigate(navItem);
+  }
+
   render() {
-    const { user } = this.props;
+    const { user, selectedNavigationItem } = this.props;
     const username = safeGet(user, 'username', '');
 
     const appVersion = DeviceInfo.getReadableVersion();
     return (
       <ScrollView scrollsToTop={false} style={styles.container}>
-        <View style={styles.versionNameSection}>
-          <Text style={styles.versionText}>VERSION {appVersion}</Text>
-          <Text style={styles.nameText}>{username}</Text>
+        <View style={styles.userSection}>
+          <Image style={styles.userImage} source={require('ldmaapp/assets/png/userpic.png')} />
+          <View>
+            <Text style={styles.nameText}>{username}</Text>
+          </View>
         </View>
         <View style={styles.content}>
-          <Text
-            style={styles.item}
-            onPress={() => NavigationService.navigate('Home')}
-          >
-            Home ->
-          </Text>
           <View style={styles.lineSeparator} />
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={selectedNavigationItem === 'Home' ? require('ldmaapp/assets/png/home_red.png') : require('ldmaapp/assets/png/home.png')} />
             <Text
-              style={styles.item}
-              onPress={() => NavigationService.navigate('MyTrips')}
+              style={selectedNavigationItem === 'Home' ? styles.itemTextSelected : styles.itemText}
+              onPress={() => this.navigate('Home')}
             >
-              My Trips ->
+              Home
             </Text>
-          <View style={styles.lineSeparator} />
+          </View>
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={selectedNavigationItem === 'MyTrips' ? require('ldmaapp/assets/png/trips_red.png') : require('ldmaapp/assets/png/trips.png')} />
             <Text
-              style={styles.item}
-              onPress={() => NavigationService.navigate('Rankings')}
+              style={selectedNavigationItem === 'MyTrips' ? styles.itemTextSelected : styles.itemText}
+              onPress={() => this.navigate('MyTrips')}
             >
-              Rankings ->
+              My Trips
             </Text>
+          </View>
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={selectedNavigationItem === 'Rankings' ? require('ldmaapp/assets/png/ranking_red.png') : require('ldmaapp/assets/png/ranking.png')} />
+            <Text
+              style={selectedNavigationItem === 'Rankings' ? styles.itemTextSelected : styles.itemText}
+              onPress={() => this.navigate('Rankings')}
+            >
+              Rankings
+            </Text>
+          </View>
           <View style={styles.lineSeparator} />
-          <Text
-            onPress={(e) => this.userLogout(e)}
-            style={styles.item}
-          >
-            Log Out
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={require('ldmaapp/assets/png/logout.png')} />
+            <Text
+              onPress={(e) => this.userLogout(e)}
+              style={styles.itemText}
+            >
+              Logout
           </Text>
+          </View>
           <View style={styles.lineSeparator} />
           <View>
             <Text style={styles.headlineText}>Customer support</Text>
@@ -108,10 +132,11 @@ export class Menu extends Component<Props> {
             >
               <Text style={styles.emailText}>nik.adzic@v2c2.at</Text>
             </TouchableOpacity>
+            <Text style={[styles.headlineText, { marginTop: 20 }]}>Version {appVersion}</Text>
           </View>
         </View>
 
-      </ScrollView>
+      </ScrollView >
     );
   }
 }
@@ -126,36 +151,55 @@ const styles = StyleSheet.create({
     borderRightColor: COLORS.RED,
     borderStyle: 'solid',
   },
-  versionNameSection: {
-    backgroundColor: COLORS.LIGHTGREY,
+  userSection: {
     flex: 1,
-    justifyContent: 'flex-end',
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+    alignItems: 'center',
     width: '80%',
-    height: 90,
-    paddingLeft: 18,
-    paddingBottom: 14,
+    height: 100,
+    paddingTop: 25,
+    paddingLeft: 25,
+    paddingBottom: 25,
+    paddingRight: (WINDOW_WIDTH * 0.33) + 25,
+  },
+  userImage: {
+    height: 50,
+    width: 50,
+    borderRadius: 50,
+    marginRight: 25,
   },
   nameText: {
-    color: COLORS.WHITE,
-    fontSize: 18,
-  },
-  versionText: {
-    color: COLORS.WHITE,
-    fontSize: 13,
-  },
-  item: {
+    color: COLORS.GREY2,
     fontSize: 18,
   },
   content: {
-    paddingLeft: 18,
-    paddingRight: (WINDOW_WIDTH * 0.33) + 18,
-    paddingTop: 36,
+    paddingLeft: 25,
+    paddingRight: (WINDOW_WIDTH * 0.33) + 25,
+  },
+  itemContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 31.5,
+  },
+  itemImage: {
+    height: 25,
+    width: 25,
+    resizeMode: "contain",
+  },
+  itemText: {
+    fontSize: 18,
+    marginLeft: 25,
+  },
+  itemTextSelected: {
+    color: COLORS.RED,
+    fontSize: 18,
+    marginLeft: 25,
   },
   lineSeparator: {
     borderBottomColor: COLORS.GREY,
     borderBottomWidth: 0.5,
-    marginTop: 19.5,
-    marginBottom: 20,
+    marginBottom: 31.5,
   },
   headlineText: {
     color: COLORS.GREY2,
@@ -171,11 +215,13 @@ const styles = StyleSheet.create({
 const mapStateToProps = (state) =>
   ({
     user: state.auth.user,
+    selectedNavigationItem: state.navigation.selectedNavigationItem,
   });
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({
     logout,
+    selectNavigationItem,
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Menu);
