@@ -14,7 +14,7 @@ import Menu from 'ldmaapp/src/components/common/Menu';
 import TripMap from 'ldmaapp/src/components/trip-details/TripMap'
 import SideMenu from 'react-native-side-menu';
 import moment from 'moment';
-import PercentageCircle from 'react-native-percentage-circle';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
 
 
@@ -34,8 +34,8 @@ class TextContainer extends PureComponent<Props> {
     const { label, value } = this.props;
     return (
       <View style={{ alignItems: "center" }}>
-        <Text style={{ textAlign: 'center' }}>{label}</Text>
-        <Text style={{ textAlign: 'center' }}>{value}</Text>
+        <Text style={{ textAlign: 'center', color: COLORS.WHITE }}>{label}</Text>
+        <Text style={{ textAlign: 'center', color: COLORS.WHITE }}>{value}</Text>
       </View>
     );
   }
@@ -96,11 +96,11 @@ class TripDetailsScreen extends Component<Props> {
 
           <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around' }}>
             <View style={{ width: '40%', justifyContent: 'flex-start', borderWidth: 1, borderColor: COLORS.GREEN }}>
-              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center' }}>{`${start_date.format('DD.MM.YYYY')}\n${start_date.format('HH:mm')}`}</Text>
-              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center' }}>{trip.start_position_name}</Text>
+              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{`${start_date.format('DD.MM.YYYY')}\n${start_date.format('HH:mm')}`}</Text>
+              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{trip.start_position_name}</Text>
             </View>
             <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ padding: 5, fontSize: 14, textAlign: 'center' }}>{trip.duration} min</Text>
+              <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.duration} min</Text>
               <Svg
                 height="2"
                 width="60"
@@ -110,15 +110,15 @@ class TripDetailsScreen extends Component<Props> {
                   y1="0"
                   x2="100"
                   y2="0"
-                  stroke={COLORS.GREY2}
+                  stroke={COLORS.WHITE}
                   strokeWidth="2"
                 />
               </Svg>
-              <Text style={{ padding: 5, fontSize: 14, textAlign: 'center' }}>{trip.distance} km</Text>
+              <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.distance} km</Text>
             </View>
             <View style={{ width: '40%', justifyContent: 'flex-start', borderWidth: 1, borderColor: COLORS.RED }}>
-              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center' }}>{`${end_date.format('DD.MM.YYYY')}\n${end_date.format('HH:mm')}`}</Text>
-              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center' }}>{trip.end_position_name}</Text>
+              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{`${end_date.format('DD.MM.YYYY')}\n${end_date.format('HH:mm')}`}</Text>
+              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{trip.end_position_name}</Text>
             </View>
           </View>
           <View style={styles.lineSeparator} />
@@ -126,13 +126,20 @@ class TripDetailsScreen extends Component<Props> {
             <TextContainer label={"Hard\nbrakes"} value={trip.brakes} />
             <TextContainer label={"Fast\naccelerations"} value={trip.accelerations} />
             <TextContainer label={"Stand\nstills"} value={trip.standstills} />
-            <PercentageCircle
-              radius={30}
-              percent={trip.risk_score}
-              color={getRiskScoreColor(trip.risk_score)}
-              borderWidth={2}
-              textStyle={{ fontSize: 12, color: getRiskScoreColor(trip.risk_score) }}
-            />
+            <AnimatedCircularProgress
+              size={60}
+              width={5}
+              fill={trip.risk_score}
+              tintColor={getRiskScoreColor(trip.risk_score)}
+              backgroundColor={COLORS.DARKGREY}>
+              {
+                (fill) => (
+                  <Text style={{ fontSize: 12, color: COLORS.WHITE }}>
+                    {`${trip.risk_score}%`}
+                  </Text>
+                )
+              }
+            </AnimatedCircularProgress>
           </View>
           <View style={styles.lineSeparator} />
           <TripMap trip={trip} style={styles.map} />

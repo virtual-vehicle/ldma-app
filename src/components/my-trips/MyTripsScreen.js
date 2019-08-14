@@ -7,7 +7,7 @@ import {
   ImageBackground,
   Image,
   Dimensions,
-  FlatList,
+  SectionList,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -15,17 +15,15 @@ import SideMenu from 'react-native-side-menu';
 import moment from 'moment';
 import { get as safeGet } from 'lodash';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import PercentageCircle from 'react-native-percentage-circle';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import {
 } from 'ldmaapp/src/actions/uiActions';
-import Svg, { Line } from 'react-native-svg';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
-import MapView, { Polyline } from 'react-native-maps';
 import { getTripsAll, getTripsInterval, setMapVisible } from 'ldmaapp/src/actions/tripActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
-import { getTimeOutOfWholeDate, getDateOutOfWholeDate, formatCoordinates } from 'ldmaapp/src/utils/format';
+import { getTimeOutOfWholeDate, getDateOutOfWholeDate } from 'ldmaapp/src/utils/format';
 import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
 /* Config/Constants
 ============================================================================= */
@@ -54,23 +52,35 @@ export class TripListItem extends Component {
   render() {
     const { trip, index } = this.props
     return (
-      <TouchableOpacity style={{ margin: 5, borderWidth: 1, borderColor: COLORS.BLUE, padding: 5, borderRadius: 10 }} key={trip.trip_id} onPress={() => NavigationService.navigate('TripDetails', {trip: trip})}>
-        <View style={{ justifyContent: 'space-evenly' }}>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={{ fontSize: 12, width: '33.3%', textAlign: 'center', alignSelf: 'center' }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
-            <PercentageCircle
-              radius={15}
-              percent={trip.risk_score}
-              color={getRiskScoreColor(trip.risk_score)}
-              borderWidth={2}
-              textStyle={{ fontSize: 10, color: getRiskScoreColor(trip.risk_score) }}
-            />
-            <Text style={{ fontSize: 12, width: '33.3%', textAlign: 'center', alignSelf: 'center' }}>{`${getDateOutOfWholeDate(trip.end_at)}\n${moment(getTimeOutOfWholeDate(trip.end_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
+      <TouchableOpacity style={{ paddingHorizontal: 15, paddingVertical: 10 }} key={trip.trip_id} onPress={() => NavigationService.navigate('TripDetails', { trip: trip })}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={{ width: '40%' }}>
+            <Text style={{ fontSize: 12, textAlign: 'left', color: COLORS.GREY }}>{`${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
+            <Text style={{ fontSize: 14, textAlign: 'left', color: COLORS.WHITE }}>{trip.start_position_name.split(',')[0]}</Text>
           </View>
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-            <Text style={{ fontSize: 12, width: '33.3%', textAlign: 'center', alignSelf: 'center' }}>{trip.start_position_name}</Text>
-            <Text style={{ fontSize: 12, width: '33.3%', textAlign: 'center', alignSelf: 'center' }}>{`${trip.distance} km`}</Text>
-            <Text style={{ fontSize: 12, width: '33.3%', textAlign: 'center', alignSelf: 'center' }}>{trip.end_position_name}</Text>
+          <View style={{ width: '10%' }}>
+            <Text style={{ fontSize: 12, textAlign: 'center', color: COLORS.GREY }}>{`${trip.distance} km`}</Text>
+            <Text style={{ fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{`>>`}</Text>
+          </View>
+          <View style={{ width: '40%' }}>
+            <Text style={{ fontSize: 12, textAlign: 'right', color: COLORS.GREY }}>{`${moment(getTimeOutOfWholeDate(trip.end_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
+            <Text style={{ fontSize: 14, textAlign: 'right', color: COLORS.WHITE }}>{trip.end_position_name.split(',')[0]}</Text>
+          </View>
+          <View style={{ width: '10%', justifyContent: 'center', alignItems: 'flex-end' }}>
+            <AnimatedCircularProgress
+              size={30}
+              width={2}
+              fill={trip.risk_score}
+              tintColor={getRiskScoreColor(trip.risk_score)}
+              backgroundColor={COLORS.DARKGREY}>
+              {
+                (fill) => (
+                  <Text style={{ fontSize: 10, color: COLORS.WHITE }}>
+                    {`${trip.risk_score}%`}
+                  </Text>
+                )
+              }
+            </AnimatedCircularProgress>
           </View>
         </View>
       </TouchableOpacity>
@@ -191,6 +201,36 @@ export class MyTripsScreen extends Component<Props, State> {
     this.hideDateTimePickerEndDate();
   };
 
+  createSectionsList = (tripsList) => {
+    return tripsList.reduce((sections, trip) => {
+      const title = getDateOutOfWholeDate(trip.start_at);
+      let found = false;
+      sections.forEach((section) => {
+        if (section.title === title) {
+          section.data = [...section.data, trip]
+          found = true;
+          return
+        }
+      });
+      if (!found) {
+        return [...sections, { title: title, data: [trip] }];
+      }
+      return sections;
+    }, []);
+  };
+
+  renderLineSeparator = () => {
+    return (
+      //Item Separator
+      <View>
+        <Image
+          source={require('ldmaapp/assets/png/line.png')}
+          style={styles.lineImage}
+        />
+      </View>
+    );
+  };
+
   render() {
     const {
       isOpen,
@@ -227,6 +267,15 @@ export class MyTripsScreen extends Component<Props, State> {
           <View style={styles.header}>
             <Text style={styles.headerText}>My Trips</Text>
           </View>
+          <TouchableOpacity
+            onPress={this.toggle}
+            style={styles.searchButton}
+          >
+            <Image
+              source={require('ldmaapp/assets/png/search.png')}
+              style={styles.menu}
+            />
+          </TouchableOpacity>
           <View style={styles.dateSelect}>
             <View>
               <View style={{ display: 'flex', flexDirection: 'row' }}>
@@ -294,19 +343,24 @@ export class MyTripsScreen extends Component<Props, State> {
           </TouchableOpacity>
 
           {/* render real trips */}
-          <FlatList
-            data={tripsList}
+          <SectionList
+            width='100%'
+            sections={[
+              ...this.createSectionsList(tripsList),
+            ]}
             keyExtractor={(item) => item.trip_id}
+            ItemSeparatorComponent={this.renderLineSeparator}
+            renderSectionHeader={({ section }) => (<View style={{ paddingHorizontal: 15, paddingVertical: 5, backgroundColor: COLORS.GREY, opacity: 0.2 }}><Text style={{ color: COLORS.WHITE, opacity: 1.0 }}>{`${section.title}`}</Text></View>)}
             renderItem={({ item, index }) =>
               (
                 <TripListItem trip={item} index={index} />
               )}
             // Performance settings
             removeClippedSubviews={true} // Unmount components when outside of window 
-            initialNumToRender={1} // Reduce initial render amount
-            maxToRenderPerBatch={3} // Reduce number in each render batch
-            updateCellsBatchingPeriod={10} // Increase time between renders
-            windowSize={11} // Reduce the window size
+            initialNumToRender={8} // initial render amount
+            maxToRenderPerBatch={10} // number in each render batch
+            updateCellsBatchingPeriod={5} // time between renders
+            windowSize={25} // the window size
           />
           <TouchableOpacity
             style={styles.goToNextScreen}
@@ -340,6 +394,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     marginTop: 40,
+
   },
   periodCubeSmall: {
     borderColor: COLORS.BLUE,
@@ -395,6 +450,13 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: 20,
   },
+  searchButton: {
+    position: 'absolute',
+    top: 8,
+    right: 15,
+    padding: 10,
+    zIndex: 1000,
+  },
   goToNextScreen: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -433,7 +495,12 @@ const styles = StyleSheet.create({
   },
   getTripsText: {
     color: COLORS.WHITE,
-  }
+  },
+  lineImage: {
+    width: '100%',
+    zIndex: 200,
+    height: 1,
+  },
 });
 
 const mapStateToProps = (state) =>
