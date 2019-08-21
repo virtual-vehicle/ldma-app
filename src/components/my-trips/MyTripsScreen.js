@@ -55,7 +55,7 @@ class TripListItem extends Component {
             <Text style={{ fontSize: 12, textAlign: 'left', color: COLORS.GREY }}>{`${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
             <Text style={{ fontSize: 14, textAlign: 'left', color: COLORS.WHITE }}>{trip.start_position_name.split(',')[0]}</Text>
           </View>
-          <View style={{ width: '10%' }}>
+          <View style={{ width: '11%' }}>
             <Text style={{ fontSize: 12, textAlign: 'center', color: COLORS.GREY }}>{`${trip.distance} km`}</Text>
             <Text style={{ fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{`>>`}</Text>
           </View>
@@ -63,7 +63,7 @@ class TripListItem extends Component {
             <Text style={{ fontSize: 12, textAlign: 'right', color: COLORS.GREY }}>{`${moment(getTimeOutOfWholeDate(trip.end_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
             <Text style={{ fontSize: 14, textAlign: 'right', color: COLORS.WHITE }}>{trip.end_position_name.split(',')[0]}</Text>
           </View>
-          <View style={{ width: '10%', justifyContent: 'center', alignItems: 'flex-end' }}>
+          <View style={{ width: '9%', justifyContent: 'center', alignItems: 'flex-end' }}>
             <AnimatedCircularProgress
               size={30}
               width={2}
@@ -91,24 +91,20 @@ export class MyTripsScreen extends Component<Props, State> {
 
     this.toggle = this.toggle.bind(this);
     this.toggleSearch = this.toggleSearch.bind(this);
+    this.clearDateSearch = this.clearDateSearch.bind(this);
 
     this.state = {
       isOpen: false,
       searchVisible: false,
       isDateTimePickerStartDateVisible: false,
       isDateTimePickerEndDateVisible: false,
-      all: true,
-      today: false,
-      week: false,
-      month: false,
       startDate: 'YYYY-MM-DD',
       endDate: 'YYYY-MM-DD',
     };
   }
 
   componentDidMount() {
-    const { getTripsAll, user } = this.props;
-    getTripsAll(user);
+    this.getTrips();
   }
 
   onMenuItemSelected = () =>
@@ -132,54 +128,21 @@ export class MyTripsScreen extends Component<Props, State> {
     this.setState({ isOpen });
   }
 
-  getTripsPress = () => {
+  getTrips = () => {
     const { getTripsAll, getTripsInterval, user } = this.props;
-    const { all, startDate, endDate } = this.state;
-    if (all) {
-      getTripsAll(user);
-    }
-    else {
+    let { startDate, endDate } = this.state;
+    if (startDate != 'YYYY-MM-DD' || endDate != 'YYYY-MM-DD') {
+      startDate = ((startDate == 'YYYY-MM-DD') ? '1970-01-01' : startDate)
+      endDate = ((endDate == 'YYYY-MM-DD') ? '4000-01-01' : endDate)
       getTripsInterval(user, startDate, endDate);
     }
-  }
-
-  setAllDate() {
-    const { all } = this.state;
-    if (all) {
-      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
+    else {
+      getTripsAll(user);
     }
   }
 
-  setTodaysDate() {
-    const todayDate = moment().format('YYYY-MM-DD');
-    const { today } = this.state;
-    if (today) {
-      this.setState({ startDate: todayDate, endDate: todayDate });
-    } else {
-      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
-    }
-  }
-
-  setLastWeekDate() {
-    const weekAgoDate = moment().subtract(7, 'd').format('YYYY-MM-DD');
-    const todayDate = moment().format('YYYY-MM-DD');
-    const { week } = this.state;
-    if (week) {
-      this.setState({ startDate: weekAgoDate, endDate: todayDate });
-    } else {
-      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
-    }
-  }
-
-  setLastMonthDate() {
-    const monthAgoDate = moment().subtract(1, 'months').format('YYYY-MM-DD');
-    const todayDate = moment().format('YYYY-MM-DD');
-    const { month } = this.state;
-    if (month) {
-      this.setState({ startDate: monthAgoDate, endDate: todayDate });
-    } else {
-      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
-    }
+  clearDateSearch() {
+    this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' }, () => this.getTrips());
   }
 
   // START/FROM Date methods
@@ -195,14 +158,14 @@ export class MyTripsScreen extends Component<Props, State> {
   handleDatePickedStartDate = (date) => {
     const dateMoment = moment(date);
     const formattedDate = dateMoment.format('YYYY-MM-DD');
-    this.setState({ ...this.state, all: false, today: false, week: false, month: false, startDate: formattedDate });
+    this.setState({ startDate: formattedDate }, () => this.getTrips());
     this.hideDateTimePickerStartDate();
   };
 
   handleDatePickedEndDate = (date) => {
     const dateMoment = moment(date);
     const formattedDate = dateMoment.format('YYYY-MM-DD');
-    this.setState({ ...this.state, all: false, today: false, week: false, month: false, endDate: formattedDate });
+    this.setState({ endDate: formattedDate }, () => this.getTrips());
     this.hideDateTimePickerEndDate();
   };
 
@@ -241,10 +204,6 @@ export class MyTripsScreen extends Component<Props, State> {
       isOpen,
       startDate,
       endDate,
-      all,
-      today,
-      week,
-      month,
     } = this.state;
     const { navigation, loading } = this.props;
     const tripsList = safeGet(this.props, 'tripsList', []);
@@ -282,70 +241,28 @@ export class MyTripsScreen extends Component<Props, State> {
             />
           </TouchableOpacity>
           {this.state.searchVisible &&
-            <View style={styles.dateSelect}>
-              <View>
+            <View style={{ width: '100%' }}>
+              {this.renderLineSeparator()}
+              <View style={styles.search}>
                 <View style={{ display: 'flex', flexDirection: 'row' }}>
-                  <TouchableOpacity
-                    style={[styles.periodCubeSmall, all && { backgroundColor: COLORS.BLUE }]}
-                    onPress={() => {
-                      this.setState({ all: !all, today: false, week: false, month: false },
-                        () => this.setAllDate());
-                    }}
-                  >
-                    <Text>All</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.periodCubeSmall, today && { backgroundColor: COLORS.BLUE }]}
-                    onPress={() => {
-                      this.setState({ all: false, today: !today, week: false, month: false },
-                        () => this.setTodaysDate());
-                    }}
-                  >
-                    <Text>Today</Text>
-                  </TouchableOpacity>
-                </View>
-                <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                  <TouchableOpacity
-                    style={[styles.periodCubeSmall, week && { backgroundColor: COLORS.BLUE }]}
-                    onPress={() => {
-                      this.setState({ all: false, today: false, week: !week, month: false },
-                        () => this.setLastWeekDate());
-                    }}
-                  >
-                    <Text>Week</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity
-                    style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
-                    onPress={() => {
-                      this.setState({ all: false, today: false, week: false, month: !month },
-                        () => this.setLastMonthDate());
-                    }}
-                  >
-                    <Text>Month</Text>
-                  </TouchableOpacity>
-                </View>
-              </View>
-              <View style={styles.periodCubeBig}>
-                <View style={{ display: 'flex', flexDirection: 'row' }}>
-                  <Text style={{ textAlign: 'left', width: 40 }}>From:</Text>
+                  <Text style={{ textAlign: 'left', color: COLORS.WHITE }}>From: </Text>
                   <TouchableOpacity onPress={this.showDateTimePickerStartDate}>
-                    <Text style={{ paddingLeft: 3, width: 100 }}>{startDate}</Text>
+                    <Text style={{ paddingLeft: 3, width: 100, color: COLORS.GREY }}>{startDate}</Text>
                   </TouchableOpacity>
                 </View>
                 <View style={{ display: 'flex', flexDirection: 'row' }}>
-                  <Text style={{ textAlign: 'left', width: 40 }}>To:</Text>
+                  <Text style={{ textAlign: 'left', color: COLORS.WHITE }}>To: </Text>
                   <TouchableOpacity onPress={this.showDateTimePickerEndDate}>
-                    <Text style={{ paddingLeft: 3, width: 100 }}>{endDate}</Text>
+                    <Text style={{ paddingLeft: 3, width: 100, color: COLORS.GREY }}>{endDate}</Text>
                   </TouchableOpacity>
                 </View>
+                <TouchableOpacity onPress={this.clearDateSearch}>
+                  <Image
+                    source={require('ldmaapp/assets/png/clear.png')}
+                    style={styles.clearSearchImage}
+                  />
+                </TouchableOpacity>
               </View>
-              <TouchableOpacity
-                style={[styles.getTripsButton, ((!all && !today && !week && !month) && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')) && { opacity: 0.4 }]}
-                onPress={this.getTripsPress}
-                disabled={!all && !today && !week && !month && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')}
-              >
-                <Text style={styles.getTripsText}>Get trips</Text>
-              </TouchableOpacity>
             </View>
           }
 
@@ -357,7 +274,7 @@ export class MyTripsScreen extends Component<Props, State> {
             ]}
             keyExtractor={(item) => item.trip_id}
             ItemSeparatorComponent={this.renderLineSeparator}
-            renderSectionHeader={({ section }) => (<View style={{ paddingHorizontal: 15, paddingVertical: 5, backgroundColor: COLORS.GREY, opacity: 0.2 }}><Text style={{ color: COLORS.WHITE, opacity: 1.0 }}>{`${section.title}`}</Text></View>)}
+            renderSectionHeader={({ section }) => (<View style={{ paddingHorizontal: 15, paddingVertical: 5, backgroundColor: 'rgba(255, 255, 255, 0.2)' }}><Text style={{ color: COLORS.WHITE }}>{`${section.title}`}</Text></View>)}
             renderItem={({ item, index }) =>
               (
                 <TripListItem trip={item} index={index} />
@@ -365,16 +282,10 @@ export class MyTripsScreen extends Component<Props, State> {
             // Performance settings
             removeClippedSubviews={true} // Unmount components when outside of window 
             initialNumToRender={8} // initial render amount
-            maxToRenderPerBatch={10} // number in each render batch
+            maxToRenderPerBatch={15} // number in each render batch
             updateCellsBatchingPeriod={5} // time between renders
             windowSize={25} // the window size
           />
-          <TouchableOpacity
-            style={styles.goToNextScreen}
-            onPress={() => NavigationService.navigate('Rankings')}
-          >
-            <Text style={styles.goToNextScreenText}>{`Rankings`}</Text>
-          </TouchableOpacity>
           {loading && <Loader />}
           <DateTimePicker
             isVisible={this.state.isDateTimePickerStartDateVisible}
@@ -397,42 +308,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  dateSelect: {
+  search: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  periodCubeSmall: {
-    borderColor: COLORS.BLUE,
-    borderWidth: 3,
-    fontSize: 16,
-    padding: 2,
-    width: 90,
-    marginLeft: 10,
-    height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  map: {
-    width: 150,
-    height: 150,
-    marginTop: 10,
-    marginLeft: -35,
-  },
-  periodCubeBig: {
-    borderColor: COLORS.BLUE,
-    borderWidth: 3,
-    fontSize: 16,
-    padding: 2,
-    paddingTop: 5,
-    textAlign: 'center',
-    marginLeft: 10,
-    height: 70,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: SCREEN_WIDTH * 0.4,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   menuButton: {
     position: 'absolute',
@@ -464,49 +346,14 @@ const styles = StyleSheet.create({
     padding: 10,
     zIndex: 1000,
   },
-  goToNextScreen: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    width: 0.84 * SCREEN_WIDTH,
-    borderRadius: 50,
-    height: BUTTON_HEIGHT,
-    marginTop: 40,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
-  },
-  goToNextScreenText: {
-    color: COLORS.WHITE,
-    fontSize: 20,
-  },
-  showMapButton: {
-    color: COLORS.BLUE,
-    backgroundColor: COLORS.BLUE,
-    width: '80%',
-    height: 50,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  getTripsButton: {
-    color: COLORS.BLUE,
-    backgroundColor: COLORS.BLUE,
-    width: 150,
-    height: 50,
-    alignSelf: 'flex-start',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 15,
-    marginTop: 10,
-  },
-  getTripsText: {
-    color: COLORS.WHITE,
-  },
   lineImage: {
     width: '100%',
     zIndex: 200,
     height: 1,
+  },
+  clearSearchImage: {
+    height: 12,
+    width: 12,
   },
 });
 
