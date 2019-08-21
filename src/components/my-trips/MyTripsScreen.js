@@ -41,12 +41,9 @@ type Props = {
   loading: boolean,
 };
 
-export class TripListItem extends Component {
+class TripListItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      map_visible: false,
-    };
   }
 
   render() {
@@ -93,9 +90,11 @@ export class MyTripsScreen extends Component<Props, State> {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
 
     this.state = {
       isOpen: false,
+      searchVisible: false,
       isDateTimePickerStartDateVisible: false,
       isDateTimePickerEndDateVisible: false,
       all: true,
@@ -120,6 +119,12 @@ export class MyTripsScreen extends Component<Props, State> {
   toggle() {
     this.setState({
       isOpen: !this.state.isOpen,
+    });
+  }
+
+  toggleSearch() {
+    this.setState({
+      searchVisible: !this.state.searchVisible,
     });
   }
 
@@ -268,7 +273,7 @@ export class MyTripsScreen extends Component<Props, State> {
             <Text style={styles.headerText}>My Trips</Text>
           </View>
           <TouchableOpacity
-            onPress={this.toggle}
+            onPress={this.toggleSearch}
             style={styles.searchButton}
           >
             <Image
@@ -276,71 +281,73 @@ export class MyTripsScreen extends Component<Props, State> {
               style={styles.menu}
             />
           </TouchableOpacity>
-          <View style={styles.dateSelect}>
-            <View>
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <TouchableOpacity
-                  style={[styles.periodCubeSmall, all && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => {
-                    this.setState({ all: !all, today: false, week: false, month: false },
-                      () => this.setAllDate());
-                  }}
-                >
-                  <Text>All</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.periodCubeSmall, today && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => {
-                    this.setState({ all: false, today: !today, week: false, month: false },
-                      () => this.setTodaysDate());
-                  }}
-                >
-                  <Text>Today</Text>
-                </TouchableOpacity>
+          {this.state.searchVisible &&
+            <View style={styles.dateSelect}>
+              <View>
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                  <TouchableOpacity
+                    style={[styles.periodCubeSmall, all && { backgroundColor: COLORS.BLUE }]}
+                    onPress={() => {
+                      this.setState({ all: !all, today: false, week: false, month: false },
+                        () => this.setAllDate());
+                    }}
+                  >
+                    <Text>All</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.periodCubeSmall, today && { backgroundColor: COLORS.BLUE }]}
+                    onPress={() => {
+                      this.setState({ all: false, today: !today, week: false, month: false },
+                        () => this.setTodaysDate());
+                    }}
+                  >
+                    <Text>Today</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
+                  <TouchableOpacity
+                    style={[styles.periodCubeSmall, week && { backgroundColor: COLORS.BLUE }]}
+                    onPress={() => {
+                      this.setState({ all: false, today: false, week: !week, month: false },
+                        () => this.setLastWeekDate());
+                    }}
+                  >
+                    <Text>Week</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity
+                    style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
+                    onPress={() => {
+                      this.setState({ all: false, today: false, week: false, month: !month },
+                        () => this.setLastMonthDate());
+                    }}
+                  >
+                    <Text>Month</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
-              <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                <TouchableOpacity
-                  style={[styles.periodCubeSmall, week && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => {
-                    this.setState({ all: false, today: false, week: !week, month: false },
-                      () => this.setLastWeekDate());
-                  }}
-                >
-                  <Text>Week</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => {
-                    this.setState({ all: false, today: false, week: false, month: !month },
-                      () => this.setLastMonthDate());
-                  }}
-                >
-                  <Text>Month</Text>
-                </TouchableOpacity>
+              <View style={styles.periodCubeBig}>
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Text style={{ textAlign: 'left', width: 40 }}>From:</Text>
+                  <TouchableOpacity onPress={this.showDateTimePickerStartDate}>
+                    <Text style={{ paddingLeft: 3, width: 100 }}>{startDate}</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Text style={{ textAlign: 'left', width: 40 }}>To:</Text>
+                  <TouchableOpacity onPress={this.showDateTimePickerEndDate}>
+                    <Text style={{ paddingLeft: 3, width: 100 }}>{endDate}</Text>
+                  </TouchableOpacity>
+                </View>
               </View>
+              <TouchableOpacity
+                style={[styles.getTripsButton, ((!all && !today && !week && !month) && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')) && { opacity: 0.4 }]}
+                onPress={this.getTripsPress}
+                disabled={!all && !today && !week && !month && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')}
+              >
+                <Text style={styles.getTripsText}>Get trips</Text>
+              </TouchableOpacity>
             </View>
-            <View style={styles.periodCubeBig}>
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ textAlign: 'left', width: 40 }}>From:</Text>
-                <TouchableOpacity onPress={this.showDateTimePickerStartDate}>
-                  <Text style={{ paddingLeft: 3, width: 100 }}>{startDate}</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ textAlign: 'left', width: 40 }}>To:</Text>
-                <TouchableOpacity onPress={this.showDateTimePickerEndDate}>
-                  <Text style={{ paddingLeft: 3, width: 100 }}>{endDate}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
-          <TouchableOpacity
-            style={[styles.getTripsButton, ((!all && !today && !week && !month) && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')) && { opacity: 0.4 }]}
-            onPress={this.getTripsPress}
-            disabled={!all && !today && !week && !month && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')}
-          >
-            <Text style={styles.getTripsText}>Get trips</Text>
-          </TouchableOpacity>
+          }
 
           {/* render real trips */}
           <SectionList
@@ -393,8 +400,8 @@ const styles = StyleSheet.create({
   dateSelect: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 40,
-
+    marginTop: 20,
+    marginBottom: 20,
   },
   periodCubeSmall: {
     borderColor: COLORS.BLUE,
