@@ -54,7 +54,4 @@ class TripMap extends Component<Props> {
   }
 }
 
-const styles = StyleSheet.create({
-});
-
 export default TripMap;

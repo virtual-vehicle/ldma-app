@@ -93,58 +93,63 @@ class TripDetailsScreen extends Component<Props> {
           <View style={styles.header}>
             <Text style={styles.headerText}>Trip Detail</Text>
           </View>
-
-          <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around' }}>
-            <View style={{ width: '40%', justifyContent: 'flex-start', borderWidth: 1, borderColor: COLORS.GREEN }}>
-              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{`${start_date.format('DD.MM.YYYY')}\n${start_date.format('HH:mm')}`}</Text>
-              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{trip.start_position_name}</Text>
+          <View style={{justifyContent: 'space-between'}}>
+            <View style={{ alignItems: 'center' }}>
+              <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around', borderWidth: 1, borderColor: COLORS.GREY }}>
+                <View style={{ width: '40%', justifyContent: 'flex-start' }}>
+                  <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{`${start_date.format('DD.MM.YYYY')} ${start_date.format('HH:mm')}`}</Text>
+                  <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.start_position_name}</Text>
+                </View>
+                <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.duration} min</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Image source={require('ldmaapp/assets/png/completed.png')} />
+                    <Svg
+                      height="2"
+                      width="60"
+                    >
+                      <Line
+                        x1="0"
+                        y1="0"
+                        x2="100"
+                        y2="0"
+                        stroke={COLORS.WHITE}
+                        strokeWidth="2"
+                      />
+                    </Svg>
+                    <Image source={require('ldmaapp/assets/png/overdue.png')} />
+                  </View>
+                  <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.distance} km</Text>
+                </View>
+                <View style={{ width: '40%', justifyContent: 'flex-start' }}>
+                  <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{`${end_date.format('DD.MM.YYYY')} ${end_date.format('HH:mm')}`}</Text>
+                  <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.end_position_name}</Text>
+                </View>
+              </View>
+              <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around' }}>
+                <TextContainer label={"Hard\nbrakes"} value={trip.brakes} />
+                <TextContainer label={"Fast\naccelerations"} value={trip.accelerations} />
+                <TextContainer label={"Stand\nstills"} value={trip.standstills} />
+                <AnimatedCircularProgress
+                  size={60}
+                  width={5}
+                  fill={trip.risk_score}
+                  tintColor={getRiskScoreColor(trip.risk_score)}
+                  backgroundColor={COLORS.DARKGREY}>
+                  {
+                    (fill) => (
+                      <Text style={{ fontSize: 12, color: COLORS.WHITE }}>
+                        {`${trip.risk_score}%`}
+                      </Text>
+                    )
+                  }
+                </AnimatedCircularProgress>
+              </View>
             </View>
-            <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.duration} min</Text>
-              <Svg
-                height="2"
-                width="60"
-              >
-                <Line
-                  x1="0"
-                  y1="0"
-                  x2="100"
-                  y2="0"
-                  stroke={COLORS.WHITE}
-                  strokeWidth="2"
-                />
-              </Svg>
-              <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.distance} km</Text>
-            </View>
-            <View style={{ width: '40%', justifyContent: 'flex-start', borderWidth: 1, borderColor: COLORS.RED }}>
-              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{`${end_date.format('DD.MM.YYYY')}\n${end_date.format('HH:mm')}`}</Text>
-              <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{trip.end_position_name}</Text>
+            <View style={{ flex: 2, alignItems: 'center' }}>
+              <TripMap trip={trip} style={styles.map} />
             </View>
           </View>
-          <View style={styles.lineSeparator} />
-          <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around' }}>
-            <TextContainer label={"Hard\nbrakes"} value={trip.brakes} />
-            <TextContainer label={"Fast\naccelerations"} value={trip.accelerations} />
-            <TextContainer label={"Stand\nstills"} value={trip.standstills} />
-            <AnimatedCircularProgress
-              size={60}
-              width={5}
-              fill={trip.risk_score}
-              tintColor={getRiskScoreColor(trip.risk_score)}
-              backgroundColor={COLORS.DARKGREY}>
-              {
-                (fill) => (
-                  <Text style={{ fontSize: 12, color: COLORS.WHITE }}>
-                    {`${trip.risk_score}%`}
-                  </Text>
-                )
-              }
-            </AnimatedCircularProgress>
-          </View>
-          <View style={styles.lineSeparator} />
-          <TripMap trip={trip} style={styles.map} />
-          <View style={styles.lineSeparator} />
-
         </ImageBackground>
       </SideMenu>
     );
@@ -181,9 +186,8 @@ const styles = StyleSheet.create({
   },
   map: {
     width: '95%',
-    height: '55%',
-    marginTop: 10,
-    marginLeft: 0,
+    height: '85%',
+    marginTop: 0,
   },
   lineSeparator: {
     borderBottomColor: COLORS.RED,
