@@ -1,4 +1,4 @@
-import React, { Component, PureComponent } from 'react';
+import React, { Component } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,42 +6,18 @@ import {
   ImageBackground,
   TouchableOpacity,
   Image,
-  Dimensions,
 } from 'react-native';
 import Svg, { Line } from 'react-native-svg';
+import SideMenu from 'react-native-side-menu';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import moment from 'moment';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import Menu from 'ldmaapp/src/components/common/Menu';
-import TripMap from 'ldmaapp/src/components/trip-details/TripMap'
-import SideMenu from 'react-native-side-menu';
-import moment from 'moment';
-import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import TripMap from 'ldmaapp/src/components/trip-details/TripMap';
 import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
+import TextContainer from 'ldmaapp/src/components/trip-details/TextContainer';
 
-
-const SCREEN_WIDTH = Dimensions.get('window').width;
-
-type Props = {
-  white: boolean,
-};
-
-
-class TextContainer extends PureComponent<Props> {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    const { label, value } = this.props;
-    return (
-      <View style={{ alignItems: "center" }}>
-        <Text style={{ textAlign: 'center', color: COLORS.WHITE }}>{label}</Text>
-        <Text style={{ textAlign: 'center', color: COLORS.WHITE }}>{value}</Text>
-      </View>
-    );
-  }
-}
-
-class TripDetailsScreen extends Component<Props> {
+class TripDetailsScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -89,16 +65,15 @@ class TripDetailsScreen extends Component<Props> {
               style={styles.menu}
             />
           </TouchableOpacity>
-          {/* Trip Details */}
           <View style={styles.header}>
-            <Text style={styles.headerText}>Trip Detail</Text>
+            <Text style={styles.headerText}>Trip Details</Text>
           </View>
           <View style={{justifyContent: 'space-between'}}>
             <View style={{ alignItems: 'center' }}>
-              <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around', borderWidth: 1, borderColor: COLORS.GREY }}>
+              <View style={styles.trinInfoWrapperView}>
                 <View style={{ width: '40%', justifyContent: 'flex-start' }}>
-                  <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{`${start_date.format('DD.MM.YYYY')} ${start_date.format('HH:mm')}`}</Text>
-                  <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.start_position_name}</Text>
+                  <Text style={[ styles.tripInfoText, { fontSize: 12 } ]}>{`${start_date.format('DD.MM.YYYY')} ${start_date.format('HH:mm')}`}</Text>
+                  <Text style={styles.tripInfoText}>{trip.start_position_name}</Text>
                 </View>
                 <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
                   <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.duration} min</Text>
@@ -119,14 +94,14 @@ class TripDetailsScreen extends Component<Props> {
                     </Svg>
                     <Image source={require('ldmaapp/assets/png/overdue.png')} />
                   </View>
-                  <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.distance} km</Text>
+                  <Text style={styles.tripInfoText}>{trip.distance} km</Text>
                 </View>
                 <View style={{ width: '40%', justifyContent: 'flex-start' }}>
-                  <Text style={{ padding: 5, fontSize: 12, textAlign: 'center', color: COLORS.WHITE }}>{`${end_date.format('DD.MM.YYYY')} ${end_date.format('HH:mm')}`}</Text>
-                  <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.end_position_name}</Text>
+                  <Text style={[ styles.tripInfoText, { fontSize: 12 } ]}>{`${end_date.format('DD.MM.YYYY')} ${end_date.format('HH:mm')}`}</Text>
+                  <Text style={styles.tripInfoText}>{trip.end_position_name}</Text>
                 </View>
               </View>
-              <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around' }}>
+              <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around', marginTop: 7, marginBottom: 7 }}>
                 <TextContainer label={"Hard\nbrakes"} value={trip.brakes} />
                 <TextContainer label={"Fast\naccelerations"} value={trip.accelerations} />
                 <TextContainer label={"Stand\nstills"} value={trip.standstills} />
@@ -137,7 +112,7 @@ class TripDetailsScreen extends Component<Props> {
                   tintColor={getRiskScoreColor(trip.risk_score)}
                   backgroundColor={COLORS.DARKGREY}>
                   {
-                    (fill) => (
+                    () => (
                       <Text style={{ fontSize: 12, color: COLORS.WHITE }}>
                         {`${trip.risk_score}%`}
                       </Text>
@@ -147,7 +122,7 @@ class TripDetailsScreen extends Component<Props> {
               </View>
             </View>
             <View style={{ flex: 2, alignItems: 'center' }}>
-              <TripMap trip={trip} style={styles.map} />
+              <TripMap {...{trip}} style={styles.map} />
             </View>
           </View>
         </ImageBackground>
@@ -189,11 +164,18 @@ const styles = StyleSheet.create({
     height: '85%',
     marginTop: 0,
   },
-  lineSeparator: {
-    borderBottomColor: COLORS.RED,
-    borderBottomWidth: 0.5,
-    marginTop: 10,
-    marginBottom: 10,
+  tripInfoText: {
+    padding: 5,
+    fontSize: 14,
+    textAlign: 'center',
+    color: COLORS.WHITE,
+  },
+  trinInfoWrapperView: {
+    width: '95%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderWidth: 1,
+    borderColor: COLORS.GREY,
   },
 });
 

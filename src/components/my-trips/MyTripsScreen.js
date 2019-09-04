@@ -63,7 +63,7 @@ class TripListItem extends Component {
             <Text style={{ fontSize: 12, textAlign: 'right', color: COLORS.GREY }}>{`${moment(getTimeOutOfWholeDate(trip.end_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
             <Text style={{ fontSize: 14, textAlign: 'right', color: COLORS.WHITE }}>{trip.end_position_name.split(',')[0]}</Text>
           </View>
-          <View style={{ width: '9%', justifyContent: 'center', alignItems: 'flex-end' }}>
+          <View style={{ width: '9%', justifyContent: 'center', alignItems: 'flex-end', marginLeft: 7 }}>
             <AnimatedCircularProgress
               size={30}
               width={2}
@@ -280,7 +280,7 @@ export class MyTripsScreen extends Component<Props, State> {
                 <TripListItem trip={item} index={index} />
               )}
             // Performance settings
-            removeClippedSubviews={true} // Unmount components when outside of window 
+            removeClippedSubviews={true} // Unmount components when outside of window
             initialNumToRender={8} // initial render amount
             maxToRenderPerBatch={15} // number in each render batch
             updateCellsBatchingPeriod={5} // time between renders

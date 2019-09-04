@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, Text } from 'react-native'
+import { Text } from 'react-native'
 import MapView, { Polyline, Marker, Callout } from 'react-native-maps';
 import { formatCoordinates } from 'ldmaapp/src/utils/format';
 import { COLORS } from 'ldmaapp/src/constants/colors';
