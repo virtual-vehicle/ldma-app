@@ -7,15 +7,15 @@ const initialState = {
 };
 
 const navigation = (state = initialState, action = {}) => {
-    switch (action.type) {
-        case SELECT_NAVIGATION_ITEM:
-            return {
-                ...state,
-                selectedNavigationItem: action.navItem,
-            }
-      default:
-        return state;
-    }
-  };
+  switch (action.type) {
+    case SELECT_NAVIGATION_ITEM:
+      return {
+        ...state,
+        selectedNavigationItem: action.navItem,
+      }
+    default:
+      return state;
+  }
+};
 
-  export default navigation;
+ export default navigation;
