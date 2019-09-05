@@ -7,15 +7,17 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import Menu from 'ldmaapp/src/components/common/Menu';
+import Svg, { Line } from 'react-native-svg';
 import SideMenu from 'react-native-side-menu';
-import MapView, { Polyline } from 'react-native-maps';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
+import moment from 'moment';
+import { COLORS } from 'ldmaapp/src/constants/colors';
+import Menu from 'ldmaapp/src/components/common/Menu';
+import TripMap from 'ldmaapp/src/components/trip-details/TripMap';
+import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
+import TextContainer from 'ldmaapp/src/components/trip-details/TextContainer';
 
-type Props = {
-  white: boolean,
-};
-
-class TripDetailsScreen extends Component<Props> {
+class TripDetailsScreen extends Component {
 
   constructor(props) {
     super(props);
@@ -38,12 +40,12 @@ class TripDetailsScreen extends Component<Props> {
   }
 
   render() {
-
     const { isOpen } = this.state;
     const { navigation } = this.props;
-
     const menu = <Menu onItemSelected={this.onMenuItemSelected} navigation={navigation} />;
-
+    const trip = navigation.getParam('trip');
+    const start_date = moment(trip.start_at, 'YYYY-MM-DDTHH:mm:ss.SSSS');
+    const end_date = moment(start_date).add(trip.duration, 'minutes');
     return (
       <SideMenu
         menu={menu}
@@ -54,16 +56,75 @@ class TripDetailsScreen extends Component<Props> {
           style={styles.container}
           source={require('ldmaapp/assets/png/bg.png')}
         >
-
-        <TouchableOpacity
-          onPress={this.toggle}
-          style={styles.menuButton}
-        >
+          <TouchableOpacity
+            onPress={this.toggle}
+            style={styles.menuButton}
+          >
             <Image
-            source={require('ldmaapp/assets/png/menu.png')}
-            style={styles.menu}
+              source={require('ldmaapp/assets/png/menu.png')}
+              style={styles.menu}
             />
-        </TouchableOpacity>
+          </TouchableOpacity>
+          <View style={styles.header}>
+            <Text style={styles.headerText}>Trip Details</Text>
+          </View>
+          <View style={{justifyContent: 'space-between'}}>
+            <View style={{ alignItems: 'center' }}>
+              <View style={styles.trinInfoWrapperView}>
+                <View style={{ width: '40%', justifyContent: 'flex-start' }}>
+                  <Text style={[ styles.tripInfoText, { fontSize: 12 } ]}>{`${start_date.format('DD.MM.YYYY')} ${start_date.format('HH:mm')}`}</Text>
+                  <Text style={styles.tripInfoText}>{trip.start_position_name}</Text>
+                </View>
+                <View style={{ width: '20%', justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={{ padding: 5, fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{trip.duration} min</Text>
+                  <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <Image source={require('ldmaapp/assets/png/completed.png')} />
+                    <Svg
+                      height="2"
+                      width="60"
+                    >
+                      <Line
+                        x1="0"
+                        y1="0"
+                        x2="100"
+                        y2="0"
+                        stroke={COLORS.WHITE}
+                        strokeWidth="2"
+                      />
+                    </Svg>
+                    <Image source={require('ldmaapp/assets/png/overdue.png')} />
+                  </View>
+                  <Text style={styles.tripInfoText}>{trip.distance} km</Text>
+                </View>
+                <View style={{ width: '40%', justifyContent: 'flex-start' }}>
+                  <Text style={[ styles.tripInfoText, { fontSize: 12 } ]}>{`${end_date.format('DD.MM.YYYY')} ${end_date.format('HH:mm')}`}</Text>
+                  <Text style={styles.tripInfoText}>{trip.end_position_name}</Text>
+                </View>
+              </View>
+              <View style={{ width: '95%', flexDirection: 'row', justifyContent: 'space-around', marginTop: 7, marginBottom: 7 }}>
+                <TextContainer label={"Hard\nbrakes"} value={trip.brakes} />
+                <TextContainer label={"Fast\naccelerations"} value={trip.accelerations} />
+                <TextContainer label={"Stand\nstills"} value={trip.standstills} />
+                <AnimatedCircularProgress
+                  size={60}
+                  width={5}
+                  fill={trip.risk_score}
+                  tintColor={getRiskScoreColor(trip.risk_score)}
+                  backgroundColor={COLORS.DARKGREY}>
+                  {
+                    () => (
+                      <Text style={{ fontSize: 12, color: COLORS.WHITE }}>
+                        {`${trip.risk_score}%`}
+                      </Text>
+                    )
+                  }
+                </AnimatedCircularProgress>
+              </View>
+            </View>
+            <View style={{ flex: 2, alignItems: 'center' }}>
+              <TripMap {...{trip}} style={styles.map} />
+            </View>
+          </View>
         </ImageBackground>
       </SideMenu>
     );
@@ -71,21 +132,50 @@ class TripDetailsScreen extends Component<Props> {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-    },
-    menuButton: {
-      position: 'absolute',
-      top: 8,
-      left: 15,
-      padding: 10,
-      zIndex: 1000,
-    },
-    menu: {
-      width: 30,
-      height: 30,
-    },
+  container: {
+    flex: 1,
+    alignItems: 'center',
+  },
+  menuButton: {
+    position: 'absolute',
+    top: 8,
+    left: 15,
+    padding: 10,
+    zIndex: 1000,
+  },
+  menu: {
+    width: 30,
+    height: 30,
+  },
+  header: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    height: 60,
+    backgroundColor: 'transparent',
+  },
+  headerText: {
+    color: COLORS.WHITE,
+    fontSize: 20,
+  },
+  map: {
+    width: '95%',
+    height: '85%',
+    marginTop: 0,
+  },
+  tripInfoText: {
+    padding: 5,
+    fontSize: 14,
+    textAlign: 'center',
+    color: COLORS.WHITE,
+  },
+  trinInfoWrapperView: {
+    width: '95%',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    borderWidth: 1,
+    borderColor: COLORS.GREY,
+  },
 });
 
 export default TripDetailsScreen;

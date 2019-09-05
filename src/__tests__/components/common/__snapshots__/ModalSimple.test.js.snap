@@ -40,7 +40,7 @@ exports[`ModalSimple component close/hide the modal 1`] = `
     <Text
       style={
         Object {
-          "color": undefined,
+          "color": "#000",
           "fontSize": 24,
           "fontWeight": "500",
           "marginTop": 25,
@@ -133,7 +133,7 @@ exports[`ModalSimple component close/hide the modal 2`] = `
     <Text
       style={
         Object {
-          "color": undefined,
+          "color": "#000",
           "fontSize": 24,
           "fontWeight": "500",
           "marginTop": 25,
@@ -226,7 +226,7 @@ exports[`ModalSimple component renders correctly with all props 1`] = `
     <Text
       style={
         Object {
-          "color": undefined,
+          "color": "#000",
           "fontSize": 24,
           "fontWeight": "500",
           "marginTop": 25,
@@ -319,7 +319,7 @@ exports[`ModalSimple component renders correctly without content 1`] = `
     <Text
       style={
         Object {
-          "color": undefined,
+          "color": "#000",
           "fontSize": 24,
           "fontWeight": "500",
           "marginTop": 25,
@@ -400,7 +400,7 @@ exports[`ModalSimple component simulate click OK 1`] = `
     <Text
       style={
         Object {
-          "color": undefined,
+          "color": "#000",
           "fontSize": 24,
           "fontWeight": "500",
           "marginTop": 25,
@@ -493,7 +493,7 @@ exports[`ModalSimple component simulate click OK 2`] = `
     <Text
       style={
         Object {
-          "color": undefined,
+          "color": "#000",
           "fontSize": 24,
           "fontWeight": "500",
           "marginTop": 25,

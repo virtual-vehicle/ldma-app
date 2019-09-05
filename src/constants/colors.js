@@ -1,5 +1,6 @@
 export const COLORS = {
   WHITE: '#FFF',
+  BLACK: '#000',
   BLUE: '#7F7FFF',
   GREEN: '#0EAF27',
   GREEN2: '#00ad3d',
@@ -14,10 +15,11 @@ export const COLORS = {
   DARKGREY: '#9b9b9b',
   DARKGREY2: '#6E6E6E',
   RED: '#e11027',
+  ORANGE: '#FFA500',
   LIGHTRED: '#fff8f8',
   // new colors:
   SEAFOAM_BLUE: '#50d2c2',
   SWEET_RED: '#ff3366',
   SWEET_ORANGE: '#ee8f6e',
-  PURPLE: '#d667cd'
+  PURPLE: '#d667cd',
 };

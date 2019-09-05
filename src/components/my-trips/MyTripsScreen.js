@@ -7,7 +7,7 @@ import {
   ImageBackground,
   Image,
   Dimensions,
-  ScrollView,
+  SectionList,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -15,17 +15,16 @@ import SideMenu from 'react-native-side-menu';
 import moment from 'moment';
 import { get as safeGet } from 'lodash';
 import DateTimePicker from 'react-native-modal-datetime-picker';
-import PercentageCircle from 'react-native-percentage-circle';
+import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import {
 } from 'ldmaapp/src/actions/uiActions';
-import Svg,{ Line } from 'react-native-svg';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
-import MapView, { Polyline } from 'react-native-maps';
 import { getTripsAll, getTripsInterval, setMapVisible } from 'ldmaapp/src/actions/tripActions';
 import NavigationService from 'ldmaapp/src/utils/navigation';
-import { getTimeOutOfWholeDate, getDateOutOfWholeDate, formatCoordinates } from 'ldmaapp/src/utils/format';
+import { getTimeOutOfWholeDate, getDateOutOfWholeDate } from 'ldmaapp/src/utils/format';
+import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
 /* Config/Constants
 ============================================================================= */
 
@@ -42,29 +41,70 @@ type Props = {
   loading: boolean,
 };
 
+class TripListItem extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    const { trip, index } = this.props
+    return (
+      <TouchableOpacity style={{ paddingHorizontal: 15, paddingVertical: 10 }} key={trip.trip_id} onPress={() => NavigationService.navigate('TripDetails', { trip: trip })}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+          <View style={{ width: '40%' }}>
+            <Text style={{ fontSize: 12, textAlign: 'left', color: COLORS.GREY }}>{`${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
+            <Text style={{ fontSize: 14, textAlign: 'left', color: COLORS.WHITE }}>{trip.start_position_name.split(',')[0]}</Text>
+          </View>
+          <View style={{ width: '11%' }}>
+            <Text style={{ fontSize: 12, textAlign: 'center', color: COLORS.GREY }}>{`${trip.distance} km`}</Text>
+            <Text style={{ fontSize: 14, textAlign: 'center', color: COLORS.WHITE }}>{`>>`}</Text>
+          </View>
+          <View style={{ width: '40%' }}>
+            <Text style={{ fontSize: 12, textAlign: 'right', color: COLORS.GREY }}>{`${moment(getTimeOutOfWholeDate(trip.end_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>
+            <Text style={{ fontSize: 14, textAlign: 'right', color: COLORS.WHITE }}>{trip.end_position_name.split(',')[0]}</Text>
+          </View>
+          <View style={{ width: '9%', justifyContent: 'center', alignItems: 'flex-end', marginLeft: 7 }}>
+            <AnimatedCircularProgress
+              size={30}
+              width={2}
+              fill={trip.risk_score}
+              tintColor={getRiskScoreColor(trip.risk_score)}
+              backgroundColor={COLORS.DARKGREY}>
+              {
+                (fill) => (
+                  <Text style={{ fontSize: 10, color: COLORS.WHITE }}>
+                    {`${trip.risk_score}%`}
+                  </Text>
+                )
+              }
+            </AnimatedCircularProgress>
+          </View>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+}
 export class MyTripsScreen extends Component<Props, State> {
 
   constructor(props) {
     super(props);
 
     this.toggle = this.toggle.bind(this);
+    this.toggleSearch = this.toggleSearch.bind(this);
+    this.clearDateSearch = this.clearDateSearch.bind(this);
 
     this.state = {
       isOpen: false,
+      searchVisible: false,
       isDateTimePickerStartDateVisible: false,
       isDateTimePickerEndDateVisible: false,
-      all: true,
-      today: false,
-      week: false,
-      month: false,
       startDate: 'YYYY-MM-DD',
       endDate: 'YYYY-MM-DD',
     };
   }
 
   componentDidMount() {
-    const { getTripsAll, user } = this.props;
-    getTripsAll(user);
+    this.getTrips();
   }
 
   onMenuItemSelected = () =>
@@ -78,58 +118,31 @@ export class MyTripsScreen extends Component<Props, State> {
     });
   }
 
+  toggleSearch() {
+    this.setState({
+      searchVisible: !this.state.searchVisible,
+    });
+  }
+
   updateMenuState(isOpen) {
     this.setState({ isOpen });
   }
 
-  getTripsPress = () => {
+  getTrips = () => {
     const { getTripsAll, getTripsInterval, user } = this.props;
-    const { all, startDate, endDate } = this.state;
-    if (all) {
-      getTripsAll(user);
-    }
-    else {
+    let { startDate, endDate } = this.state;
+    if (startDate != 'YYYY-MM-DD' || endDate != 'YYYY-MM-DD') {
+      startDate = ((startDate == 'YYYY-MM-DD') ? '1970-01-01' : startDate)
+      endDate = ((endDate == 'YYYY-MM-DD') ? '4000-01-01' : endDate)
       getTripsInterval(user, startDate, endDate);
     }
-  }
-
-  setAllDate() {
-    const { all } = this.state;
-    if (all) {
-      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
+    else {
+      getTripsAll(user);
     }
   }
 
-  setTodaysDate() {
-    const todayDate = moment().format('YYYY-MM-DD');
-    const { today } = this.state;
-    if (today) {
-      this.setState({ startDate: todayDate, endDate: todayDate });
-    } else {
-      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
-    }
-  }
-
-  setLastWeekDate() {
-    const weekAgoDate = moment().subtract(7,'d').format('YYYY-MM-DD');
-    const todayDate = moment().format('YYYY-MM-DD');
-    const { week } = this.state;
-    if (week) {
-      this.setState({ startDate: weekAgoDate, endDate: todayDate });
-    } else {
-      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
-    }
-  }
-
-  setLastMonthDate() {
-    const monthAgoDate = moment().subtract(1,'months').format('YYYY-MM-DD');
-    const todayDate = moment().format('YYYY-MM-DD');
-    const { month } = this.state;
-    if (month) {
-      this.setState({ startDate: monthAgoDate, endDate: todayDate });
-    } else {
-      this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' });
-    }
+  clearDateSearch() {
+    this.setState({ startDate: 'YYYY-MM-DD', endDate: 'YYYY-MM-DD' }, () => this.getTrips());
   }
 
   // START/FROM Date methods
@@ -145,31 +158,52 @@ export class MyTripsScreen extends Component<Props, State> {
   handleDatePickedStartDate = (date) => {
     const dateMoment = moment(date);
     const formattedDate = dateMoment.format('YYYY-MM-DD');
-    this.setState({ ...this.state, all: false, today: false, week: false, month: false, startDate: formattedDate });
+    this.setState({ startDate: formattedDate }, () => this.getTrips());
     this.hideDateTimePickerStartDate();
   };
 
   handleDatePickedEndDate = (date) => {
     const dateMoment = moment(date);
     const formattedDate = dateMoment.format('YYYY-MM-DD');
-    this.setState({ ...this.state, all: false, today: false, week: false, month: false, endDate: formattedDate });
+    this.setState({ endDate: formattedDate }, () => this.getTrips());
     this.hideDateTimePickerEndDate();
   };
 
-  showMapPress = tripIndex => {
-    const { setMapVisible } = this.props;
-    setMapVisible(tripIndex);
-  }
+  createSectionsList = (tripsList) => {
+    return tripsList.reduce((sections, trip) => {
+      const title = getDateOutOfWholeDate(trip.start_at);
+      let found = false;
+      sections.forEach((section) => {
+        if (section.title === title) {
+          section.data = [...section.data, trip]
+          found = true;
+          return
+        }
+      });
+      if (!found) {
+        return [...sections, { title: title, data: [trip] }];
+      }
+      return sections;
+    }, []);
+  };
+
+  renderLineSeparator = () => {
+    return (
+      //Item Separator
+      <View>
+        <Image
+          source={require('ldmaapp/assets/png/line.png')}
+          style={styles.lineImage}
+        />
+      </View>
+    );
+  };
 
   render() {
     const {
       isOpen,
       startDate,
       endDate,
-      all,
-      today,
-      week,
-      month,
     } = this.state;
     const { navigation, loading } = this.props;
     const tripsList = safeGet(this.props, 'tripsList', []);
@@ -181,10 +215,10 @@ export class MyTripsScreen extends Component<Props, State> {
         isOpen={isOpen}
         onChange={isOpen => this.updateMenuState(isOpen)}
       >
-         <ImageBackground
-                        style={styles.container}
-                        source={require('ldmaapp/assets/png/bg.png')}
-                        >
+        <ImageBackground
+          style={styles.container}
+          source={require('ldmaapp/assets/png/bg.png')}
+        >
           <TouchableOpacity
             onPress={this.toggle}
             style={styles.menuButton}
@@ -197,164 +231,61 @@ export class MyTripsScreen extends Component<Props, State> {
           <View style={styles.header}>
             <Text style={styles.headerText}>My Trips</Text>
           </View>
-          <View style={styles.dateSelect}>
-            <View>
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <TouchableOpacity
-                  style={[styles.periodCubeSmall, all && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => {
-                    this.setState({ all: !all, today: false, week: false, month: false },
-                    () => this.setAllDate());
-                  }}
-                >
-                  <Text>All</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.periodCubeSmall, today && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => {
-                    this.setState({ all: false, today: !today, week: false, month: false },
-                    () => this.setTodaysDate());
-                  }}
-                >
-                  <Text>Today</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ display: 'flex', flexDirection: 'row', marginTop: 10 }}>
-                <TouchableOpacity
-                  style={[styles.periodCubeSmall, week && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => {
-                    this.setState({ all: false, today: false, week: !week, month: false },
-                    () =>  this.setLastWeekDate());
-                  }}
-                >
-                  <Text>Week</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={[styles.periodCubeSmall, month && { backgroundColor: COLORS.BLUE }]}
-                  onPress={() => {
-                    this.setState({ all: false, today: false, week: false, month: !month },
-                    () => this.setLastMonthDate());
-                  }}
-                >
-                  <Text>Month</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-            <View style={styles.periodCubeBig}>
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ textAlign: 'left', width: 40 }}>From:</Text>
-                <TouchableOpacity onPress={this.showDateTimePickerStartDate}>
-                  <Text style={{ paddingLeft: 3, width: 100 }}>{startDate}</Text>
-                </TouchableOpacity>
-              </View>
-              <View style={{ display: 'flex', flexDirection: 'row' }}>
-                <Text style={{ textAlign: 'left', width: 40 }}>To:</Text>
-                <TouchableOpacity onPress={this.showDateTimePickerEndDate}>
-                  <Text style={{ paddingLeft: 3, width: 100  }}>{endDate}</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          </View>
           <TouchableOpacity
-            style={[styles.getTripsButton, ((!all && !today && !week && !month) && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')) && { opacity: 0.4 }]}
-            onPress={this.getTripsPress}
-            disabled={!all && !today && !week && !month && (startDate === 'YYYY-MM-DD' && endDate === 'YYYY-MM-DD')}
+            onPress={this.toggleSearch}
+            style={styles.searchButton}
           >
-            <Text style={styles.getTripsText}>Get trips</Text>
+            <Image
+              source={require('ldmaapp/assets/png/search.png')}
+              style={styles.menu}
+            />
           </TouchableOpacity>
+          {this.state.searchVisible &&
+            <View style={{ width: '100%' }}>
+              {this.renderLineSeparator()}
+              <View style={styles.search}>
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Text style={{ textAlign: 'left', color: COLORS.WHITE }}>From: </Text>
+                  <TouchableOpacity onPress={this.showDateTimePickerStartDate}>
+                    <Text style={{ paddingLeft: 3, width: 100, color: COLORS.GREY }}>{startDate}</Text>
+                  </TouchableOpacity>
+                </View>
+                <View style={{ display: 'flex', flexDirection: 'row' }}>
+                  <Text style={{ textAlign: 'left', color: COLORS.WHITE }}>To: </Text>
+                  <TouchableOpacity onPress={this.showDateTimePickerEndDate}>
+                    <Text style={{ paddingLeft: 3, width: 100, color: COLORS.GREY }}>{endDate}</Text>
+                  </TouchableOpacity>
+                </View>
+                <TouchableOpacity onPress={this.clearDateSearch}>
+                  <Image
+                    source={require('ldmaapp/assets/png/clear.png')}
+                    style={styles.clearSearchImage}
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
+          }
 
           {/* render real trips */}
-          <ScrollView style={{ marginBottom: 100, width: '100%' }}>
-            {tripsList.map((trip, index) => {
-              return (<View style={{ margin: 20, borderWidth: 1, borderColor: COLORS.BLUE, padding: 10, borderRadius: 10 }} key={trip.trip_id}>
-                <Text style={{ color: COLORS.BLUE, textAlign: 'center', paddingBottom: 10 }}>Trip info</Text>
-                <View style={{ flexDirection: 'row' }}>
-                  {/* FIRST COLUMN */}
-                  <View style={{ flexDirection: 'column', width: '33.3%' }}>
-                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${getTimeOutOfWholeDate(trip.start_at)}`}</Text>
-                    <View
-                    style={[
-                      { alignItems: 'center', justifyContent: 'center', height: 180 },
-                    ]}>
-                      <Svg
-                        height="180"
-                        width="2"
-                      >
-                        <Line
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="180"
-                          stroke={COLORS.BLUE}
-                          strokeWidth="2"
-                        />
-                      </Svg>
-                    </View>
-                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{`${getDateOutOfWholeDate(trip.start_at)}\n${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm:ss')}`}</Text>
-                  </View>
-                  {/* SECOND COLUMN */}
-                  <View style={{ flexDirection: 'column', width: '33.3%' }}>
-                    <Text style={{ fontSize: 10, width: 100, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE }}>{trip.start_position_name}</Text>
-                    {trip.map_visible ?
-                      (<MapView
-                        style={styles.map}
-                        region={{
-                          latitude: trip.gps_track.coordinates[0].lat,
-                          longitude: trip.gps_track.coordinates[0].lon,
-                          latitudeDelta: 0.05,
-                          longitudeDelta: 0.05,
-                        }}
-                      >
-                      <Polyline
-                        coordinates={formatCoordinates(trip.gps_track.coordinates)}
-                        strokeColor="#0000ff" // fallback for when `strokeColors` is not supported by the map-provider
-                        strokeWidth={6}
-                      />
-                      </MapView>
-                      )
-                      :
-                      (
-                      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-                        <TouchableOpacity
-                          style={styles.showMapButton}
-                          onPress={() => this.showMapPress(index)}
-                        >
-                          <Text style={{ color: COLORS.WHITE }}>Show Map</Text>
-                        </TouchableOpacity>
-                      </View>
-                      )
-                    }
-                    <Text style={{ fontSize: 10, width: 100, marginTop: 10, textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, alignSelf: 'flex-end' }}>{trip.end_position_name}</Text>
-                  </View>
-                  {/* THIRD COLUMN */}
-                  <View style={{ flexDirection: 'column', width: '33.3%', alignItems: 'flex-end' }}>
-                    <PercentageCircle
-                      radius={30}
-                      percent={trip.risk_score}
-                      color={COLORS.GREEN4}
-                      borderWidth={2}
-                      textStyle={{ fontSize: 12 }}
-                    />
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.brakes} Hard\nbrakes`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.accelerations} Fast\naccel.`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`${trip.standstills} Stand\nstills`}</Text>
-                    <Text style={{ textAlign: 'center', borderWidth: 1, borderColor: COLORS.BLUE, marginTop: 5, width: '80%' }}>{`Distance: \n${trip.distance} km`}</Text>
-                    <TouchableOpacity
-                      onPress={() => NavigationService.navigate('TripDetails')}
-                    >
-                      <Text>{`Trip Details`}</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </View>
-            )})}
-          </ScrollView>
-          <TouchableOpacity
-            style={styles.goToNextScreen}
-            onPress={() => NavigationService.navigate('Rankings')}
-          >
-            <Text style={styles.goToNextScreenText}>{`Rankings`}</Text>
-          </TouchableOpacity>
+          <SectionList
+            width='100%'
+            sections={[
+              ...this.createSectionsList(tripsList),
+            ]}
+            keyExtractor={(item) => item.trip_id}
+            ItemSeparatorComponent={this.renderLineSeparator}
+            renderSectionHeader={({ section }) => (<View style={{ paddingHorizontal: 15, paddingVertical: 5, backgroundColor: 'rgba(255, 255, 255, 0.2)' }}><Text style={{ color: COLORS.WHITE }}>{`${section.title}`}</Text></View>)}
+            renderItem={({ item, index }) =>
+              (
+                <TripListItem trip={item} index={index} />
+              )}
+            // Performance settings
+            removeClippedSubviews={true} // Unmount components when outside of window
+            initialNumToRender={8} // initial render amount
+            maxToRenderPerBatch={15} // number in each render batch
+            updateCellsBatchingPeriod={5} // time between renders
+            windowSize={25} // the window size
+          />
           {loading && <Loader />}
           <DateTimePicker
             isVisible={this.state.isDateTimePickerStartDateVisible}
@@ -377,41 +308,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
   },
-  dateSelect: {
+  search: {
     display: 'flex',
     flexDirection: 'row',
-    marginTop: 40,
-  },
-  periodCubeSmall: {
-    borderColor: COLORS.BLUE,
-    borderWidth: 3,
-    fontSize: 16,
-    padding: 2,
-    width: 90,
-    marginLeft: 10,
-    height: 30,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  map: {
-    width: 150,
-    height: 150,
-    marginTop: 10,
-    marginLeft: -35,
-  },
-  periodCubeBig: {
-    borderColor: COLORS.BLUE,
-    borderWidth: 3,
-    fontSize: 16,
-    padding: 2,
-    paddingTop: 5,
-    textAlign: 'center',
-    marginLeft: 10,
-    height: 70,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: SCREEN_WIDTH * 0.4,
+    paddingHorizontal: 15,
+    paddingVertical: 10,
   },
   menuButton: {
     position: 'absolute',
@@ -436,45 +339,22 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: 20,
   },
-  goToNextScreen: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    width: 0.84 * SCREEN_WIDTH,
-    borderRadius: 50,
-    height: BUTTON_HEIGHT,
-    marginTop: 40,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
+  searchButton: {
+    position: 'absolute',
+    top: 8,
+    right: 15,
+    padding: 10,
+    zIndex: 1000,
   },
-  goToNextScreenText: {
-    color: COLORS.WHITE,
-    fontSize: 20,
+  lineImage: {
+    width: '100%',
+    zIndex: 200,
+    height: 1,
   },
-  showMapButton: {
-    color: COLORS.BLUE,
-    backgroundColor: COLORS.BLUE,
-    width: '80%',
-    height: 50,
-    borderRadius: 5,
-    justifyContent: 'center',
-    alignItems: 'center',
+  clearSearchImage: {
+    height: 12,
+    width: 12,
   },
-  getTripsButton: {
-    color: COLORS.BLUE,
-    backgroundColor: COLORS.BLUE,
-    width: 150,
-    height: 50,
-    alignSelf: 'flex-start',
-    borderRadius: 10,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: 15,
-    marginTop: 10,
-  },
-  getTripsText: {
-    color: COLORS.WHITE,
-  }
 });
 
 const mapStateToProps = (state) =>

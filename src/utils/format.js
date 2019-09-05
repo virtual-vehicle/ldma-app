@@ -1,3 +1,5 @@
+import { COLORS } from 'ldmaapp/src/constants/colors';
+
 export const formatToZeroDecimals = value => {
   if (!value) {
     return false;
@@ -5,7 +7,7 @@ export const formatToZeroDecimals = value => {
   return Number.parseFloat(value).toFixed(0);
 };
 
-export const getTimeOutOfWholeDate = value=> {
+export const getTimeOutOfWholeDate = value => {
   if (!value) {
     return '';
   }
@@ -37,8 +39,17 @@ export const convertMinutesToHoursMinutes = minutes => {
     return `${minutes}\nmin`;
   }
 
-  const hours = Math.floor(minutes/60);
+  const hours = Math.floor(minutes / 60);
   const remainMinutes = minutes % 60;
 
   return `${hours} h\n${remainMinutes} min`;
+}
+
+export const getRiskScoreColor = risk_score => {
+  if (risk_score < 25)
+    return COLORS.RED;
+  else if (risk_score < 75)
+    return COLORS.ORANGE;
+  else
+    return COLORS.GREEN4;
 }
