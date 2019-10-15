@@ -78,7 +78,7 @@ Information about our systems.
 
 ### Staging
 * Backend:
-  * URL: http://ldma.us-east-2.elasticbeanstalk.com/api/v1
+  * URL: https://ldma.westeurope.cloudapp.azure.com/api/v1
 * Mobile:
   * Deploys[branch]: develop (coming soon)
   * Distribution: HockeyApp staging (coming soon)
