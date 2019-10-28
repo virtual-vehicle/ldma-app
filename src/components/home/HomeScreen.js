@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { get as safeGet } from 'lodash';
 import SideMenu from 'react-native-side-menu';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
-import { LineChart, Grid, YAxis, XAxis } from 'react-native-svg-charts';
+import { LineChart, Grid, YAxis } from 'react-native-svg-charts';
 import { COLORS } from 'ldmaapp/src/constants/colors';
 import {
 } from 'ldmaapp/src/actions/uiActions';
@@ -22,7 +22,8 @@ import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getTripsInfo } from 'ldmaapp/src/actions/tripsInfoActions';
 import { getGraphTripscore } from 'ldmaapp/src/actions/graphTripscoreActions';
-import NavigationService from 'ldmaapp/src/utils/navigation';
+// import NavigationService from 'ldmaapp/src/utils/navigation';
+import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
 /* Config/Constants
 ============================================================================= */
 
@@ -96,13 +97,13 @@ export class HomeScreen extends Component<Props, State> {
 
     let startDate = '';
     if (graphTripscoreList) {
-      startDate = safeGet(graphTripscoreList[0], 'start_at', '');
+      startDate = safeGet(graphTripscoreList[0], 'start_at', '').slice(0, 10);
     }
 
     let endDate = '';
     if (graphTripscoreList) {
       const index = graphTripscoreList.length -1;
-      endDate = safeGet(graphTripscoreList[index], 'start_at', '');
+      endDate = safeGet(graphTripscoreList[index], 'start_at', '').slice(0, 10);
     }
 
     return (
@@ -133,7 +134,7 @@ export class HomeScreen extends Component<Props, State> {
                 size={67}
                 width={3}
                 fill={Number(driverScore)}
-                tintColor={COLORS.SEAFOAM_BLUE}
+                tintColor={getRiskScoreColor(Number(driverScore))}
                 onAnimationComplete={() => console.log('onAnimationComplete')}
                 backgroundColor="transparent">
               {
@@ -142,7 +143,7 @@ export class HomeScreen extends Component<Props, State> {
                     <Text style={{ color: COLORS.WHITE }}>
                     {`${fill}%`}
                     </Text>
-                    <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE }}>
+                    <Text style={{ fontSize: 11, lineHeight: 11, letterSpacing: 1.0, color: COLORS.WHITE, textAlign: 'center' }}>
                       Score
                     </Text>
                   </View>
@@ -171,6 +172,11 @@ export class HomeScreen extends Component<Props, State> {
             </View>
           </View>
 
+          <Image
+            source={require('ldmaapp/assets/png/line.png')}
+            style={styles.lineImage}
+          />
+
           <View style={{ flexDirection: 'row', paddingTop: 5, justifyContent: 'space-evenly', width: SCREEN_WIDTH,  marginLeft: 20, marginRight: 20 }}>
           <View style={styles.content}>
           <Image source={require('ldmaapp/assets/png/completed.png')} />
@@ -188,8 +194,6 @@ export class HomeScreen extends Component<Props, State> {
           <Text style={{ fontSize: 20, lineHeight: 20, letterSpacing: 1.0, color: COLORS.WHITE }}>{numStandStills}</Text>
         </View>
           </View>
-
-
           <Text style={{ color: COLORS.WHITE, marginTop: 20 }}>Last 20 trip scores</Text>
           <View style={{ flexDirection: 'row' }}>
             <YAxis
@@ -211,28 +215,20 @@ export class HomeScreen extends Component<Props, State> {
               >
               <Grid />
               </LineChart>
-              <XAxis
-                style={{ marginHorizontal: -10 }}
-                data={ data }
-                formatLabel={ (value, index) => {
-                  if (index === 0) {
-                    return startDate;
-                  }
-                  else if (index === 19) {
-                    return endDate;
-                  }
-                }}
-                contentInset={{ left: 10, right: 10 }}
-                svg={{ fontSize: 10, fill: 'black' }}
-              />
             </View>
           </View>
+          <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '100%', paddingLeft: 5, paddingRight: 5 }}>
+            <Text style={{ color:  COLORS.WHITE, fontSize: 10 }}>{startDate}</Text>
+            <Text style={{ color:  COLORS.WHITE, fontSize: 10 }}>{endDate}</Text>
+          </View>
+          {/*
           <TouchableOpacity
             style={styles.goToNextScreen}
             onPress={() => NavigationService.navigate('MyTrips')}
           >
             <Text style={styles.goToNextScreenText}>{`My Trips`}</Text>
           </TouchableOpacity>
+          */}
           {loading && <Loader />}
           </ScrollView>
         </ImageBackground>
@@ -261,6 +257,11 @@ const styles = StyleSheet.create({
     left: 15,
     padding: 10,
     zIndex: 1000,
+  },
+  lineImage: {
+    width: '100%',
+    zIndex: 200,
+    height: 1,
   },
   menu: {
     width: 30,

@@ -128,9 +128,11 @@ export class LoginScreen extends Component<Props, State> {
                     onChangeText={(text) => this.setState({ password: text })}
                   />
                 </View>
+                {/*
                 <Text style={{ position: 'absolute', color: 'rgba(255, 255, 255, 0.5)', fontSize: 13, lineHeight: 13, letterSpacing: 0, right: '7.5%', bottom: 20 }}>
                   Help
                 </Text>
+                */}
                 <View>
                 <Image
                   source={require('ldmaapp/assets/png/line.png')}
@@ -146,10 +148,12 @@ export class LoginScreen extends Component<Props, State> {
               </TouchableOpacity>
               <View style={styles.createForgetSection} />
             </View>
+            {/*
             <View style={{ flexDirection: 'row' }}>
-              <Text style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: 10, lineHeight: 10, letterSpacing: 1 }}>DON’T HAVE AN ACCOUNT?</Text>
+               <Text style={{ color: 'rgba(255, 255, 255, 0.5)', fontSize: 10, lineHeight: 10, letterSpacing: 1 }}>DON’T HAVE AN ACCOUNT?</Text>
               <Text style={{ color: COLORS.WHITE, fontSize: 10, lineHeight: 10, letterSpacing: 1, paddingLeft: 7.5 }}>SIGN UP</Text>
             </View>
+            */}
             {loading && <Loader white />}
             <ModalSimple
               isVisible={invalidCredentialsModalOpen}

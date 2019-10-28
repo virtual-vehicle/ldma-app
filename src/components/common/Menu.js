@@ -122,9 +122,9 @@ export class Menu extends Component<Props> {
           <View>
             <Text style={styles.headlineText}>Customer support</Text>
             <TouchableOpacity
-              onPress={() => this.onSupportClick('alexander.stocker@v2c2.at')}
+              onPress={() => this.onSupportClick('christian.kaiser@v2c2.at')}
             >
-              <Text style={styles.emailText}>alexander.stocker@v2c2.at</Text>
+              <Text style={styles.emailText}>christian.kaiser@v2c2.at</Text>
             </TouchableOpacity>
             <Text style={[styles.headlineText, { marginTop: 20 }]}>Tech support</Text>
             <TouchableOpacity

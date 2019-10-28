@@ -213,21 +213,6 @@ exports[`LoginScreen component should renders correctly 1`] = `
               value=""
             />
           </View>
-          <Text
-            style={
-              Object {
-                "bottom": 20,
-                "color": "rgba(255, 255, 255, 0.5)",
-                "fontSize": 13,
-                "letterSpacing": 0,
-                "lineHeight": 13,
-                "position": "absolute",
-                "right": "7.5%",
-              }
-            }
-          >
-            Help
-          </Text>
           <View>
             <Image
               source={null}
@@ -280,39 +265,6 @@ exports[`LoginScreen component should renders correctly 1`] = `
             }
           }
         />
-      </View>
-      <View
-        style={
-          Object {
-            "flexDirection": "row",
-          }
-        }
-      >
-        <Text
-          style={
-            Object {
-              "color": "rgba(255, 255, 255, 0.5)",
-              "fontSize": 10,
-              "letterSpacing": 1,
-              "lineHeight": 10,
-            }
-          }
-        >
-          DON’T HAVE AN ACCOUNT?
-        </Text>
-        <Text
-          style={
-            Object {
-              "color": "#FFF",
-              "fontSize": 10,
-              "letterSpacing": 1,
-              "lineHeight": 10,
-              "paddingLeft": 7.5,
-            }
-          }
-        >
-          SIGN UP
-        </Text>
       </View>
       <ModalSimple
         headline="Invalid Username or Password.

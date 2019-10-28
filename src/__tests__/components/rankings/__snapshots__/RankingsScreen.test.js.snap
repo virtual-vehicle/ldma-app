@@ -96,34 +96,6 @@ exports[`RankingsScreen component should renders correctly 1`] = `
         </Text>
       </View>
     </ScrollViewMock>
-    <TouchableOpacity
-      activeOpacity={0.2}
-      onPress={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "transparent",
-          "borderColor": "rgba(255, 255, 255, 0.5)",
-          "borderRadius": 50,
-          "borderWidth": 1,
-          "height": 50,
-          "justifyContent": "center",
-          "marginTop": 40,
-          "width": 630,
-        }
-      }
-    >
-      <Text
-        style={
-          Object {
-            "color": "#FFF",
-            "fontSize": 20,
-          }
-        }
-      >
-        Home
-      </Text>
-    </TouchableOpacity>
   </ImageBackground>
 </SideMenu>
 `;
