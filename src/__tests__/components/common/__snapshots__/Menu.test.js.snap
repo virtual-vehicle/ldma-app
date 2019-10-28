@@ -236,7 +236,7 @@ exports[`Menu component renders correctly 1`] = `
             }
           }
         >
-          alexander.stocker@v2c2.at
+          christian.kaiser@v2c2.at
         </Text>
       </TouchableOpacity>
       <Text

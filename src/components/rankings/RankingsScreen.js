@@ -20,6 +20,7 @@ import { getRanking, setRankingListSortParams } from 'ldmaapp/src/actions/rankin
 import { formatToZeroDecimals } from 'ldmaapp/src/utils/format';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import NavigationService from 'ldmaapp/src/utils/navigation';
+import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
 import { rankingListSortSelector, getSortedRankingListCollection } from 'ldmaapp/src/selectors/rankingSelectors';
 /* Config/Constants
 ============================================================================= */
@@ -106,37 +107,24 @@ export class RankingsScreen extends Component<Props, State> {
           <ScrollView style={styles.content}>
           {rankingList.length > 0 ? rankingList.map((driver, index) => {
 
-            let color;
-            if (index % 4 === 0) {
-              color = COLORS.SWEET_RED
-            }
-            else if (index % 4 === 1) {
-              color = COLORS.SWEET_ORANGE
-            }
-            else if (index % 4 === 2) {
-              color = COLORS.SEAFOAM_BLUE
-            }
-            else {
-              color = COLORS.PURPLE
-            }
             return (
             <Fragment key={driver.driver_id}>
               <View style={{ width: SCREEN_WIDTH - 60, flexDirection: 'row', justifyContent: 'space-between', position: 'relative' }}>
               <Text style={{ position: 'absolute', left: 0, top: 0, width: 40, height: 40, zIndex: 1000 }} onPress={() => setRankingListSortParams('driver_score', 'float')}></Text>
               <AnimatedCircularProgress
-                size={40}
-                width={5}
-                fill={driver.driver_score}
-                tintColor={color}
+                size={45}
+                width={4}
                 onAnimationComplete={() => console.log('onAnimationComplete')}
-                backgroundColor="transparent">
-              {
-                (fill) => (
-                  <Text style={{ color: color }}>
-                    •
-                  </Text>
-                )
-              }
+                fill={driver.driver_score}
+                tintColor={getRiskScoreColor(driver.driver_score)}
+                backgroundColor={COLORS.DARKGREY}>
+                {
+                  _ => (
+                    <Text style={{ fontSize: 10, color: COLORS.WHITE, textAlign: 'center' }}>
+                      {`${driver.driver_score}%`}
+                    </Text>
+                  )
+                }
               </AnimatedCircularProgress>
               <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                 <Text style={{ fontSize: 10, lineHeight: 10, letterSpacing: 1.0, color: COLORS.WHITE }} onPress={() => setRankingListSortParams('driver_id')}>ID</Text>
@@ -168,12 +156,14 @@ export class RankingsScreen extends Component<Props, State> {
           </View>
           }
           </ScrollView>
+          {/*
           <TouchableOpacity
             style={styles.goToNextScreen}
             onPress={() => NavigationService.navigate('Home')}
           >
             <Text style={styles.goToNextScreenText}>{`Home`}</Text>
           </TouchableOpacity>
+          */}
           {loading && <Loader />}
         </ImageBackground>
       </SideMenu>

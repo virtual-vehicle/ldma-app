@@ -46,9 +46,9 @@ export const convertMinutesToHoursMinutes = minutes => {
 }
 
 export const getRiskScoreColor = risk_score => {
-  if (risk_score < 25)
+  if (risk_score < 34)
     return COLORS.RED;
-  else if (risk_score < 75)
+  else if (risk_score < 67)
     return COLORS.ORANGE;
   else
     return COLORS.GREEN4;
