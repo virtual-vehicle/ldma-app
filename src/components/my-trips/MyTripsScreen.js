@@ -49,7 +49,7 @@ class TripListItem extends Component {
   render() {
     const { trip, index } = this.props
     return (
-      <TouchableOpacity style={{ paddingHorizontal: 15, paddingVertical: 10 }} key={trip.trip_id} onPress={() => NavigationService.navigate('TripDetails', { trip: trip })}>
+      <TouchableOpacity style={{ paddingHorizontal: 15, paddingVertical: 10 }} key={trip.trip_id} onPress={() => NavigationService.navigate('TripDetails', { trip })}>
         <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
           <View style={{ width: '40%' }}>
             <Text style={{ fontSize: 12, textAlign: 'left', color: COLORS.GREY }}>{`${moment(getTimeOutOfWholeDate(trip.start_at), 'HH:mm:ss').add(trip.duration, 'seconds').format('HH:mm')}`}</Text>

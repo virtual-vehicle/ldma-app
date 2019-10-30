@@ -12,7 +12,6 @@ export const getTripsInfo = (auth_token) => {
     return tripsInfoService.getTripsInfo(auth_token)
       .then(
         tripsList => {
-          console.log("tripsList: ", tripsList);
           dispatch(success(tripsList));
         },
         error => {

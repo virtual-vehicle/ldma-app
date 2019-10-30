@@ -7,29 +7,29 @@ import {
   ImageBackground,
   Image,
   Dimensions,
-  ScrollView
+  ScrollView,
 } from 'react-native';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { get as safeGet } from 'lodash';
+import { get as safeGet, sortBy } from 'lodash';
 import SideMenu from 'react-native-side-menu';
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 import { LineChart, Grid, YAxis } from 'react-native-svg-charts';
+import { Circle, G, Line } from 'react-native-svg';
 import { COLORS } from 'ldmaapp/src/constants/colors';
-import {
-} from 'ldmaapp/src/actions/uiActions';
+import { getTripsAll } from 'ldmaapp/src/actions/tripActions';
 import Loader from 'ldmaapp/src/components/common/Loader';
 import Menu from 'ldmaapp/src/components/common/Menu';
 import { getTripsInfo } from 'ldmaapp/src/actions/tripsInfoActions';
 import { getGraphTripscore } from 'ldmaapp/src/actions/graphTripscoreActions';
 // import NavigationService from 'ldmaapp/src/utils/navigation';
 import { getRiskScoreColor } from 'ldmaapp/src/utils/format';
+import NavigationService from 'ldmaapp/src/utils/navigation';
 /* Config/Constants
 ============================================================================= */
 
 /* eslint-disable global-require */
 
-const FIELDS_WIDTH = '88%';
 const BUTTON_HEIGHT = 50;
 const SCREEN_WIDTH = Dimensions.get('window').width;
 
@@ -53,10 +53,11 @@ export class HomeScreen extends Component<Props, State> {
   }
 
   componentDidMount() {
-    const { getTripsInfo, getGraphTripscore, user } = this.props;
+    const { getTripsInfo, getGraphTripscore, user, getTripsAll } = this.props;
     const auth_token = safeGet(user, 'auth_token', '');
     getTripsInfo(auth_token);
     getGraphTripscore(auth_token);
+    getTripsAll(user);
   }
 
   onMenuItemSelected = () =>
@@ -74,10 +75,18 @@ export class HomeScreen extends Component<Props, State> {
     this.setState({ isOpen });
   }
 
+  goToTripDetails = (idx) => {
+    const { tripsList, graphTripscoreList } = this.props;
+    const filterTripIds = graphTripscoreList.map(({trip_id}) => trip_id)
+    const filteredList = sortBy(tripsList.filter(({trip_id}) => filterTripIds.includes(trip_id)), 'start_at')
+    NavigationService.navigate('TripDetails', { trip: filteredList[idx] })
+  }
+
   render() {
     const { isOpen } = this.state;
 
-    const { loading, tripsInfo, graphTripscoreList } = this.props;
+    const { loading, tripsInfo } = this.props;
+    const graphTripscoreList = safeGet(this.props, 'graphTripscoreList', []);
     const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
 
     let data = [];
@@ -105,6 +114,46 @@ export class HomeScreen extends Component<Props, State> {
       const index = graphTripscoreList.length -1;
       endDate = safeGet(graphTripscoreList[index], 'start_at', '').slice(0, 10);
     }
+
+    const HorizontalLine = (({ y }) => (
+      <Line
+          key={ 'zero-axis' }
+          x1={ '0%' }
+          x2={ '100%' }
+          y1={ y(50) }
+          y2={ y(50) }
+          stroke={ 'grey' }
+          strokeDasharray={ [ 4, 8 ] }
+          strokeWidth={ 2 }
+      />
+    ))
+
+    const Tooltip = ({ x, y }) => (
+      <G>
+      {data.map((value, index) => {
+        return (
+          <G
+            x={ x(index) - (75 / 2) }
+            key={index}
+          >
+            <G x={ 75 / 2 }
+              onPress={() => this.goToTripDetails(index)}
+            >
+              <Circle
+                cy={ y(data[ index ]) }
+                r={ 6 }
+                stroke={ 'rgb(134, 65, 244)' }
+                strokeWidth={ 1 }
+                fill={ 'rgb(134, 65, 244)' }
+              />
+            </G>
+          </G>
+        )
+      })}
+      </G>
+    )
+
+
 
     return (
       <SideMenu
@@ -213,7 +262,9 @@ export class HomeScreen extends Component<Props, State> {
                 svg={{ stroke: COLORS.WHITE }}
                 contentInset={ contentInset }
               >
-              <Grid />
+                <Grid />
+                <HorizontalLine />
+                <Tooltip />
               </LineChart>
             </View>
           </View>
@@ -221,14 +272,6 @@ export class HomeScreen extends Component<Props, State> {
             <Text style={{ color:  COLORS.WHITE, fontSize: 10 }}>{startDate}</Text>
             <Text style={{ color:  COLORS.WHITE, fontSize: 10 }}>{endDate}</Text>
           </View>
-          {/*
-          <TouchableOpacity
-            style={styles.goToNextScreen}
-            onPress={() => NavigationService.navigate('MyTrips')}
-          >
-            <Text style={styles.goToNextScreenText}>{`My Trips`}</Text>
-          </TouchableOpacity>
-          */}
           {loading && <Loader />}
           </ScrollView>
         </ImageBackground>
@@ -279,21 +322,6 @@ const styles = StyleSheet.create({
     color: COLORS.WHITE,
     fontSize: 20,
   },
-  goToNextScreen: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'transparent',
-    width: 0.84 * SCREEN_WIDTH,
-    borderRadius: 50,
-    height: BUTTON_HEIGHT,
-    marginTop: 20,
-    borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.5)',
-  },
-  goToNextScreenText: {
-    color: COLORS.WHITE,
-    fontSize: 20,
-  },
 });
 
 const mapStateToProps = (state) =>
@@ -302,12 +330,14 @@ const mapStateToProps = (state) =>
     user: state.auth.user,
     tripsInfo: state.tripsInfo,
     graphTripscoreList: state.graphTripscore.tripscoreList,
+    tripsList: state.trip.tripsList,
   });
 
 const mapDispatchToProps = (dispatch) =>
   bindActionCreators({
     getTripsInfo,
     getGraphTripscore,
+    getTripsAll,
   }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomeScreen);

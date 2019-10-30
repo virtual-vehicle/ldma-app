@@ -9,6 +9,7 @@ function setup() {
   const props = {
     getTripsInfo: jest.fn(),
     getGraphTripscore: jest.fn(),
+    getTripsAll: jest.fn(),
   };
 
   const wrapper = shallow(<HomeScreen {...props} />);
