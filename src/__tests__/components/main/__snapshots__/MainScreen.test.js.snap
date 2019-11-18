@@ -459,6 +459,8 @@ exports[`HomeScreen component should renders correctly 1`] = `
               belowChart={true}
               direction="HORIZONTAL"
             />
+            <HorizontalLine />
+            <Tooltip />
           </LineChart>
         </View>
       </View>
