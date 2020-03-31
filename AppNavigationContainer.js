@@ -5,6 +5,7 @@ import HomeScreen from 'ldmaapp/src/components/home/HomeScreen';
 import MyTripsScreen from 'ldmaapp/src/components/my-trips/MyTripsScreen';
 import TripDetailsScreen from 'ldmaapp/src/components/trip-details/TripDetailsScreen';
 import RankingsScreen from 'ldmaapp/src/components/rankings/RankingsScreen';
+import LoggerScreen from   'ldmaapp/src/components/logger/LoggerScreen';
 
 // used config from here: https://github.com/react-navigation/react-navigation/issues/707#issuecomment-299859578
 const MainCardNavigator = createStackNavigator({
@@ -44,8 +45,14 @@ const MainCardNavigator = createStackNavigator({
       header: null,
     },
   },
+  Logger: {
+    screen: LoggerScreen,
+    navigationOptions: {
+      header: null,
+    },
+  },
 }, {
-  initialRouteName: 'Auth',
+  initialRouteName: 'Logger',
 });
 
 export const MainModalNavigator = createStackNavigator(
