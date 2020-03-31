@@ -108,6 +108,15 @@ export class Menu extends Component<Props> {
               Rankings
             </Text>
           </View>
+          <View style={styles.itemContainer}>
+            <Image style={styles.itemImage} source={selectedNavigationItem === 'Logger' ? require('ldmaapp/assets/png/group_red.png') : require('ldmaapp/assets/png/group.png')} />
+            <Text
+              style={selectedNavigationItem === 'Logger' ? styles.itemTextSelected : styles.itemText}
+              onPress={() => this.navigate('Logger')}
+            >
+              Logger
+            </Text>
+          </View>
           <View style={styles.lineSeparator} />
           <View style={styles.itemContainer}>
             <Image style={styles.itemImage} source={require('ldmaapp/assets/png/logout.png')} />

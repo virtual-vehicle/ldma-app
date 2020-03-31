@@ -166,6 +166,37 @@ exports[`Menu component renders correctly 1`] = `
     <View
       style={
         Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "marginBottom": 31.5,
+        }
+      }
+    >
+      <Image
+        source={null}
+        style={
+          Object {
+            "height": 25,
+            "resizeMode": "contain",
+            "width": 25,
+          }
+        }
+      />
+      <Text
+        onPress={[Function]}
+        style={
+          Object {
+            "fontSize": 18,
+            "marginLeft": 25,
+          }
+        }
+      >
+        Logger
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
           "borderBottomColor": "#cacaca",
           "borderBottomWidth": 0.5,
           "marginBottom": 31.5,
