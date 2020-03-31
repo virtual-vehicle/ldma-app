@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, ImageBackground, Image, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, ImageBackground, Image, TouchableOpacity, Dimensions } from 'react-native';
 import SideMenu from 'react-native-side-menu';
 import Menu from 'ldmaapp/src/components/common/Menu';
+import { COLORS } from 'ldmaapp/src/constants/colors';
+const SCREEN_WIDTH = Dimensions.get('window').width;
+const BUTTON_HEIGHT = 55;
 
 class LoggerScreen extends Component {
 
@@ -12,6 +15,7 @@ class LoggerScreen extends Component {
 
     this.state = {
       isOpen: false,
+      tracking: false
     };
   }
 
@@ -25,9 +29,15 @@ class LoggerScreen extends Component {
     this.setState({ isOpen });
   }
 
+  toggleTracking() {
+    this.setState({
+      tracking: !this.state.tracking,
+    });
+  }
+
   render() {
 
-    const { isOpen } = this.state;
+    const { isOpen, tracking } = this.state;
     const menu = <Menu onItemSelected={this.onMenuItemSelected} />;
 
     return (
@@ -51,6 +61,12 @@ class LoggerScreen extends Component {
               />
             </TouchableOpacity>
             <Text>Logger Screen</Text>
+            <TouchableOpacity
+              style={styles.trackingButton}
+              onPress={(e) => this.toggleTracking(e)}
+            >
+              <Text style={styles.trackingText}>{!tracking ? 'Start' : 'End'}  tracking</Text>
+            </TouchableOpacity>
           </ImageBackground>
         </View>
       </SideMenu>
@@ -77,6 +93,23 @@ const styles = StyleSheet.create({
   menu: {
     width: 30,
     height: 30,
+  },
+  trackingButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'transparent',
+    width: 0.84 * SCREEN_WIDTH,
+    borderRadius: 50,
+    height: BUTTON_HEIGHT,
+    marginTop: 40,
+    borderWidth: 1,
+    borderColor: 'rgba(255, 255, 255, 0.5)',
+  },
+  trackingText: {
+    color: COLORS.WHITE,
+    fontSize: 14,
+    lineHeight: 14,
+    letterSpacing: 0,
   },
 });
 
